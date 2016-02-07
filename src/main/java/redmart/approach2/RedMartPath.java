@@ -12,7 +12,7 @@ public class RedMartPath implements Comparable<RedMartPath> {
 
 	private int source;
 
-	private int destination;
+	private int destination = Integer.MAX_VALUE;
 
 	/**
 	 * @return the source
@@ -27,6 +27,8 @@ public class RedMartPath implements Comparable<RedMartPath> {
 	 */
 	public void setSource(int source) {
 		this.source = source;
+		path = new StringBuilder();
+		addPath(source);
 	}
 
 	/**
@@ -37,11 +39,14 @@ public class RedMartPath implements Comparable<RedMartPath> {
 	}
 
 	/**
-	 * @param destination
+	 * @param newDestination
 	 *            the destination to set
 	 */
-	public void setDestination(int destination) {
-		this.destination = destination;
+	public void setDestination(int newDestination) {
+		if (newDestination < destination) {
+			this.destination = newDestination;
+			addPath(newDestination);
+		}
 	}
 
 	/*
@@ -57,27 +62,34 @@ public class RedMartPath implements Comparable<RedMartPath> {
 	}
 
 	/**
-	 * @param path
-	 *            the path to set
+	 * Append to existing path.
+	 * 
+	 * @param value
+	 *            elevation of current shell.
 	 */
-	public void setPath(StringBuilder path) {
-		this.path = path;
+	private void addPath(int value) {
+		path.append(value);
 	}
 
 	public int compareTo(RedMartPath o) {
 		if (path.length() == o.getPath().length()) {
-			if (getSource() - getDestination() > o.getSource()
-					- o.getDestination()) {
-				return 1;
-			} else if (getSource() - getDestination() < o.getSource()
-					- o.getDestination()) {
-				return -1;
-			}
-			return 0;
-		} else if (path.length() > o.getPath().length()) {
-			return 1;
+			return (getSource() - getDestination())
+					- (o.getSource() - o.getDestination());
+		} else {
+			return path.length() - o.getPath().length();
 		}
-		return -1;
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "RedMartPath [path=" + path + ", source=" + source
+				+ ", destination=" + destination + "]";
 	}
 
 }
