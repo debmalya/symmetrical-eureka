@@ -9,8 +9,8 @@ import org.apache.log4j.Logger;
  * @author debmalyajash
  *
  */
-public class Product implements Comparable<Product>{
-	
+public class Product implements Comparable<Product> {
+
 	private static final Logger LOGGER = Logger.getLogger(Product.class);
 	private int productID;
 	private double price;
@@ -18,6 +18,7 @@ public class Product implements Comparable<Product>{
 	private int width;
 	private int height;
 	private int weight;
+	private double priceWeightRatio;
 
 	/**
 	 * @return the productID
@@ -117,9 +118,14 @@ public class Product implements Comparable<Product>{
 			width = Integer.parseInt(values[3]);
 			height = Integer.parseInt(values[4]);
 			weight = Integer.parseInt(values[5]);
+			if (weight > 0) {
+				priceWeightRatio = price / weight;
+			} else {
+				priceWeightRatio = price;
+			}
 		} catch (Throwable th) {
-			LOGGER.error(th.getMessage(),th);
-			throw new RuntimeException(th.getMessage(),th);
+			LOGGER.error(th.getMessage(), th);
+			throw new RuntimeException(th.getMessage(), th);
 		}
 	}
 
@@ -135,16 +141,23 @@ public class Product implements Comparable<Product>{
 				+ height + ", weight=" + weight + "]";
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
 	public int compareTo(Product o) {
-		if (price != o.price) {
-			return (int) (price - o.price);
-		} else {
-			return weight - o.weight;
+		if (priceWeightRatio > o.priceWeightRatio) {
+			return 1;
+		} else if (priceWeightRatio < o.priceWeightRatio) {
+			return -1;
 		}
-		
+		return 0;
+		/*
+		 * if (price != o.price) { return (int) (price - o.price); } else {
+		 * return weight - o.weight; }
+		 */
+
 	}
 
 }
