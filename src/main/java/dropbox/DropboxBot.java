@@ -244,7 +244,7 @@ public class DropboxBot {
 		// contain indexes currently uploading files.
 		List<Integer> currentFiles = new ArrayList<Integer>();
 		// contain indexes for which file upload completed.
-		List<Integer> removedFiles = new ArrayList<Integer>();
+//		List<Integer> removedFiles = new ArrayList<Integer>();
 		// no of file uploading now.
 		int fu = 0;
 		for (int i = 0; i < ts.length; i++) {
