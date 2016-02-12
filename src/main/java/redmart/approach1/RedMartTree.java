@@ -10,19 +10,19 @@ import java.util.List;
  *
  */
 public class RedMartTree{
-	private List<RedMartDot> trees;
+	private List<RedMartBranch> trees;
 
 	/**
 	 * @return the trees
 	 */
-	public List<RedMartDot> getTrees() {
+	public List<RedMartBranch> getTrees() {
 		return trees;
 	}
 
 	/**
 	 * @param trees the trees to set
 	 */
-	public void setTrees(List<RedMartDot> trees) {
+	public void setTrees(List<RedMartBranch> trees) {
 		this.trees = trees;
 	}
 	

@@ -7,7 +7,7 @@ package redmart.approach1;
  * @author debmalyajash
  *
  */
-public class RedMartDot {
+public class RedMartBranch {
 	/**
 	 * Elevation of that area in mountain.
 	 */
@@ -17,25 +17,25 @@ public class RedMartDot {
 	 * If you can go to  north from the current point.
 	 * Otherwise it will be null.
 	 */
-	private RedMartDot north;
+	private RedMartBranch north;
 	
 	/**
 	 * If you can go to  south from the current point.
 	 * Otherwise it will be null.
 	 */
-	private RedMartDot south;
+	private RedMartBranch south;
 	
 	/**
 	 * If you can go to  east from the current point.
 	 * Otherwise it will be null.
 	 */
-	private RedMartDot east;
+	private RedMartBranch east;
 	
 	/**
 	 * If you can go to the west from the current point.
 	 * Otherwise it will be null.
 	 */
-	private RedMartDot west;
+	private RedMartBranch west;
 
 	/**
 	 * @return the elevation
@@ -54,56 +54,56 @@ public class RedMartDot {
 	/**
 	 * @return the north
 	 */
-	public RedMartDot getNorth() {
+	public RedMartBranch getNorth() {
 		return north;
 	}
 
 	/**
 	 * @param north the north to set
 	 */
-	public void setNorth(RedMartDot north) {
+	public void setNorth(RedMartBranch north) {
 		this.north = north;
 	}
 
 	/**
 	 * @return the south
 	 */
-	public RedMartDot getSouth() {
+	public RedMartBranch getSouth() {
 		return south;
 	}
 
 	/**
 	 * @param south the south to set
 	 */
-	public void setSouth(RedMartDot south) {
+	public void setSouth(RedMartBranch south) {
 		this.south = south;
 	}
 
 	/**
 	 * @return the east
 	 */
-	public RedMartDot getEast() {
+	public RedMartBranch getEast() {
 		return east;
 	}
 
 	/**
 	 * @param east the east to set
 	 */
-	public void setEast(RedMartDot east) {
+	public void setEast(RedMartBranch east) {
 		this.east = east;
 	}
 
 	/**
 	 * @return the west
 	 */
-	public RedMartDot getWest() {
+	public RedMartBranch getWest() {
 		return west;
 	}
 
 	/**
 	 * @param west the west to set
 	 */
-	public void setWest(RedMartDot west) {
+	public void setWest(RedMartBranch west) {
 		this.west = west;
 	}
 	
