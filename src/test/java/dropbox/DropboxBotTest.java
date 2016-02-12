@@ -18,7 +18,7 @@ public class DropboxBotTest {
 	@Test
 	public final void testLoadTimeEstimator() {
 		DropboxBot dbb = new DropboxBot();
-		int[] expecteds = new int[]{115,116};
+		int[] expecteds = new int[]{116,115};
 		int[] actuals = dbb.loadTimeEstimator(new int[]{21,10}, new int[]{100,105}, 2);
 		Assert.assertArrayEquals(expecteds, actuals);
 		

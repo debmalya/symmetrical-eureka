@@ -229,6 +229,7 @@ public class DropboxBot {
 	 * @return
 	 */
 	int[] loadTimeEstimator(int[] sizes, int[] uploadingStart, int V) {
+		// It keeps track file upload time. Actual results are in this array.
 		int[] r = new int[sizes.length];
 		System.arraycopy(uploadingStart, 0, r, 0, uploadingStart.length);
 
@@ -236,6 +237,7 @@ public class DropboxBot {
 		int[] rfs = new int[sizes.length];
 		System.arraycopy(sizes, 0, rfs, 0, sizes.length);
 
+		// Arranging files according to their uploading start time.
 		int[] ts = new int[uploadingStart.length];
 		System.arraycopy(uploadingStart, 0, ts, 0, uploadingStart.length);
 
@@ -243,10 +245,15 @@ public class DropboxBot {
 
 		// contain indexes currently uploading files.
 		List<Integer> currentFiles = new ArrayList<Integer>();
-		// contain indexes for which file upload completed.
-//		List<Integer> removedFiles = new ArrayList<Integer>();
+
 		// no of file uploading now.
 		int fu = 0;
+
+		int updatedTime = 0;
+		// download amount
+		double da = 0.00d;
+		double as = 0.00d;
+		
 		for (int i = 0; i < ts.length; i++) {
 			// TODO if there are multiple file upload starts at same time.
 			int index = Arrays.binarySearch(uploadingStart, ts[i]);
@@ -256,16 +263,19 @@ public class DropboxBot {
 				fu++;
 			}
 			// actual download speed
-			double as = V / fu;
-			// download amount
-			double da = 0.00d;
-			int updatedTime = 0;
+			as = V / fu;
+
 			if (i + 1 < ts.length) {
 				int gap = ts[i + 1] - ts[i];
 				// during this gap file upload speed will remain same.
 				// total download amount in this period.
 				da = as * gap;
 				updatedTime = ts[i + 1];
+			} else {
+				// No more files. This upload speed will remain same till file
+				// upload value remains same.
+				da = as;
+				updatedTime++;
 			}
 
 			// if file is uploaded then remove its index from currentFiles.
@@ -277,24 +287,35 @@ public class DropboxBot {
 				} else {
 					int k = currentFiles.get(j);
 					if (da > 0) {
-						if (da < rfs[currentFiles.get(j)]) {							
+						if (da < rfs[currentFiles.get(j)]) {
 							rfs[k] -= da;
 							r[k] = updatedTime;
 						} else {
-							r[k] += (rfs[k] /as);
+							r[k] += (rfs[k] / as);
 						}
 					}
 				}
 			}
 
 		}
-		
-		// if  still there are some files yet to be uploaded completely.
-		if (fu > 0) {
-			
+
+		// Still there are some files yet to be uploaded completely.
+		while (fu > 0) {
+			for (int i = 0; i < rfs.length; i++) {
+				if (rfs[i] > 0) {
+					rfs[i] -= as;
+					r[i]++;
+				} else {
+					// file upload completed reduce file upload count
+					fu--;
+					// adjust download speed
+					if (fu == 0) {
+						break;
+					}
+					as = V /fu;
+				}
+			}
 		}
-		
-		
 
 		return r;
 	}
