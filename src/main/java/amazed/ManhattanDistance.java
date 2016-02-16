@@ -41,17 +41,22 @@ public class ManhattanDistance {
 	 * @param k
 	 * @return
 	 */
-	private static String check(String[] inputs, int k) {
+	public static String check(String[] inputs, int k) {
 		Set<Integer> unique = new HashSet<Integer>();
+		boolean isFirst = true;
 		for (String each:inputs){
 			String[] values = each.split(" ");
 			for (int i = 0; i < k; i++){
-				if (!unique.add(Integer.parseInt(values[i]))){
-					return "YES";
+				if (unique.add(Integer.parseInt(values[i])) && !isFirst){
+					return "NO";
 				}
-			}		
+			}	
+			
+			if (isFirst) {
+				isFirst = false;
+			}
 		}
-		return "NO";
+		return "YES";
 	}
 
 }
