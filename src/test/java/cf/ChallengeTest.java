@@ -3,8 +3,9 @@
  */
 package cf;
 
-import static org.junit.Assert.*;
 
+
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -19,4 +20,9 @@ public class ChallengeTest {
 		ch.MaximumString("2354");
 	}
 
+	@Test
+	public final void tasteShanta() {
+		Challenge ch = new Challenge();
+		Assert.assertEquals("WAR", ch.colorOfOurFlag("XCVcRebludcEXBDlXxuECVCD"));
+	}
 }
