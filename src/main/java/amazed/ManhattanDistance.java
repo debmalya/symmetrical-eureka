@@ -18,19 +18,19 @@ public class ManhattanDistance {
 	 */
 	public static void main(String[] args) {
 		String result = "NO";
-		try (Scanner scanner = new Scanner(System.in)){
-			
+		try (Scanner scanner = new Scanner(System.in)) {
+
 			int rowsInMatrix = scanner.nextInt();
 			scanner.nextLine();
-			
+
 			String[] inputs = new String[rowsInMatrix];
 			for (int i = 0; i < rowsInMatrix; i++) {
 				inputs[i] = scanner.nextLine();
 			}
-			
+
 			int k = scanner.nextInt();
-			result = check(inputs,k);
-		}finally {
+			result = check(inputs, k);
+		} finally {
 			System.out.println(result);
 		}
 
@@ -43,20 +43,24 @@ public class ManhattanDistance {
 	 */
 	public static String check(String[] inputs, int k) {
 		Set<Integer> unique = new HashSet<Integer>();
-		boolean isFirst = true;
-		for (String each:inputs){
+		
+		boolean isUnique = true;
+		for (String each : inputs) {
 			String[] values = each.split(" ");
-			for (int i = 0; i < k; i++){
-				if (unique.add(Integer.parseInt(values[i])) && !isFirst){
-					return "NO";
+			for (int i = 0; i < k; i++) {
+				if (!unique.add(Integer.parseInt(values[i]))) {
+					isUnique = false;
 				}
-			}	
-			
-			if (isFirst) {
-				isFirst = false;
 			}
+
+			
 		}
-		return "YES";
+
+		if (isUnique) {
+			return "NO";
+		} else {
+			return "YES";
+		}
 	}
 
 }

@@ -15,12 +15,16 @@ import org.junit.Test;
 public class ManhattanDistanceTest {
 
 	@Test
-	public final void test() {
-		String[] arr = new String[]{"1 2 3 4","3 2 1 3"};
-		Assert.assertEquals("YES",ManhattanDistance.check(arr, 3));
+	public final void test() {		
 		
-		arr = new String[]{"1 2 3 4","4 2 1 3"};
-		Assert.assertEquals("NO",ManhattanDistance.check(arr, 3));
+		String[] arr = new String[]{"1 2 3","4 5 6"};
+		Assert.assertEquals("NO",ManhattanDistance.check(arr, 2));
+		
+		arr = new String[]{"1 2 3","4 5 6","5 8 9"};
+		Assert.assertEquals("YES",ManhattanDistance.check(arr, 2));
+		
+		arr = new String[]{"1 2 3","4 5 6","7 8 2","10 11 12"};
+		Assert.assertEquals("NO",ManhattanDistance.check(arr, 2));
 	}
 
 }

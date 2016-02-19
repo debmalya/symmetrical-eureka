@@ -27,7 +27,7 @@ public class RotateArray2 {
 
 			for (int i = 0; i < rowsInMatrix; i++) {
 				String[] eachInput = scanner.nextLine().split(" ");
-				if (eachInput.length > rowsInMatrix) {
+				if (eachInput.length != rowsInMatrix) {
 					isError = true;
 				} else {
 					for (int j = 0; j < rowsInMatrix; j++) {
