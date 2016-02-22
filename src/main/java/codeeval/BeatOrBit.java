@@ -8,9 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author debmalyajash
@@ -18,10 +16,7 @@ import java.util.Map;
  */
 public class BeatOrBit {
 
-	/**
-	 * Key is gray code. Value is decimal number.
-	 */
-	private static Map<String, String> grayCodeMap = new HashMap<>();
+
 
 	private static String[] startWith = new String[] { "0", "1" };
 
@@ -62,15 +57,15 @@ public class BeatOrBit {
 	 * @param eachLine
 	 * @return
 	 */
-	private static String processEachLine(String eachLine) {
+	public static String processEachLine(String eachLine) {
 		StringBuilder sb = new StringBuilder();
 
-		String[] values = eachLine.split("|");
+		String[] values = eachLine.split(" | ");
 
 		for (String each : values) {
 			
 			each = each.trim();
-			if (each.length() > 0) {
+			if (each.length() > 0 && !each.equals("|")) {
 				if (sb.length() > 0) {
 					sb.append(" | ");
 				}
