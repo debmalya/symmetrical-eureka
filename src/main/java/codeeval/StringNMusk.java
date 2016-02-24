@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -65,10 +66,12 @@ public class StringNMusk {
 
 		for (int i = 0; i < values[0].length(); i++) {
 			if (values[1].charAt(i) == '1'){
-				converted[i] = (char) ('A'+converted[i]);
+				converted[i] = Character.toUpperCase(converted[i]);
 			}
 		}
 
+		
+	
 		return String.valueOf(converted);
 	}
 
