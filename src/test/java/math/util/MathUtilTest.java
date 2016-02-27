@@ -21,7 +21,7 @@ public class MathUtilTest {
 	public final void testPerfectSquare() {
 		for (int i = 0; i < 1000; i++) {
 			if (MathUtil.isPerfectSquare(i)){
-				System.out.println(i);
+//				System.out.println(i);
 			}
 		}
 	}
@@ -30,8 +30,17 @@ public class MathUtilTest {
 	public final void testGoodNumbers() {
 		String[] r = new String[]{"1","2","3"};
 		int[] actuals = MathUtil.getGoodNumbers(r);
-		int[] expecteds = new int[]{1,2,3};
+		int[] expecteds = new int[]{1,2,3};		
+		Assert.assertArrayEquals(expecteds, actuals);
 		
+		r = new String[]{"1","2","3","4"};
+		actuals = MathUtil.getGoodNumbers(r);
+		expecteds = new int[]{1,2,3,5};
+		Assert.assertArrayEquals(expecteds, actuals);
+		
+		r = new String[]{"1","2","3","4","5"};
+		actuals = MathUtil.getGoodNumbers(r);
+		expecteds = new int[]{1,2,3,5,8};
 		Assert.assertArrayEquals(expecteds, actuals);
 	}
 
