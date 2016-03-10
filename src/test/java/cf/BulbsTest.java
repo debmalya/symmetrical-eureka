@@ -22,6 +22,9 @@ public class BulbsTest {
 		int[] expecteds = new int[]{0, 0, 1, 1, 0};
 		Bulbs bulbs = new Bulbs();
 		Assert.assertArrayEquals(expecteds, bulbs.lightBulbs(new int[]{0,1,1,0,1}, 2));
+		
+		expecteds = new int[]{1, 1, 1, 0, 1};
+		Assert.assertArrayEquals(expecteds, bulbs.lightBulbs(new int[]{0, 0, 1, 1, 1}, 5));
 	}
 
 }
