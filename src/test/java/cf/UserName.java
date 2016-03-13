@@ -3,6 +3,9 @@
  */
 package cf;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * @author debmalyajash
  *
@@ -27,8 +30,9 @@ public class UserName {
 	 * possible to change the username, i.e. return True if one of the following
 	 * is true:
 	 * 
-	 * the newUsername and the curUsername differ only in the case; the
-	 * newUsername is correct, there's no user in users with the same username,
+	 * the newUsername and the curUsername differ only in the case; 
+	 * the newUsername is correct. 
+	 * there's no user in users with the same username,
 	 * and the user hasn't already changed their username. Example:
 	 * 
 	 * For newUsername = "Sheik", curUsername = "Zelda", isChanged = false,
@@ -70,12 +74,21 @@ public class UserName {
 	 */
 	boolean canUpdate(String newUsername, String curUsername,
 			boolean isChanged, String[] users) {
+		
+		Pattern pattern = Pattern.compile("^[0-9a-zA-Z_]*$");
+		Matcher matcher = pattern.matcher(newUsername);
+	    if (!matcher.find()){
+	        return false;
+	    }
 		if (!newUsername.equals(curUsername)
 				&& newUsername.equalsIgnoreCase(curUsername)) {
+			// Users are OK to change case of existing use case.
 			return true;
 		}
 
 		if (!isChanged) {
+			// If they never change the user name, they are allowed to do it
+			// Provided the name is not existing one.
 			for (int i = 0; i < users.length; i++) {
 				if (users[i].equalsIgnoreCase(newUsername)) {
 					return false;
