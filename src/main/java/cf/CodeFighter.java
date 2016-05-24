@@ -22,6 +22,10 @@ public class CodeFighter {
         System.out.println(sumOfThrees("531441"));
         System.out.println(sumOfThrees("2"));
         System.out.println(sumOfThrees("5"));
+        
+         for (int i = 1; i < 14; i++) {
+            System.out.println(i + " gamma :" + gamma(i));
+        }
 
     }
 
@@ -51,4 +55,12 @@ public class CodeFighter {
 
     }
 
+    /**
+     * This was a reverse challenge.
+     * @param n - number of term.
+     * @return value of the nth term.
+     */
+    public static int gamma(int n) {
+        return (n == 1) ? 1 : (n - 1) * gamma(n - 1);
+    }
 }
