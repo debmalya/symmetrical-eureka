@@ -63,4 +63,62 @@ public class CodeFighter {
     public static int gamma(int n) {
         return (n == 1) ? 1 : (n - 1) * gamma(n - 1);
     }
+    
+    /**
+     * Checking whether a Sudoku is correct or not.
+     * @param s solved Sudoku.
+     * @return true if it is correct, false otherwise.
+     */
+    public static boolean Sudoku(int[][] s) {
+        if (s.length == 9) {
+            int[] sumb = new int[9];
+            for (int i = 0; i < s.length; i++) {
+                int sum_h = 0;
+                int sum_v = 0;
+                for (int j = 0; j < s[i].length; j++) {
+                    int v = s[i][j];
+                    sum_h += v;
+                    sum_v += s[j][i];
+                    if (i >= 0 && i <= 2){
+                        if (j >= 0 && j <=2) {
+                            sumb[0] += v;
+                        }else if (j >= 3 && j <=5) {
+                            sumb[1] += v;
+                        }else if (j >= 6 && j <=8) {
+                            sumb[2] += v;
+                        }
+                    } else if (i >= 3 && i <= 5){
+                        if (j >= 0 && j <=2) {
+                            sumb[3] += v;
+                        }else if (j >= 3 && j <=5) {
+                            sumb[4] += v;
+                        }else if (j >= 6 && j <=8) {
+                            sumb[5] += v;
+                        }
+                    }else if (i >= 6 && i <= 8){
+                        if (j >= 0 && j <=2) {
+                            sumb[6] += v;
+                        }else if (j >= 3 && j <=5) {
+                            sumb[7] += v;
+                        }else if (j >= 6 && j <=8) {
+                            sumb[8] += v;
+                        }
+                    }
+                    
+                }
+                if (sum_h != 45 || sum_v != 45) {
+                    return false;
+                }
+            }
+            for (int i = 0; i < 9; i++) {
+                if (sumb[i] != 45){
+                    return false;
+                }
+                System.out.println(sumb[i]);
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
