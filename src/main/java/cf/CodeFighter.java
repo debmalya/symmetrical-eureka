@@ -121,4 +121,14 @@ public class CodeFighter {
             return false;
         }
     }
+    /**
+     * 1 ≤ a.length ≤ 150.
+     * 1 ≤ b.length ≤ 150.
+     * 
+     * Return their multiplicatoin in modulo 10.
+     * */
+    int modulo10(String a, String b) {
+      return new BigInteger(a).multiply(new BigInteger(b)).mod(BigInteger.TEN).intValue();
+    }
+
 }
