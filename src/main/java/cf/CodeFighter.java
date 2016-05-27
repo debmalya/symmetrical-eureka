@@ -130,5 +130,18 @@ public class CodeFighter {
     int modulo10(String a, String b) {
       return new BigInteger(a).multiply(new BigInteger(b)).mod(BigInteger.TEN).intValue();
     }
-
+    
+    /**
+     * Find the missing power of 2.
+     * */
+    public int powersOfTwo(int k, int n, int[] arr) {
+      Arrays.sort(arr);
+      for (int i = 0; i <= k; i++) {
+           int j = (int)Math.pow(2,i);
+          if (Arrays.binarySearch(arr,j) < 0){
+             return j;
+        }
+    }
+    return 1;
+}
 }
