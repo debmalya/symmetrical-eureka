@@ -144,4 +144,38 @@ public class CodeFighter {
     }
     return 1;
 }
+
+    public static void calculateLibraryFine() {
+		try (Scanner scanner = new Scanner(System.in)) {
+			String[] actuals = scanner.nextLine().split(" ");
+			String[] expecteds = scanner.nextLine().split(" ");
+
+			int d1 = 0;
+			int d2 = 0;
+			int m1 = 0;
+			int m2 = 0;
+			int y1 = 0;
+			int y2 = 0;
+
+			d1 = Integer.parseInt(actuals[0]);
+			d2 = Integer.parseInt(expecteds[0]);
+			
+			m1 = Integer.parseInt(actuals[1]);
+			m2 = Integer.parseInt(expecteds[1]);
+			
+			y1 = Integer.parseInt(actuals[2]);
+			y2 = Integer.parseInt(expecteds[2]);
+			
+			if (d1 <= d2 && m1 <= m2 && y1 <= y2 ){
+				System.out.println("0");
+			} else if (y1 > y2) {
+				System.out.println("10000");
+			} else if (y1 <= y2 && m1 > m2) {
+				System.out.println(500 * (m1 - m2));
+			} else if (y1 <= y2 && m1 <= m2 && d1 > d2) {
+				System.out.println(15 * (d1 - d2));
+			}
+
+		}
+	}
 }
