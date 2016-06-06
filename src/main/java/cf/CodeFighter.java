@@ -178,4 +178,23 @@ public class CodeFighter {
 
 		}
 	}
+	
+	public static int Password(String word) {        
+       
+        	String w = word + word;
+        	int l = word.length();
+        	int r = 0;
+        	String min = word;
+
+        	for (int i = 0; i < l; i++) {
+           		String t = w.substring(i, i + l);
+           		if (t.compareTo(min) < 0) {
+               			min = t;
+               			r = i;
+           		}
+           
+        	}  
+        return r;
+
+    }
 }
