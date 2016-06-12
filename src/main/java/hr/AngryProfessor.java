@@ -17,6 +17,7 @@ public class AngryProfessor {
 	public static void main(String[] args) {
 		try (Scanner scanner = new Scanner(System.in)) {
 			int t = scanner.nextInt();
+			String[] result = new String[t];
 			scanner.nextLine();
 			for (int i = 0; i < t; i++) {
 				String[] students = scanner.nextLine().split(" ");
@@ -24,9 +25,23 @@ public class AngryProfessor {
 				int k = Integer.parseInt(students[1]);
 				
 				String[] arrivals = scanner.nextLine().split(" ");
-				for (int j = 0; j < arrivals.length; j++) {
-					
+				int count =0;
+				for (int j = 0; j < n; j++) {
+					int value = Integer.parseInt(arrivals[j]);
+					if (value >= 0) {
+						count++;
+					}
 				}
+				
+				if (count <= k){
+					result[i] = "YES";
+				} else {
+					result[i] = "NO";
+				}
+			}
+			
+			for (int i = 0; i < t; i++) {
+				System.out.println(result[i]);
 			}
 
 		} catch (Throwable th) {
