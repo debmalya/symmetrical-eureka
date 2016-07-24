@@ -280,5 +280,23 @@ public class CodeFighter {
 			}
 		}
 	}
+	
+    /**
+     * Given two strings, your task is to find out if there is a swap sequence that transforms the first string into 
+     * the second string. A swap sequence is a sequence of strings, such that for each two consecutive string the one 
+     * can be obtained from another after a swap of two characters in one of the strings.
+     * @param a first string.
+     * @param b second string.
+     * @return true if a swap sequence exists and false otherwise.
+     **/
+    public boolean swapSequence(String a, String b) {
+       	 char[] c = a.toCharArray();
+       	 char[] d = b.toCharArray();
+    
+    	Arrays.sort(c);
+    	Arrays.sort(d);
+    
+    	return Arrays.equals(c,d);
+    }
 
 }
