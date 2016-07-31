@@ -3,6 +3,9 @@
  */
 package amazed;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -37,31 +40,47 @@ public class RhezoAndDivisibilityBy7 {
 	 */
 	public static void main(String[] args) {
 
-		try (Scanner scanner = new Scanner(System.in)){
-			int n = scanner.nextInt();
-			char[] v = Integer.toString(n).toCharArray();
-			int q = scanner.nextInt();
-			String[] answer = new String[q];
-			StringBuilder sb = new StringBuilder();
-			for (int i =0; i < q; i++){
-				int l = scanner.nextInt();
-				int r = scanner.nextInt();
-				
-				for (int j = l -1;  j < r; j++){
-					sb.append(v[j]);
-				}
-				if (Integer.valueOf(sb.toString()) % 7 == 0) {
-					answer[i] = "YES";
-				} else {
-					answer[i] = "NO";
-				}
-				sb.delete(0, sb.length());
-				
+		try (Scanner scanner = new Scanner(System.in)) {
+			BigInteger n = scanner.nextBigInteger();
+			BigInteger q = scanner.nextBigInteger();
+			
+			for (BigInteger i = BigInteger.ZERO; i.compareTo(q) < 0; i.add(BigInteger.ONE)){
+				BigInteger l = scanner.nextBigInteger();
+				BigInteger r = scanner.nextBigInteger();
 			}
 			
-			for (int i =0; i < q; i++){
-				System.out.println(answer[i]);
+		} 
+	}
+
+	public static void balerChop(Scanner scanner) {
+		String v = scanner.nextLine();
+		long q = scanner.nextLong();
+		List<String> answers = new ArrayList<>();
+
+		for (int i = 0; i < q; i++) {
+			int l = scanner.nextInt() - 1;
+			int r = scanner.nextInt();
+			if (l > r){
+				int temp = l;
+				l = r;
+				r = temp;
 			}
+			if (l == r) {
+				l--;
+			}
+			int c = 0;
+			
+			if (l < r) {
+				c = Integer.valueOf(v.substring(l, r));
+			}
+			if (c % 7 == 0) {
+				answers.add("YES");
+			} else {
+				answers.add("NO");
+			}
+		}
+		for (String each:answers) {
+			System.out.println(each);
 		}
 	}
 
