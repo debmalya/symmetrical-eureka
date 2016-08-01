@@ -3,7 +3,6 @@
  */
 package cf;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 /**
