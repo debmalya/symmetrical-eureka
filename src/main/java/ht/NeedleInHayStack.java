@@ -67,7 +67,6 @@ public class NeedleInHayStack {
 				}
 			}
 			
-			System.out.println(answers.size());
 			for (String each:answers) {
 				System.out.println(each);
 			}
@@ -87,6 +86,13 @@ public class NeedleInHayStack {
 	 */
 	public static List<String> needleInHayStack(String needle, String hayStack, int lengthOfNeedle) {
 		List<String> positionList = new ArrayList<>();
+		
+		for (int i = 0; i < hayStack.length() - lengthOfNeedle + 1; i++) {
+			if (hayStack.substring(i, i + lengthOfNeedle).equals(needle)){
+				positionList.add(String.valueOf(i));
+			}
+			
+		}
 		if (positionList.isEmpty()) {
 			positionList.add("");
 		}
