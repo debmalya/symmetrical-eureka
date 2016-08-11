@@ -25,7 +25,7 @@ public class GoldenNumber {
 	 *            Range 1 <= n <= 1500
 	 * @return nth golden number.
 	 */
-	public static int GoldenNumbers(int n) {
+	public static int GoldenNumbers1(int n) {
 		if (n == 1)
 			return 1;
 		List<Integer> g = new ArrayList<>();
@@ -49,7 +49,7 @@ public class GoldenNumber {
 	 *            Range 1 <= n <= 1500
 	 * @return nth golden number.
 	 */
-	public static int GoldenNumbers0(int n) {
+	public static int GoldenNumbers(int n) {
 		List<Integer> g = new ArrayList<>();
 		g.add(1);
 		g.add(2);
