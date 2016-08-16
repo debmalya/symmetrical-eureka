@@ -41,9 +41,17 @@ public class Emirp {
 	}
 
 	/**
-	 * Find the sum of all emirps in num. If none can be found, return -1 instead.
-	 * @param num to be checked for Emirp.
-	 * @return the sum, if there is any 
+	 * Find the sum of all emirps in num. If none can be found, return -1
+	 * instead.
+	 * 
+	 * @param num
+	 *            to be checked for Emirp.
+	 * @return the sum, if there is any ,-1 otherwise.
+	 * 
+	 *         For num = 13211, the output should be emirpMinion(num) = 1350.
+	 * 
+	 *         In this example, 13, 3, 2, 1321, and 11 are the only emirps, and
+	 *         their sum is 13 + 3 + 2 + 11 + 1321 = 1350.
 	 */
 	int emirpMinion(int num) {
 		return -1;
