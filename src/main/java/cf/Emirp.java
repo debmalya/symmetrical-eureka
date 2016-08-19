@@ -45,7 +45,7 @@ public class Emirp {
 	 * instead.
 	 * 
 	 * @param num
-	 *            to be checked for Emirp.
+	 *            to be checked for Emirp. (Range 10 <= num <= 2. 10 ** 9
 	 * @return the sum, if there is any ,-1 otherwise.
 	 * 
 	 *         For num = 13211, the output should be emirpMinion(num) = 1350.
