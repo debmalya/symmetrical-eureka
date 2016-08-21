@@ -15,37 +15,32 @@ public class AngryProfessor {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		try (Scanner scanner = new Scanner(System.in)) {
-			int t = scanner.nextInt();
-			String[] result = new String[t];
-			scanner.nextLine();
-			for (int i = 0; i < t; i++) {
-				String[] students = scanner.nextLine().split(" ");
-				int n = Integer.parseInt(students[0]);
-				int k = Integer.parseInt(students[1]);
-				
-				String[] arrivals = scanner.nextLine().split(" ");
-				int count =0;
-				for (int j = 0; j < n; j++) {
-					int value = Integer.parseInt(arrivals[j]);
-					if (value >= 0) {
-						count++;
+		try (Scanner in = new Scanner(System.in)) {
+
+			int t = in.nextInt();
+			String[] an = new String[t];
+			for (int a0 = 0; a0 < t; a0++) {
+				int n = in.nextInt();
+				int k = in.nextInt();
+				int a[] = new int[n];
+				int c = 0;
+				for (int a_i = 0; a_i < n; a_i++) {
+					a[a_i] = in.nextInt();
+					if (a[a_i] < 1) {
+						c++;
 					}
 				}
-				
-				if (count <= k){
-					result[i] = "YES";
-				} else {
-					result[i] = "NO";
+
+				an[a0] = "YES";
+
+				if (c >= k) {
+					an[a0] = "NO";
 				}
 			}
-			
-			for (int i = 0; i < t; i++) {
-				System.out.println(result[i]);
+
+			for (int a0 = 0; a0 < t; a0++) {
+				System.out.println(an[a0]);
 			}
-
-		} catch (Throwable th) {
-
 		}
 
 	}

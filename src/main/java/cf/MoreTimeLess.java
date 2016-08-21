@@ -36,11 +36,13 @@ public class MoreTimeLess {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		
 
 	}
 	
 	/**
+	 * For example, 15 can be written as 4² - 1² or 8² - 7².
+	 * In base 10, a square number can end only with digits 1, 4, 6, 9, 0, or 5.
 	 * 
 	 * @param n
 	 * @return
