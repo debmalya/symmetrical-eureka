@@ -46,6 +46,7 @@ public class TemperaturePredictions {
 			// file; this line can be ignored, and is simply there to make
 			// the test case easier to read.
 			in.nextLine();
+			in.nextLine();
 
 			List<String[]> recordList = new ArrayList<>();
 			List<Integer> missingRowList = new ArrayList<>();
