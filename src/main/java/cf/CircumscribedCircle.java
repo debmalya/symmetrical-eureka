@@ -29,26 +29,38 @@ public class CircumscribedCircle {
 		int r = 0;
 
 		// Find the equation of the circle passing through the points
-		// {triangle[0][0],triangle[0][1]} - (A),
-		// {triangle[1][0],triangle[1][1]} - (B),
-		// {triangle[2][0],triangle[2][1]} - (C)
+		// {triangle[0][0],triangle[0][1]} - (A), (e.g. 3,2)
+		// {triangle[1][0],triangle[1][1]} - (B), (e.g. 1,4)
+		// {triangle[2][0],triangle[2][1]} - (C) (e.g. 5,4)
 
-		// Get mid point of AB
+		// Get mid point of AB (e.g. (3+1)/2,(2+4)/2-> 2,3)
 		int m1X = (triangle[0][0] + triangle[1][0]) / 2;
 		int m1Y = (triangle[0][1] + triangle[1][1]) / 2;
-		// Get mid point of BC
+		// Get mid point of BC (e.g. (1+5)/2,(4+4)/2)
 		int m2X = (triangle[1][0] + triangle[2][0]) / 2;
 		int m2Y = (triangle[1][1] + triangle[2][1]) / 2;
-		// Get mid point of CA
+		// Get mid point of CA (e.g.(5+3)/2, (2+4)/2)
 		int m3X = (triangle[2][0] + triangle[0][0]) / 2;
 		int m3Y = (triangle[2][1] + triangle[0][1]) / 2;
 
-		// Gradient of AB
-		int g1 = (triangle[0][1] - triangle[1][1]) / (triangle[0][0] - triangle[1][0]);
+		// Gradient of AB (e.g. (4 - 2)/(3 - 1)
+		int g1 = (triangle[0][1] - triangle[1][1]);
+		int d = (triangle[0][0] - triangle[1][0]);
+		if (d != 0){
+			g1 /= d;
+		}
 		// Gradient of BC
-		int g2 = (triangle[1][1] - triangle[2][1]) / (triangle[1][0] - triangle[2][0]);
+		int g2 = (triangle[1][1] - triangle[2][1]);
+		d = (triangle[1][0] - triangle[2][0]);
+		if (d != 0) {
+			g2 /= d;
+		}
 		// Gradient of CA
-		int g3 = (triangle[2][1] - triangle[0][1]) / (triangle[2][0] - triangle[0][0]);
+		int g3 = (triangle[2][1] - triangle[0][1]) ;
+		d = (triangle[2][0] - triangle[0][0]);
+		if (d != 0){
+			g3 /= d;
+		}
 
 		// Product of gradients of perpendicular lines = -1
 		// Gradient of perpendicular bisector of AB
