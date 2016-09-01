@@ -10,11 +10,13 @@ public class CircumscribedCircleTest {
 		CircumscribedCircle circle = new CircumscribedCircle();
 		int[][] triangle = new int[][] { { 3, 2 }, { 1, 4 }, { 5, 4 } };
 		int[] expecteds = new int[] { 3, 4, 2 };
-		Assert.assertArrayEquals(expecteds, circle.circumcircle(triangle));
+		int[] actuals = circle.circumcircle(triangle);
+		Assert.assertArrayEquals(expecteds, actuals);
 
 		triangle = new int[][] { { 8, 6 }, { 8, -2 }, { 2, -2 } };
 		expecteds = new int[] { 5, 2, 5 };
-		Assert.assertArrayEquals(expecteds, circle.circumcircle(triangle));
+		actuals = circle.circumcircle(triangle);
+		Assert.assertArrayEquals(expecteds, actuals);
 		
 		triangle = new int[][] { { 5, 7 }, { 6, 6 }, { 2, -2 } };
 		expecteds = new int[] { 2, 3, 5 };
