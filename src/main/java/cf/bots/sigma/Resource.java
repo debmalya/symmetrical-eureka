@@ -40,7 +40,38 @@ public class Resource {
 		int maxPossibleSpeed = res.dataRoute(4, 5, new int[][] { { 0, 2, 4, 8, 0, 0 }, { 0, 0, 0, 9, 0, 0 },
 				{ 0, 0, 0, 0, 0, 10 }, { 0, 0, 6, 0, 0, 10 }, { 10, 10, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0 } });
 		System.out.println(maxPossibleSpeed);
+
+		maxPossibleSpeed = res.dataRoute(2, 5,
+				new int[][] { { 0, 0, 0, 0, 2, 0, 998, 0, 0, 0, 0 }, { 1000, 0, 0, 0, 999, 0, 0, 0, 0, 0, 0 },
+						{ 0, 1239, 0, 1111, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 587, 439, 0, 0 },
+						{ 0, 0, 0, 0, 0, 1001, 3, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+						{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 239 }, { 0, 0, 0, 0, 0, 0, 0, 0, 1, 890, 0 },
+						{ 0, 0, 0, 0, 0, 0, 0, 2, 0, 485, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 932 },
+						{ 0, 0, 0, 0, 0, 999, 0, 0, 0, 0, 0 } });
+
+		System.out.println(maxPossibleSpeed);
 		
+		maxPossibleSpeed = res.dataRoute(0, 3,
+				new int[][]{{0,1000,1000,0}, 
+				            {0,0,1000,1}, 
+				            {0,1,0,1000}, 
+				            {0,0,0,0}});
+		System.out.println(maxPossibleSpeed);
+		
+		maxPossibleSpeed = res.dataRoute(0, 3,
+				new int[][]{{0,7,5,0}, 
+				            {0,0,2,5}, 
+				            {0,1,0,4}, 
+				            {0,0,0,0}});
+		System.out.println(maxPossibleSpeed);
+		
+		maxPossibleSpeed = res.dataRoute(0, 3,
+				new int[][]{{0,7,5,0,0}, 
+				            {0,0,2,3,0}, 
+				            {0,1,0,4,1}, 
+				            {0,0,0,0,0},
+				            {0,0,0,2,0}});
+		System.out.println(maxPossibleSpeed);
 
 	}
 
@@ -70,7 +101,7 @@ public class Resource {
 	 * @return - The maximum amount of data that can be transferred in one
 	 *         second, in megabytes.
 	 */
-	int dataRoute(int resource, int server, int[][] network) {
+	public int dataRoute(int resource, int server, int[][] network) {
 
 		// Except resource / server, After balancing, for others row / column
 		// total of row[i] =
@@ -84,18 +115,25 @@ public class Resource {
 		// Balance the resource node, maximum possible outgoing speed is maximum
 		// possible download speed of the server. As in between nodes cannot
 		// store anything.
-		int maxAmount = 0;
+		int maxResourceSpeed = 0;
 		for (int col = 0; col < network.length; col++) {
 			if (network[resource][col] != 0) {
 				// Have some connectivity
 				// Check maximum possible outgoing speed from resource to
 				// node(col)
 				//
-				maxAmount += Math.min(outgoingSpeed[col], network[resource][col]);
+				maxResourceSpeed += Math.min(outgoingSpeed[col], network[resource][col]);
+			}
+		}
+		
+		int maxServerSpeed = 0;
+		for (int row = 0; row < network.length; row++){
+			if (network[row][server] != 0){
+				maxServerSpeed += Math.min(incomingSpeed[row], network[row][server]);
 			}
 		}
 
-		return maxAmount;
+		return Math.min(maxResourceSpeed, maxServerSpeed);
 	}
 
 	/**
@@ -119,138 +157,5 @@ public class Resource {
 		}
 	}
 
-	/**
-	 * @param network
-	 */
-	public void notAHappyCode(int[][] network) {
-		int minRowActiveCount = Integer.MAX_VALUE;
-		int minRowIndex = 0;
-		int min = 0;
-		for (int row = 0; row < network.length; row++) {
-			int rowCount = 0;
-			int sum = 0;
-			for (int col = 0; col < network.length; col++) {
-				if (network[row][col] != 0) {
-					rowCount++;
-					sum += network[row][col];
-				}
-			}
-			if (rowCount < minRowActiveCount && rowCount != 0) {
-				minRowActiveCount = rowCount;
-				minRowIndex = row;
-				min = sum;
-			}
-		}
-
-		int minColIndex = -9;
-		for (int col = 0; col < network.length; col++) {
-			int rowCount = 0;
-			int sum = 0;
-			for (int row = 0; row < network.length; row++) {
-				if (network[row][col] != 0) {
-					rowCount++;
-					sum += network[row][col];
-				}
-			}
-			if (rowCount < minRowActiveCount && rowCount != 0) {
-				minRowActiveCount = rowCount;
-				minColIndex = col;
-				min = sum;
-			}
-		}
-
-		if (minColIndex > -9) {
-			// Column wise
-		} else {
-			// Row wise
-			// Have to make sum of total column value equal to minimum row
-			// value.
-			makeMinimum(network, minRowIndex, true, min);
-		}
-	}
-
-	/**
-	 * 
-	 * @param network
-	 * @param minRowIndex
-	 * @param isRow
-	 * @param maxPossibleFrequency
-	 */
-	private void makeMinimum(int[][] network, int minRowIndex, boolean isRow, int maxPossibleFrequency) {
-		if (isRow) {
-			// have to neutralize column
-			for (int row = 0; row < network.length; row++) {
-
-			}
-
-		} else {
-			// have to neutralize row.
-			for (int col = 0; col < network.length; col++) {
-
-			}
-		}
-
-	}
-
-	/**
-	 * 
-	 * @param network
-	 *            details
-	 * @param node
-	 *            source of transmission.
-	 * @param receivingStrength
-	 *            other than resource and server everybody should send and
-	 *            receive same strength can not store anything.
-	 * 
-	 *            For server and resource this value will be -1.
-	 */
-	public void getNextLayer(int[][] network, int node, int receivingStrength, int from) {
-		for (int i = 0; i < network.length; i++) {
-			if (network[node][i] != 0) {
-				if (receivingStrength != -1) {
-					// cannot store any thing
-					normalize(network, i, receivingStrength, from);
-				}
-				getNextLayer(network, i, network[node][i], node);
-			}
-		}
-	}
-
-	/**
-	 * Normalize the node so that whatever it receive will transmit.
-	 * 
-	 * @param network
-	 *            details
-	 * @param receivingStrength
-	 * @param from
-	 *            - coming from which node
-	 */
-	public void normalize(int[][] network, int node, int receivingStrength, int from) {
-		int transmittingStrength = 0;
-		List<Integer> indexes = new ArrayList<Integer>();
-		int activeNodeCount = 0;
-		for (int i = 0; i < network.length; i++) {
-			if (network[node][i] > 0) {
-				transmittingStrength += network[node][i];
-				indexes.add(i);
-				activeNodeCount++;
-			}
-		}
-
-		if (transmittingStrength > receivingStrength) {
-			for (int i = 0; i < indexes.size(); i++) {
-				if (transmittingStrength - network[node][indexes.get(i)] == receivingStrength) {
-					network[node][indexes.get(i)] = 0;
-					break;
-				}
-			}
-		}
-
-		if (receivingStrength > transmittingStrength) {
-			if (activeNodeCount == 1) {
-				network[from][node] = transmittingStrength;
-			}
-		}
-	}
-
+	
 }
