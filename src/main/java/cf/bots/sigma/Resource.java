@@ -37,8 +37,10 @@ public class Resource {
 	 */
 	public static void main(String[] args) {
 		Resource res = new Resource();
-		res.dataRoute(4, 5, new int[][] { { 0, 2, 4, 8, 0, 0 }, { 0, 0, 0, 9, 0, 0 }, { 0, 0, 0, 0, 0, 10 },
-				{ 0, 0, 6, 0, 0, 10 }, { 10, 10, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0 } });
+		int maxPossibleSpeed = res.dataRoute(4, 5, new int[][] { { 0, 2, 4, 8, 0, 0 }, { 0, 0, 0, 9, 0, 0 },
+				{ 0, 0, 0, 0, 0, 10 }, { 0, 0, 6, 0, 0, 10 }, { 10, 10, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0 } });
+		System.out.println(maxPossibleSpeed);
+		
 
 	}
 
@@ -70,8 +72,57 @@ public class Resource {
 	 */
 	int dataRoute(int resource, int server, int[][] network) {
 
-		// Except resource / server , row / column for others total row[i] =
-		// total col[i]
+		// Except resource / server, After balancing, for others row / column
+		// total of row[i] =
+		// total of column[i]
+		int noOfNodes = network.length;
+		int[] outgoingSpeed = new int[noOfNodes];
+		int[] incomingSpeed = new int[noOfNodes];
+
+		calculateInOut(network, outgoingSpeed, incomingSpeed);
+
+		// Balance the resource node, maximum possible outgoing speed is maximum
+		// possible download speed of the server. As in between nodes cannot
+		// store anything.
+		int maxAmount = 0;
+		for (int col = 0; col < network.length; col++) {
+			if (network[resource][col] != 0) {
+				// Have some connectivity
+				// Check maximum possible outgoing speed from resource to
+				// node(col)
+				//
+				maxAmount += Math.min(outgoingSpeed[col], network[resource][col]);
+			}
+		}
+
+		return maxAmount;
+	}
+
+	/**
+	 * During network balancing, incoming and outgoing speed will be modified
+	 * for the nodes. Transfer speed between nodes will change. This method will
+	 * recalculate the incoming and outgoing speed.
+	 * 
+	 * @param network
+	 *            array.
+	 * @param outgoingSpeed
+	 *            maximum possible outgoing speed of the node.
+	 * @param incomingSpeed
+	 *            - maximum possible incoming speed.
+	 */
+	public void calculateInOut(int[][] network, int[] outgoingSpeed, int[] incomingSpeed) {
+		for (int row = 0; row < network.length; row++) {
+			for (int col = 0; col < network.length; col++) {
+				outgoingSpeed[row] += network[row][col];
+				incomingSpeed[col] += network[row][col];
+			}
+		}
+	}
+
+	/**
+	 * @param network
+	 */
+	public void notAHappyCode(int[][] network) {
 		int minRowActiveCount = Integer.MAX_VALUE;
 		int minRowIndex = 0;
 		int min = 0;
@@ -116,7 +167,6 @@ public class Resource {
 			// value.
 			makeMinimum(network, minRowIndex, true, min);
 		}
-		return 0;
 	}
 
 	/**
@@ -132,8 +182,12 @@ public class Resource {
 			for (int row = 0; row < network.length; row++) {
 
 			}
+
 		} else {
 			// have to neutralize row.
+			for (int col = 0; col < network.length; col++) {
+
+			}
 		}
 
 	}
