@@ -79,8 +79,10 @@ public class DeterministicUrlHashTagSegmentation {
 				modifiedLine = modifiedLine.replace(wordList.get(i), "");
 				sb.append(wordList.get(i));
 				sb.append(" ");
+				i = 0;
 			}
 		}
+		System.out.println(sb.toString());
 		return sb.toString();
 	}
 
