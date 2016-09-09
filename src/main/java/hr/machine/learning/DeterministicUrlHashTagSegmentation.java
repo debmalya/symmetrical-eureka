@@ -21,26 +21,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.sound.midi.SysexMessage;
+
 /**
  * @author debmalyajash
  *
  */
 public class DeterministicUrlHashTagSegmentation {
 	private static List<String> wordList = new ArrayList<>();
+	private static List<String>[] alphabetWiseWordList = new ArrayList[26];
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		try (BufferedReader read = new BufferedReader(new FileReader(
-				"words.txt"))) {
-			String eachLine = "";
-			while ((eachLine = read.readLine()) != null) {
-				wordList.add(eachLine);
-			}
-		} catch (Throwable th) {
-			th.printStackTrace();
-		}
+		setWordList();
 
 		try (Scanner in = new Scanner(System.in)) {
 			// First line will contain the number of test cases N
@@ -59,22 +54,85 @@ public class DeterministicUrlHashTagSegmentation {
 	}
 
 	/**
+	 * 
+	 */
+	public static void setWordList() {
+		try (BufferedReader read = new BufferedReader(new FileReader("words.txt"))) {
+			String eachLine = "";
+			while ((eachLine = read.readLine()) != null) {
+				eachLine = eachLine.toLowerCase();
+				char c = eachLine.charAt(0);
+				int index = c - 'a';
+				if (index > -1 && index < 26) {
+					if (alphabetWiseWordList[index] == null) {
+						alphabetWiseWordList[index] = new ArrayList<String>();
+					}
+					alphabetWiseWordList[index].add(eachLine);
+				} else {
+					System.err.println(c + " has index " + index);
+				}
+				wordList.add(eachLine);
+			}
+		} catch (Throwable th) {
+			th.printStackTrace();
+		}
+	}
+
+	/**
+	 * @param nextLine
+	 * @return
+	 */
+	public static String getSegmenetation1(final String nextLine) {
+		String modifiedLine = "";
+		if (nextLine.startsWith("#")) {
+			modifiedLine = nextLine.replace("#", "");
+		} else {
+			modifiedLine = nextLine.substring(nextLine.indexOf(".") + 1);
+			modifiedLine = modifiedLine.substring(0, modifiedLine.indexOf("."));
+		}
+		List<String> matchedWords = new ArrayList<>();
+		StringBuilder sb = new StringBuilder();
+
+		modifiedLine = modifiedLine.toLowerCase();
+		while (true) {
+			char c = modifiedLine.charAt(0);
+			int index = c - 'a';
+			for (int i = 0; i < alphabetWiseWordList[index].size(); i++) {
+				if (modifiedLine.startsWith(alphabetWiseWordList[index].get(i))) {
+					matchedWords.add(alphabetWiseWordList[index].get(i));
+					modifiedLine = modifiedLine.replace(alphabetWiseWordList[index].get(i), "");
+					sb.append(alphabetWiseWordList[index].get(i));
+					sb.append(" ");
+					i = 0;
+				}
+			}
+
+			if (modifiedLine.length() == 0) {
+				break;
+			}
+		}
+
+		System.out.println(sb.toString());
+		return sb.toString();
+	}
+
+	/**
 	 * @param nextLine
 	 * @return
 	 */
 	public static String getSegmenetation(final String nextLine) {
 		String modifiedLine = "";
-		if (nextLine.startsWith("#")){
+		if (nextLine.startsWith("#")) {
 			modifiedLine = nextLine.replace("#", "");
 		} else {
-			modifiedLine = nextLine.substring(nextLine.indexOf(".")+1);
-			modifiedLine = modifiedLine.substring(0,modifiedLine.indexOf("."));
+			modifiedLine = nextLine.substring(nextLine.indexOf(".") + 1);
+			modifiedLine = modifiedLine.substring(0, modifiedLine.indexOf("."));
 		}
 		List<String> matchedWords = new ArrayList<>();
 		StringBuilder sb = new StringBuilder();
-		
-		for (int i = 0; i < wordList.size(); i++){
-			if (modifiedLine.startsWith(wordList.get(i))){
+
+		for (int i = 0; i < wordList.size(); i++) {
+			if (modifiedLine.startsWith(wordList.get(i))) {
 				matchedWords.add(wordList.get(i));
 				modifiedLine = modifiedLine.replace(wordList.get(i), "");
 				sb.append(wordList.get(i));
@@ -84,6 +142,13 @@ public class DeterministicUrlHashTagSegmentation {
 		}
 		System.out.println(sb.toString());
 		return sb.toString();
+	}
+
+	/**
+	 * @return the alphabetWiseWordList
+	 */
+	public static List<String>[] getAlphabetWiseWordList() {
+		return alphabetWiseWordList;
 	}
 
 }

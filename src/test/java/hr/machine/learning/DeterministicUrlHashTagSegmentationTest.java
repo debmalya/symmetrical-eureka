@@ -15,8 +15,7 @@
  */
 package hr.machine.learning;
 
-import static org.junit.Assert.*;
-
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -24,6 +23,11 @@ import org.junit.Test;
  *
  */
 public class DeterministicUrlHashTagSegmentationTest {
+	
+	@BeforeClass
+	public  static void setUp(){
+		DeterministicUrlHashTagSegmentation.setWordList();
+	}
 
 	/**
 	 * Test method for {@link hr.machine.learning.DeterministicUrlHashTagSegmentation#getSegmenetation(java.lang.String)}.
