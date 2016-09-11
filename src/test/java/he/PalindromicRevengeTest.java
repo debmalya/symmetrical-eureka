@@ -13,29 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package hr.machine.learning;
+package he;
 
-import org.junit.BeforeClass;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
  * @author debmalyajash
  *
  */
-public class DeterministicUrlHashTagSegmentationTest {
-	
-	@BeforeClass
-	public  static void setUp(){
-		DeterministicUrlHashTagSegmentation.setWordList();
-	}
+public class PalindromicRevengeTest {
 
-	/**
-	 * Test method for {@link hr.machine.learning.DeterministicUrlHashTagSegmentation#getSegmenetation(java.lang.String)}.
-	 */
 	@Test
-	public final void testGetSegmenetation() {
-//		DeterministicUrlHashTagSegmentation.getSegmenetation("#isittime");
-		DeterministicUrlHashTagSegmentation.getSegmenetation("www.whatismyname.com");
+	public void test() {
+		
+		Assert.assertEquals(0,PalindromicRevenge.getPallindromicCost("ada"));
+		Assert.assertEquals(1,PalindromicRevenge.getPallindromicCost("acda"));
+		Assert.assertEquals(4,PalindromicRevenge.getPallindromicCost("dceb"));
 	}
 
 }
