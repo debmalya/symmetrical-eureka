@@ -15,8 +15,9 @@
  */
 package hr.machine.learning;
 
-import static org.junit.Assert.*;
 
+
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -30,7 +31,7 @@ public class DeterministicUrlHashTagSegmentationTest {
 	 */
 	@Test
 	public final void testGetSegmenetation() {
-		DeterministicUrlHashTagSegmentation.getSegmenetation("#isittime");
+		Assert.assertEquals("is it time", DeterministicUrlHashTagSegmentation.getSegmenetation("#isittime"));
 		DeterministicUrlHashTagSegmentation.getSegmenetation("www.whatismyname.com");
 	}
 
