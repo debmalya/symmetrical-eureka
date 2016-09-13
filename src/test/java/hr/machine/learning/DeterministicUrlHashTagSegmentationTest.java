@@ -15,9 +15,13 @@
  */
 package hr.machine.learning;
 
+<<<<<<< HEAD:src/main/java/hr/machine/learning/DeterministicUrlHashTagSegmentationTest.java
 
 
 import org.junit.Assert;
+=======
+import org.junit.BeforeClass;
+>>>>>>> 98904c3c60f3058dcc4ad9e2a308238fd260d227:src/test/java/hr/machine/learning/DeterministicUrlHashTagSegmentationTest.java
 import org.junit.Test;
 
 /**
@@ -25,13 +29,22 @@ import org.junit.Test;
  *
  */
 public class DeterministicUrlHashTagSegmentationTest {
+	
+	@BeforeClass
+	public  static void setUp(){
+		DeterministicUrlHashTagSegmentation.setWordList();
+	}
 
 	/**
 	 * Test method for {@link hr.machine.learning.DeterministicUrlHashTagSegmentation#getSegmenetation(java.lang.String)}.
 	 */
 	@Test
 	public final void testGetSegmenetation() {
+<<<<<<< HEAD:src/main/java/hr/machine/learning/DeterministicUrlHashTagSegmentationTest.java
 		Assert.assertEquals("is it time", DeterministicUrlHashTagSegmentation.getSegmenetation("#isittime"));
+=======
+//		DeterministicUrlHashTagSegmentation.getSegmenetation("#isittime");
+>>>>>>> 98904c3c60f3058dcc4ad9e2a308238fd260d227:src/test/java/hr/machine/learning/DeterministicUrlHashTagSegmentationTest.java
 		DeterministicUrlHashTagSegmentation.getSegmenetation("www.whatismyname.com");
 	}
 
