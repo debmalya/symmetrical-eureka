@@ -15,7 +15,6 @@
  */
 package hr;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -74,4 +73,7 @@ public class Lighthouse {
 
 	}
 
+	public static int getRadius(char[][] board){
+		return 0;
+	}
 }
