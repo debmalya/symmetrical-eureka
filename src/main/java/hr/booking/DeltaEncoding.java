@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package he;
+package hr.booking;
 
 import java.util.Scanner;
 
@@ -21,36 +21,35 @@ import java.util.Scanner;
  * @author debmalyajash
  *
  */
-public class SavePatients {
+public class DeltaEncoding {
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		try (Scanner in = new Scanner(System.in)) {
-			// First line contains the number of vaccines - N
-			int N = in.nextInt();
-
-			// Second line contains N integers, which are strength of vaccines
-			int[] vaccines = new int[N];
-			int maxVaccines = Integer.MIN_VALUE;
-			for (int i = 0; i < N; i++) {
-				vaccines[i] = in.nextInt();
-				maxVaccines = Math.max(maxVaccines, vaccines[i]);
+			String[] inputs = in.nextLine().split(" ");
+			int[] a = new int[inputs.length];
+			StringBuilder sb = new StringBuilder();
+			
+			for (int i = 0; i < a.length; i++){
+				a[i] = Integer.parseInt(inputs[i]);
+				if (i == 0){
+					sb.append(a[i]);
+				} else {
+					int diff = a[i] - a[i - 1];
+					if (diff >= -127 && diff <= 127){
+						sb.append(diff);
+					} else {
+						sb.append(-128);
+						sb.append(" ");
+						sb.append(diff);
+					}
+				}
+				sb.append(" ");
 			}
-
-			// Third line contains N integers, which are midichlorians count of
-			// patients.
-			int[] midichlorians = new int[N];
-			int max = Integer.MIN_VALUE;
-			for (int i = 0; i < N; i++) {
-				midichlorians[i] = in.nextInt();
-				max = Math.max(max, midichlorians[i]);
-			}
-
-			// TODO need to check for each patient wise whether we can allocate
-			// vaccine.
-			System.out.println(max > maxVaccines ? "No" : "Yes");
+			
+			System.out.println(sb.toString().trim());
 		}
 
 	}
