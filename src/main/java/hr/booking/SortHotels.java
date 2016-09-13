@@ -17,13 +17,9 @@ package hr.booking;
 
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Scanner;
-import java.util.SortedMap;
-import java.util.TreeMap;
 
 /**
  * @author debmalyajash
@@ -42,10 +38,9 @@ public class SortHotels {
 
 			Map<Integer, Integer> rMap = new HashMap<>();
 			for (int i = 0; i < M; i++) {
-
 				int id = Integer.parseInt(in.nextLine());
 				String value = in.nextLine();
-				value = value.toLowerCase().replace(".", "");
+				value = value.toLowerCase().replace(".", "").replace(",", "");
 				List<String> rd = Arrays.asList(value.split(" "));
 				int count = 0;
 				for (String eachWord : words) {
@@ -62,17 +57,20 @@ public class SortHotels {
 				values[id] = matchCount;
 			}
 
-			Arrays.sort(values);
-			SortedMap<Integer, Integer> sorted = new TreeMap<>();
-			Iterator<Entry<Integer, Integer>> rIterator = rMap.entrySet().iterator();
-			while (rIterator.hasNext()) {
-				Entry<Integer, Integer> nextEntry = rIterator.next();
-				sorted.put(nextEntry.getValue(), nextEntry.getKey());
-			}
+			for (int i = 0; i < M; i++) {
+				int max = Integer.MIN_VALUE;
+				int maxIndex = -1;
+				for (int j = 0; j < M; j++) {
+					if (values[j] > max) {
+						max = values[j];
+						maxIndex = j;
+					}
+				}
 
-			Integer[] a = sorted.values().toArray(new Integer[0]);
-			for (int i = a.length - 1; i > -1; i--) {
-				System.out.print(a[i]+" ");
+				if (values[maxIndex] > 0) {
+					System.out.print(maxIndex + " ");
+					values[maxIndex] = Integer.MIN_VALUE;
+				}
 			}
 		}
 
@@ -80,16 +78,11 @@ public class SortHotels {
 
 }
 /**
-breakfast beach citycenter location metro view staff price
-5
-1
-This hotel has a nice view of the citycenter. The location is perfect.
-2
-The breakfast is ok. Regarding location, it is quite far from citycenter but price is cheap so it is worth.
-1
-Location is excellent, 5 minutes from citycenter. There is also a metro station very close to the hotel.
-1
-They said I couldn't take my dog and there were other guests with dogs! That is not fair.
-2
-Very friendly staff and good cost-benefit ratio. Its location is a bit far from citycenter.
-*/
+ * breakfast beach citycenter location metro view staff price 5 1 This hotel has
+ * a nice view of the citycenter. The location is perfect. 2 The breakfast is
+ * ok. Regarding location, it is quite far from citycenter but price is cheap so
+ * it is worth. 1 Location is excellent, 5 minutes from citycenter. There is
+ * also a metro station very close to the hotel. 1 They said I couldn't take my
+ * dog and there were other guests with dogs! That is not fair. 2 Very friendly
+ * staff and good cost-benefit ratio. Its location is a bit far from citycenter.
+ */

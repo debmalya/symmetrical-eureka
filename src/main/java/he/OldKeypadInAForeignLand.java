@@ -80,22 +80,66 @@ public class OldKeypadInAForeignLand {
 				key[i] = in.nextInt();
 				totalNumberOfKeys += key[i];
 			}
-			
-			if (totalNumberOfKeys < N){
+
+			if (totalNumberOfKeys < N) {
 				System.out.println("-1");
 				return;
 			}
-			Arrays.sort(key);
-
-			int c = 0;
-			int l = 1;
-			for (int i = N - 1; i > 0; i -= K, l++) {
-				for (int j = 0; j < K; j++) {
-					c += frequencies[i - j] * l;
-				}
-			}
-			System.out.println(c);
+			System.out.println(getKeyStrokeCount(N, frequencies, K, key));
 		}
+	}
+
+	/**
+	 * @param N - number of letters
+	 * @param frequencies of each letter.
+	 * @param K - number of keys
+	 * @param key - how many character each key can hold.
+	 */
+	public static int getKeyStrokeCount(int N, int[] frequencies, int K, int[] key) {
+
+		Arrays.sort(frequencies);
+
+		int c = 0;
+		int l = 1;
+		// Assigning most frequent keys (first keys).
+		int i = N - 1;
+		int keyIndex = 0;
+		for (; i > -1; i--, keyIndex++) {
+			
+			if (keyIndex >= K) {
+				// Reusing keypads
+				l++;
+			}
+			keyIndex %= K;
+			// Can this keypad hold the key?
+			if (key[keyIndex] > 0) {
+				c += (frequencies[i] * l);
+				key[keyIndex]--;
+
+			} else {
+				// This key cannot hold any more letter.
+				// Check next available key.
+				// Not able to assign this letter.
+				// The value i will not be decremented.
+				i++;
+			}
+
+		}
+
+		return c;
+	}
+	public static int getKeyStrokeCount0(int N, int[] frequencies, int K, int[] key) {
+
+		Arrays.sort(frequencies);
+
+		int c = 0;
+		int l = 1;
+		for (int i = N - 1; i > 0; i -= K, l++) {
+			for (int j = 0; j < K; j++) {
+				c += frequencies[i - j] * l;
+			}
+		}
+		return c;
 	}
 
 }
