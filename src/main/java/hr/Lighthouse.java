@@ -73,4 +73,7 @@ public class Lighthouse {
 
 	}
 
+	public static int getRadius(char[][] board){
+		return 0;
+	}
 }

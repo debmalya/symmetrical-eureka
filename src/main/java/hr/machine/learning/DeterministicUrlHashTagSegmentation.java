@@ -140,15 +140,29 @@ public class DeterministicUrlHashTagSegmentation {
 				i = 0;
 			}
 		}
-		System.out.println(sb.toString());
 		return sb.toString();
 	}
 
+	/**
+<<<<<<< HEAD
+	 * @return the wordList
+	 */
+	public static List<String> getWordList() {
+		return wordList;
+	}
+
+	/**
+	 * @param wordList the wordList to set
+	 */
+	public static void setWordList(List<String> wordList) {
+		DeterministicUrlHashTagSegmentation.wordList = wordList;
+	}
 	/**
 	 * @return the alphabetWiseWordList
 	 */
 	public static List<String>[] getAlphabetWiseWordList() {
 		return alphabetWiseWordList;
+
 	}
 
 }
