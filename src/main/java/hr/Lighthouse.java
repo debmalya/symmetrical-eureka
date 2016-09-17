@@ -35,17 +35,6 @@ public class Lighthouse {
 			char[][] board = new char[n][n];
 			for (int i = 0; i < n; i++) {
 				char[] each = in.nextLine().toCharArray();
-				int count = 0;
-				for (int j = 0; j < each.length; j++) {
-					if (each[j] == '.') {
-						count++;
-					}
-				}
-				maxLength = Math.max(maxLength, count);
-				radius[i] = count;
-				if (maxLength == count) {
-					radiusRow = i;
-				}
 				board[i] = each;
 			}
 
