@@ -15,6 +15,7 @@
  */
 package hr;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -44,15 +45,15 @@ public class Lighthouse {
 			} else {
 				//
 				int proposedRadius = radius[radiusRow] / 2;
-				
-//				Get the starting point of radius.
-//				Get the end point of radius.
+
+				// Get the starting point of radius.
+				// Get the end point of radius.
 				int start = -1;
 				int end = n;
 				for (int i = 0; i < n; i++) {
-					if (start == -1 &&  board[radiusRow][i] == '.'){
+					if (start == -1 && board[radiusRow][i] == '.') {
 						start = i;
-					} else if (start != -1 && end == n && board[radiusRow][i] != '.'){
+					} else if (start != -1 && end == n && board[radiusRow][i] != '.') {
 						end = i - 1;
 					}
 				}
@@ -62,7 +63,32 @@ public class Lighthouse {
 
 	}
 
-	public static int getRadius(char[][] board){
+	/**
+	 * Find the radius of the biggest circle.
+	 * 
+	 * @param board
+	 *            containing empty space '.' or blocking '*'.
+	 * @return radius of the biggest circle.
+	 */
+	public static int getRadius(char[][] board) {
+		int[] rowWiseEmptySpaces = new int[board.length];
+		int[] colWiseEmptySpaces = new int[board.length];
+
+		for (int row = 0; row < board.length; row++) {
+			for (int col = 0; col < board.length; col++) {
+				// Continuous '.'
+				if (board[row][col] == '.') {
+					if (col > -1 &&  col < board.length - 2 && board[row][col + 1] == '.') {
+						rowWiseEmptySpaces[row]++;
+					} else if (col == board.length - 1 && board[row][col - 1] == '.'){
+						rowWiseEmptySpaces[row]++;
+					}
+					colWiseEmptySpaces[col]++;
+				}
+			}
+		}
+		System.out.println(Arrays.toString(rowWiseEmptySpaces));
+		System.out.println(Arrays.toString(colWiseEmptySpaces));
 		return 0;
 	}
 }
