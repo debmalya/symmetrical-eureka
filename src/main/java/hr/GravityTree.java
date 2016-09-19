@@ -61,11 +61,11 @@ public class GravityTree {
 			// The second line contains n - 1 space-separated integers where the
 			// k th integer denotes the parent vertex of vertex k + 1.
 			// First one is the parent vertex.
-			for (int i = 1; i < n; i++) {
+			for (int i = 0; i < n - 1; i++) {
 				arr[i] = in.nextInt();
 			}
 
-			Map<Integer, List<Integer>> childMap = createTree(arr);
+			Map<Integer, List<Integer>> gravityMap = createTree(arr);
 			// The next line contains an integer, q , denoting the number of
 			// experiments she plans to perform.
 			int q = in.nextInt();
@@ -79,7 +79,7 @@ public class GravityTree {
 			for (int i = 0; i < q; i++) {
 				u[i] = in.nextInt();
 				v[i] = in.nextInt();
-				r[i] = getResult(childMap, u[i], v[i]);
+				r[i] = getResult(gravityMap, u[i], v[i]);
 			}
 
 			for (int i = 0; i < q; i++) {
@@ -104,19 +104,70 @@ public class GravityTree {
 			// It is from root every node will be considered.
 			return calculateChildForce(gravityMap, u, v) + calculateParentForce(gravityMap, u, v);
 		} else {
-			int[] nodes = turnOn(gravityMap,v);
-			return 0;
+			Integer[] nodes = turnOn(gravityMap, v);
+			int distance = 0;
+			// First get the distance from u to v.
+			boolean found = false;
+			int value = v;
+			while (!found) {
+				Integer parent = childMap.get(value);
+				if (parent == u) {
+					found = true;
+				}
+				value = parent; 
+				distance++;
+			}
+
+			// Add the force  between u and v.
+			
+			// Then add that distance with every element of nodes. Square that
+			// distance add with distance.
+			int f = (int) Math.pow(distance, 2);
+			for (int i = 0; i < nodes.length; i++) {
+				f += Math.pow(nodes[i] + distance, 2);
+			}
+			return f;
 		}
 	}
 
-	/**If v is turned on, which nodes will be considered.
-	 * @param gravityMap - contains all child nodes and parents.
-	 * @param v - node to be turned on.
+	/**
+	 * If v is turned on, which nodes will be considered. Distance of those
+	 * nodes from v.
+	 * 
+	 * @param gravityMap
+	 *            - contains all child nodes and parents.
+	 * @param v
+	 *            - node to be turned on.
 	 * @return - Nodes to be considered.
 	 */
-	private static int[] turnOn(Map<Integer, List<Integer>> gravityMap, int v) {
-		// TODO Auto-generated method stub
-		return null;
+	private static Integer[] turnOn(Map<Integer, List<Integer>> gravityMap, int v) {
+		List<Integer> urChildren = gravityMap.get(v);
+		List<Integer> distances = new ArrayList<>();
+		// Continue for grand children and so on.
+		List<Integer> grandChildren = new ArrayList<>();
+		for (int i = 0; i < urChildren.size(); i++) {
+			distances.add(1);
+			grandChildren.add(urChildren.get(i));
+		}
+		int distance = 2;
+		while (!grandChildren.isEmpty()){
+			List<Integer> nextLevel = new ArrayList<Integer>();
+			for (int i = 0; i < grandChildren.size(); i++){
+				List<Integer> children = gravityMap.get(grandChildren.get(i));
+				if (children != null && !children.isEmpty()){
+					distances.add(distance);
+					nextLevel.addAll(children);
+				}
+				
+				if (i == grandChildren.size() - 1){
+					grandChildren.clear();
+					grandChildren.addAll(nextLevel);
+					distance++;
+				}
+			}
+		}
+
+		return distances.toArray(new Integer[0]);
 	}
 
 	/**
@@ -197,6 +248,14 @@ public class GravityTree {
 			childMap.put(currentNode, arr[i]);
 		}
 		return gravityMap;
+	}
+
+	public static LinkedHashMap<Integer, Integer> getChildMap() {
+		return childMap;
+	}
+
+	public static void setChildMap(LinkedHashMap<Integer, Integer> childMap) {
+		GravityTree.childMap = childMap;
 	}
 
 }
