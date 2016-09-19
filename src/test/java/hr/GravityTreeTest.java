@@ -40,13 +40,29 @@ public class GravityTreeTest {
 		Assert.assertTrue(gravityMap.get(2).contains(4));
 		Assert.assertTrue(gravityMap.get(4).contains(5));
 		System.out.println(gravityMap);
+		System.out.println(GravityTree.getChildMap());
 		
 		int actual = GravityTree.getResult(gravityMap,2,1);
 		Assert.assertEquals(7, actual);
 		System.out.println(gravityMap);
+		System.out.println(GravityTree.getChildMap());
 		
 		actual = GravityTree.getResult(gravityMap,1,4);
-//		Assert.assertEquals(13, actual);
+		Assert.assertEquals(13, actual);
+		System.out.println(gravityMap);
+		System.out.println(GravityTree.getChildMap());
+		
+		gravityMap = GravityTree.createTree(new int[]{1,2,2,4,5});
+		actual = GravityTree.getResult(gravityMap,1,4);
+		Assert.assertEquals(29, actual);
+		System.out.println(gravityMap);
+		System.out.println(GravityTree.getChildMap());
+		
+		gravityMap = GravityTree.createTree(new int[]{1,2,2,4,5,6});
+		actual = GravityTree.getResult(gravityMap,1,4);
+		Assert.assertEquals(54, actual);
+		System.out.println(gravityMap);
+		System.out.println(GravityTree.getChildMap());
 	}
 
 }
