@@ -25,17 +25,25 @@ import org.junit.Test;
 public class StringUtilTest {
 
 	/**
-	 * Test method for {@link cf.StringUtil#IsPermutationOf(java.lang.String, java.lang.String)}.
+	 * Test method for
+	 * {@link cf.StringUtil#IsPermutationOf(java.lang.String, java.lang.String)}
+	 * .
 	 */
 	@Test
 	public void testIsPermutationOf() {
 		Assert.assertTrue(StringUtil.IsPermutationOf("abc", "bca"));
 		Assert.assertFalse(StringUtil.IsPermutationOf("abc", "def"));
-		Assert.assertTrue(StringUtil.IsPermutationOf("alphabet","tpaealhb"));
+		Assert.assertTrue(StringUtil.IsPermutationOf("alphabet", "tpaealhb"));
 		Assert.assertFalse(StringUtil.IsPermutationOf("abccbab", "aabbcc"));
 		Assert.assertFalse(StringUtil.IsPermutationOf("bCbD", "BEac"));
 		Assert.assertFalse(StringUtil.IsPermutationOf("abc", "abcd"));
-		Assert.assertTrue(StringUtil.IsPermutationOf("pineapple","enpielapp"));
+		Assert.assertTrue(StringUtil.IsPermutationOf("pineapple", "enpielapp"));
+	}
+
+	@Test
+	public void testtruncateOnlyText() {
+		String actual = StringUtil.truncateOnlyText( "Lorem ipsum <i>dolor</i> <span>sit</span> amet, <b>eu nonumes facilis</b> reprimique vel, mutat persequeris pri ex.", 38);
+		Assert.assertEquals("Lorem ipsum <i>dolor</i> <span>sit</span> amet, <b>eu nonumes", actual);
 	}
 
 }
