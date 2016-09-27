@@ -16,8 +16,10 @@
 package hr;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 /**
  * @author debmalyajash
@@ -44,21 +46,51 @@ public class TwoCharacters {
 				numberOfSameAdjacentCharacters = removeTwoSimilarAdjacentCharacters();
 			}
 
-			// maximum length with two alternating characters
-			while (typeOfCharacters != 2) {
-
-			}
-
-			System.out.println();
+			System.out.println(getLongestAlternateLength());
 
 		}
+	}
+
+	public static int getLongestAlternateLength() {
+		char a = 'a';
+		int maxLength = 0;
+		Set<String> alreadyProcessedString = new HashSet<>();
+		for (int i = 0; i < 26; i++) {
+			String s = str;
+			s = s.replace("" + a, "");
+			if (!alreadyProcessedString.contains(s) && altering(s)) {
+				maxLength = Math.max(maxLength, s.length());
+			}
+			a++;
+			alreadyProcessedString.add(s);
+		}
+		
+		
+		return maxLength;
 	}
 
 	/**
 	 * @param s
 	 * @return
 	 */
-	private static int removeTwoSimilarAdjacentCharacters() {
+	public static boolean altering(String s) {
+		char[] v = s.toCharArray();
+		if (s.length() < 2){
+			return false;
+		}
+		for (int i = 2; i < s.length(); i++) {
+			if (v[i -2] != v[i]) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * @param s
+	 * @return
+	 */
+	public static int removeTwoSimilarAdjacentCharacters() {
 		char prev = ' ';
 		List<Character> charactersToBeRemoved = new ArrayList<>();
 		typeOfCharacters = 0;
@@ -89,31 +121,13 @@ public class TwoCharacters {
 		return count - 1;
 	}
 
-	/**
-	 * @param s
-	 * @param charactersToBeRemoved
-	 * @param characterCount
-	 */
-	public static void createStringWithAllternateSameCharacter(String s, List<Character> charactersToBeRemoved,
-			int[] characterCount) {
+	
+	public static String getStr() {
+		return str;
+	}
 
-		// Remove those single occurrence characters.
-		int typeOfCharacters = 0;
-		if (s.length() > 2) {
-			for (int i = 0; i < 26; i++) {
-				if (characterCount[i] == 1) {
-					s = s.replace("" + (char) ('a' + i), "");
-				} else if (characterCount[i] > 0) {
-					typeOfCharacters++;
-				}
-			}
-		}
-
-		while (typeOfCharacters == 2) {
-
-		}
-
-		System.out.println(s.length());
+	public static void setStr(String str1) {
+		str = str1;
 	}
 
 }
