@@ -30,7 +30,7 @@ public class SmallRiskTrading {
 	 */
 	public static void main(String[] args) {
 		try (Scanner in = new Scanner(System.in)) {
-			DecimalFormat df = new DecimalFormat("####0.00");
+			DecimalFormat df = new DecimalFormat("#####.00");
 			// the number of trades available
 			int n = in.nextInt();
 			// the maximum number of trades allowed
