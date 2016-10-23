@@ -41,7 +41,7 @@ public class SmallRiskTradingTest {
 		Assert.assertEquals(1.50f, actual,0.00d);
 		
 		actual = SmallRiskTrading.getMaxProfit(2, 2,  new float[]{1.0f, 0.5f}, new float[]{100.0f, 0.4f},new float[]{0.9f ,0.5f});
-		Assert.assertEquals(0.05, actual,0.00d);
+		Assert.assertEquals(0.05, actual,0.0001d);
 	}
 
 }
