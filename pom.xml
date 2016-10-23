@@ -84,6 +84,13 @@
 			<artifactId>stdlib</artifactId>
 			<version>1.0.1</version>
 		</dependency>
+			
+		<!-- https://mvnrepository.com/artifact/fm.void.jetm/jetm -->
+		<dependency>
+			<groupId>fm.void.jetm</groupId>
+			<artifactId>jetm</artifactId>
+			<version>1.2.3</version>
+		</dependency>
 
 	</dependencies>
 

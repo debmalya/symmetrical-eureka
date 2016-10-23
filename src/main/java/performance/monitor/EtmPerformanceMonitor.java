@@ -13,44 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package hr;
-
+package performance.monitor;
 
 import java.util.Scanner;
-
 
 /**
  * @author debmalyajash
  *
  */
-public class SummingPieces {
+public class EtmPerformanceMonitor {
+	
+	
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-
 		try (Scanner in = new Scanner(System.in)){
 			int n = in.nextInt();
 			int[] arr = new int[n];
-			int mod = 1000000009;
-			int sum = 0;
-			int mul =  (n * (n  + 1)) / 2;
+			
 			for (int i = 0; i < n; i++){
 				arr[i] = in.nextInt();
-				if (i <= n / 2){
-					mul++;
-				} else {
-					mul--;
-				}
-				sum = (sum + arr[i] * mul ) % mod;
 			}
 			
-			System.out.println(sum);
+			
 		}
-
-		// TODO Auto-generated method stub
-
 
 	}
 

@@ -90,8 +90,10 @@ public class StringUtil {
 	 * each opening tag there is a closing tag, and there are no nested tags.It
 	 * is also guaranteed that symbols < and > appear only in HTML tags.
 	 * 
-	 * @param text containing HTML tags.
-	 * @param position given position.
+	 * @param text
+	 *            containing HTML tags.
+	 * @param position
+	 *            given position.
 	 * @return The returned text should also contain only valid HTML tags. If
 	 *         the text should be truncated in the middle of some text wrapped
 	 *         into the tags, the resulting string should not contain this tag.
@@ -105,27 +107,61 @@ public class StringUtil {
 	 */
 	public static String truncateOnlyText(String text, int position) {
 		StringBuilder t = new StringBuilder();
+		int start = 0;
+		int end = 0;
 		int s = 0;
 		int i = 0, l = 0;
+		int e = 0;
+		char p = ' ';
 		for (; i < text.length(); i++) {
 			char c = text.charAt((i));
-			if (c == '<'){
+			if (c == '<') {
 				s = 1;
-			} 
-			if (s == 0){
+				start = i;
+			}
+			if (s == 0) {
 				l++;
 			}
 			if (l == position) {
 				break;
 			}
-			if (s == 1){
+			if (s == 1) {
 				t.append(c);
 			}
-			if (c == '>'){
+			if (c == '>') {
 				s = 0;
-				t.delete(0, t.length());
+				end = i;
+				if (e == 1) {
+					t.delete(0, t.length());
+					e = 0;
+				}
+
+			}
+			if (p == '/' && s == 1) {
+				// Beginning of end
+				e = 1;
+			}
+			p = c;
+		}
+
+		// What next, any HTML tag?
+		String a = "";
+		if (i < text.length() - 1) {
+			if (text.charAt(i + 1) == '<' && text.charAt(i) != ' ') {
+				int j = i + 1;
+				p = text.charAt(j);
+				while (p != '>') {
+					a += p;
+					j++;
+					p = text.charAt(j);
+				}
+				a += ">";
 			}
 		}
-		return text.substring(0,i + 1);
+		if (t.length() == 0) {
+			return text.substring(0, i + 1) + a;
+		} else {
+			return text.substring(0, start) + text.substring(end + 1, i + 1) + a;
+		}
 	}
 }

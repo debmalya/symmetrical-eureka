@@ -15,43 +15,25 @@
  */
 package hr;
 
+import org.junit.Assert;
+import org.junit.Test;
 
-import java.util.Scanner;
 
 
 /**
  * @author debmalyajash
  *
  */
-public class SummingPieces {
+public class LearningFromPastTest {
 
 	/**
-	 * @param args
+	 * Test method for {@link hr.LearningFromPast#getMaxProfit(int[][])}.
 	 */
-	public static void main(String[] args) {
-
-		try (Scanner in = new Scanner(System.in)){
-			int n = in.nextInt();
-			int[] arr = new int[n];
-			int mod = 1000000009;
-			int sum = 0;
-			int mul =  (n * (n  + 1)) / 2;
-			for (int i = 0; i < n; i++){
-				arr[i] = in.nextInt();
-				if (i <= n / 2){
-					mul++;
-				} else {
-					mul--;
-				}
-				sum = (sum + arr[i] * mul ) % mod;
-			}
-			
-			System.out.println(sum);
-		}
-
-		// TODO Auto-generated method stub
-
-
+	@Test
+	public void testGetMaxProfit() {
+		int[][] dayTrading = new int[][]{{1, 2, 3},{3 ,3, 0}};
+		int actual = LearningFromPast.getMaxProfit(dayTrading);
+		Assert.assertEquals(6, actual);
 	}
 
 }

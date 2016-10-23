@@ -43,7 +43,14 @@ public class StringUtilTest {
 	@Test
 	public void testtruncateOnlyText() {
 		String actual = StringUtil.truncateOnlyText( "Lorem ipsum <i>dolor</i> <span>sit</span> amet, <b>eu nonumes facilis</b> reprimique vel, mutat persequeris pri ex.", 38);
-		Assert.assertEquals("Lorem ipsum <i>dolor</i> <span>sit</span> amet, <b>eu nonumes", actual);
+		Assert.assertEquals("Lorem ipsum <i>dolor</i> <span>sit</span> amet, eu nonumes", actual);
+		
+		actual = StringUtil.truncateOnlyText( "You ordered <b>two</b> pizzas with <i>mushrooms</i> and vanilla <i>milkshake</i>.", 50);
+		Assert.assertEquals("You ordered <b>two</b> pizzas with <i>mushrooms</i> and vanilla ", actual);
+		
+		actual = StringUtil.truncateOnlyText(  "Welcome to the <a href=\"/hotels\">hotel</a> California.", 20);
+		Assert.assertEquals("Welcome to the <a href=\"/hotels\">hotel</a>", actual);
+		
 	}
 
 }

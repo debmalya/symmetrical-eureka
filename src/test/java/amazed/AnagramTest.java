@@ -22,5 +22,12 @@ public class AnagramTest {
 		wordList.add("false");
 		Assert.assertFalse(Anagram.isAnagram(wordList));
 	}
+	
+	@Test
+	public void testNumberNeeded(){
+		int actual = Anagram.numberNeeded("fcrxzwscanmligyxyvym", "jxwtrhvujlmrpdoqbisbwhmgpmeoke");
+		int expected = 30;
+		Assert.assertEquals(expected, actual);
+	}
 
 }
