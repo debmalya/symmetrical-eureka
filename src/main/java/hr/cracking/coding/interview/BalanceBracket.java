@@ -39,7 +39,7 @@ public class BalanceBracket {
 
 			for (int i = 0; i < n; i++) {
 				inputs[i] = in.nextLine();
-				
+
 			}
 
 			for (int i = 0; i < n; i++) {
@@ -54,7 +54,8 @@ public class BalanceBracket {
 	}
 
 	/**
-	 * @param nextLine - to be checked whether brackets are balanced or not.
+	 * @param nextLine
+	 *            - to be checked whether brackets are balanced or not.
 	 * @return true if brackets are balanced false otherwise.
 	 */
 	public static boolean isBalanced(String nextLine) {
@@ -75,21 +76,27 @@ public class BalanceBracket {
 				if (lastEntered != '(') {
 					return false;
 				}
-				brackets.pop();
+				if (!brackets.isEmpty()) {
+					brackets.pop();
+				}
 				break;
 
 			case '}':
 				if (lastEntered != '{') {
 					return false;
 				}
-				brackets.pop();
+				if (!brackets.isEmpty()) {
+					brackets.pop();
+				}
 				break;
 
 			case ']':
 				if (lastEntered != '[') {
 					return false;
 				}
-				brackets.pop();
+				if (!brackets.isEmpty()) {
+					brackets.pop();
+				}
 				break;
 
 			default:

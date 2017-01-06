@@ -44,12 +44,26 @@ public class BalanceBracketTest {
 		Assert.assertFalse(BalanceBracket.isBalanced("{[(])}"));
 		Assert.assertTrue(BalanceBracket.isBalanced("{{[[(())]]}}"));
 		Assert.assertFalse(BalanceBracket.isBalanced("{{[[(("));
+		Assert.assertFalse(BalanceBracket.isBalanced("}}]]))"));
 	}
 
 	@Test
 	public void testSystem() {
 		List<String> inputList = readFile("./src/main/resources/BalanceBracket_Input.rtf");
 		Assert.assertEquals(1001, inputList.size());
+		
+		List<String> outputList = readFile("./src/main/resources/BalanceBracket_Output.rtf");
+		Assert.assertEquals(1000, outputList.size());
+		
+		for (int i = 1; i < inputList.size(); i++){
+			String input = inputList.get(i);
+			boolean result = BalanceBracket.isBalanced(input);
+			if (result && !outputList.get(i - 1).equals("YES")) {
+				Assert.assertFalse(i + " Expected 'YES' but found 'NO'" + input,true);
+			} else if (!result && outputList.get(i - 1).equals("YES")) {
+				Assert.assertFalse(i + " Expected 'NO' but found 'YES'" + input,true);
+			}
+		}
 
 	}
 
