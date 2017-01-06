@@ -15,43 +15,48 @@
  */
 package hr;
 
-
 import java.util.Scanner;
-
 
 /**
  * @author debmalyajash
  *
  */
-public class SummingPieces {
+public class AppendDelete {
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-
-		try (Scanner in = new Scanner(System.in)){
-			int n = in.nextInt();
-			int[] arr = new int[n];
-			int mod = 1000000009;
-			int sum = 0;
-			int mul =  (n * (n  + 1)) / 2;
-			for (int i = 0; i < n; i++){
-				arr[i] = in.nextInt();
-				if (i <= n / 2){
-					mul++;
-				} else {
-					mul--;
-				}
-				sum = (sum + arr[i] * mul ) % mod;
-			}
-			
-			System.out.println(sum);
+		try (Scanner in = new Scanner(System.in)) {
+			String s = in.next();
+			String t = in.next();
+			int k = in.nextInt();
+			System.out.println(isPossible(s,t,k));
 		}
 
-		// TODO Auto-generated method stub
+	}
 
-
+	/**
+	 * @param s
+	 * @param t
+	 * @param k
+	 * @return
+	 */
+	public static String isPossible(String s, String t, int k) {
+		int len = s.length() > t.length() ? t.length() : s.length();
+		int diff  = 0;
+		for (int i = 0; i < len; i++) {
+			if (s.charAt(i) != t.charAt(i)){
+				diff += s.length() - i;
+				diff += t.length() - i;
+				break;
+			}
+		}
+		
+		if (diff > k) {
+			return "No";
+		}
+		return "Yes";
 	}
 
 }

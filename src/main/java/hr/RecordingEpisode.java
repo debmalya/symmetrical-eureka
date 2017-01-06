@@ -15,43 +15,48 @@
  */
 package hr;
 
-
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
-
 
 /**
  * @author debmalyajash
  *
  */
-public class SummingPieces {
+public class RecordingEpisode {
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-
 		try (Scanner in = new Scanner(System.in)){
-			int n = in.nextInt();
-			int[] arr = new int[n];
-			int mod = 1000000009;
-			int sum = 0;
-			int mul =  (n * (n  + 1)) / 2;
-			for (int i = 0; i < n; i++){
-				arr[i] = in.nextInt();
-				if (i <= n / 2){
-					mul++;
-				} else {
-					mul--;
+			int q = in.nextInt();
+			for (int i = 0; i < q; i++){
+				int[] arr = new int[4];
+				for (int j = 0; j < 4; j++){
+					arr[0] = in.nextInt();
+					arr[1] = in.nextInt();
+					arr[2] = in.nextInt();
+					arr[3] = in.nextInt();
 				}
-				sum = (sum + arr[i] * mul ) % mod;
 			}
 			
-			System.out.println(sum);
 		}
 
-		// TODO Auto-generated method stub
-
-
+	}
+	
+	public static class Season {
+		List<Show> showList = new ArrayList<>();
+		
+		public void addShow(Show show){
+			showList.add(show);
+		}
+		
+	}
+	public static class Show {
+		boolean repeat;
+		int start;
+		int end;
 	}
 
 }

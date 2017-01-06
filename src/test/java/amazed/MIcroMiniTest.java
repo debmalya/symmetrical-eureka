@@ -13,9 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package hr;
+package amazed;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -23,25 +22,21 @@ import org.junit.Test;
  * @author debmalyajash
  *
  */
-public class SmallRiskTradingTest {
+public class MIcroMiniTest {
 
 	/**
-	 * @throws java.lang.Exception
-	 */
-	@After
-	public void tearDown() throws Exception {
-	}
-
-	/**
-	 * Test method for {@link hr.SmallRiskTrading#getMaxProfit(int, int, float[], float[], float[])}.
+	 * Test method for {@link amazed.MIcroMini#getNumberOfCombinations(java.lang.String)}.
 	 */
 	@Test
-	public void testGetMaxProfit() {
-		float actual = SmallRiskTrading.getMaxProfit(4, 2,  new float[]{4.0f, 1.0f, 2.0f, 3.0f}, new float[]{4.0f, 0.5f, 1.0f, 1.0f},new float[]{0.5f ,0.5f, 0.5f, 0.5f});
-		Assert.assertEquals(1.50f, actual,0.00d);
+	public final void testGetNumberOfCombinations() {
+		int result = MIcroMini.getNumberOfCombinations("abcd");
+		Assert.assertEquals(4,result);
 		
-		actual = SmallRiskTrading.getMaxProfit(2, 2,  new float[]{1.0f, 0.5f}, new float[]{100.0f, 0.4f},new float[]{0.9f ,0.5f});
-		Assert.assertEquals(0.05, actual,0.0001d);
+		result = MIcroMini.getNumberOfCombinations("aba");
+		Assert.assertEquals(3,result);
+		
+		result = MIcroMini.getNumberOfCombinations("aaa");
+		Assert.assertEquals(1,result);
 	}
 
 }

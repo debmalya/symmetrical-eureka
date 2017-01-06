@@ -15,7 +15,6 @@
  */
 package hr;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -23,25 +22,15 @@ import org.junit.Test;
  * @author debmalyajash
  *
  */
-public class SmallRiskTradingTest {
+public class AppendDeleteTest {
 
 	/**
-	 * @throws java.lang.Exception
-	 */
-	@After
-	public void tearDown() throws Exception {
-	}
-
-	/**
-	 * Test method for {@link hr.SmallRiskTrading#getMaxProfit(int, int, float[], float[], float[])}.
+	 * Test method for {@link hr.AppendDelete#isPossible(java.lang.String, java.lang.String, int)}.
 	 */
 	@Test
-	public void testGetMaxProfit() {
-		float actual = SmallRiskTrading.getMaxProfit(4, 2,  new float[]{4.0f, 1.0f, 2.0f, 3.0f}, new float[]{4.0f, 0.5f, 1.0f, 1.0f},new float[]{0.5f ,0.5f, 0.5f, 0.5f});
-		Assert.assertEquals(1.50f, actual,0.00d);
-		
-		actual = SmallRiskTrading.getMaxProfit(2, 2,  new float[]{1.0f, 0.5f}, new float[]{100.0f, 0.4f},new float[]{0.9f ,0.5f});
-		Assert.assertEquals(0.05, actual,0.0001d);
+	public final void testIsPossible() {
+		Assert.assertEquals("Yes", AppendDelete.isPossible("Hackerrank", "Hackerhappy", 9));
+		Assert.assertEquals("Yes", AppendDelete.isPossible("aba","aba",7));
 	}
 
 }

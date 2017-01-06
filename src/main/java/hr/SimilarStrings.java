@@ -15,42 +15,44 @@
  */
 package hr;
 
-
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
-
 
 /**
  * @author debmalyajash
  *
  */
-public class SummingPieces {
+public class SimilarStrings {
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-
 		try (Scanner in = new Scanner(System.in)){
 			int n = in.nextInt();
-			int[] arr = new int[n];
-			int mod = 1000000009;
-			int sum = 0;
-			int mul =  (n * (n  + 1)) / 2;
-			for (int i = 0; i < n; i++){
-				arr[i] = in.nextInt();
-				if (i <= n / 2){
-					mul++;
-				} else {
-					mul--;
+			int q = in.nextInt();
+			String s = in.next();
+			int[] re = new int[q];
+			for (int i = 0; i < q; i++){
+				int l = in.nextInt();
+				int r = in.nextInt();
+				
+				List<char[]> similars = new ArrayList<>();
+				for (int a = 0; a < s.length() - r; a++){
+					int size = r - l;
+					char[] s1 = s.substring(a, a + ( r - l)).toCharArray();
+					if (r - l == 1){
+						similars.add(s1);
+					}
 				}
-				sum = (sum + arr[i] * mul ) % mod;
+				re[i] = similars.size();
 			}
 			
-			System.out.println(sum);
+			for (int i = 0; i < q; i++){
+				System.out.println(re[i]);
+			}
 		}
-
-		// TODO Auto-generated method stub
-
 
 	}
 
