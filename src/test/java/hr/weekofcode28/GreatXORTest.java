@@ -31,8 +31,54 @@ public class GreatXORTest {
 	 */
 	@Test
 	public void testGetHigherXOR() {
-		long actual = GreatXOR.getHigherXOR(10);
+	
+		long actual = GreatXOR.getHigherXOR(1);
+		Assert.assertEquals(0, actual);
+		
+		actual = GreatXOR.getHigherXOR(4);
+		Assert.assertEquals(3, actual);
+		
+		actual = GreatXOR.getHigherXOR(8);
+		Assert.assertEquals(7, actual);
+		
+		actual = GreatXOR.getHigherXOR(16);
+		Assert.assertEquals(15, actual);
+		
+		actual = GreatXOR.getHigherXOR(2);
+		Assert.assertEquals(1, actual);
+		
+		actual = GreatXOR.getHigherXOR(3);
+		Assert.assertEquals(0, actual);
+		
+		actual = GreatXOR.getHigherXOR(5);
+		Assert.assertEquals(2, actual);
+		
+		actual = GreatXOR.getHigherXOR(10);
 		Assert.assertEquals(5, actual);
+		
+		actual = GreatXOR.getHigherXOR(6);
+		Assert.assertEquals(1, actual);
+		
+		
+	}
+	
+	@Test
+	public void testIsPowerOfTwo(){
+		boolean isPowerOfTwo = GreatXOR.isPowerOfTwo(1);
+		Assert.assertTrue(isPowerOfTwo);
+		
+		isPowerOfTwo = GreatXOR.isPowerOfTwo(2);
+		Assert.assertTrue(isPowerOfTwo);
+		
+		isPowerOfTwo = GreatXOR.isPowerOfTwo(3);
+		Assert.assertFalse(isPowerOfTwo);
+	}
+	
+	@Test
+	public void testNextPowerOfTwo(){
+		GreatXOR.nextPowerOfTwo(2);
+		GreatXOR.nextPowerOfTwo(3);
+		GreatXOR.nextPowerOfTwo(4);
 	}
 
 }

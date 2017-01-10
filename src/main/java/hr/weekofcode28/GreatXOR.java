@@ -45,7 +45,7 @@ public class GreatXOR {
 	/**
 	 * @param x
 	 */
-	public static long getHigherXOR(long x) {
+	public static long getHigherXOR0(long x) {
 		long result = 0;
 		String value = Long.toBinaryString(x);
 		// Get the position where it has '1'.
@@ -63,14 +63,52 @@ public class GreatXOR {
 						number *=  2;
 						position--;
 					}
-					
-					result += x - number + 1; 
+					if (number == x){
+						return x - 1;
+					}
+					result += x - number + ((x > 1) ? 1 : 0); 
 				} else {
 					result += (position - 1) * 2;
 				}
 			}
 		}
 		return result;
+	}
+	
+	public static long getHigherXOR1(long x) {
+		long p = nextPowerOfTwo(x);
+		if (p == x){
+			return x - 1;
+		}
+		
+		System.out.println(Long.toBinaryString(p));
+		System.out.println(Long.toBinaryString(~x));
+		
+		return (p ^ (~x >> 64)) ;
+	}
+	
+	public static long getHigherXOR(long x) {
+		
+		return nonLeadingZeroComplement(x);
+	}
+
+	public static boolean isPowerOfTwo (long x)
+	{
+	  return ((x != 0) && ((x & (~x + 1)) == x));
+	}
+	
+	public static long nextPowerOfTwo (long x)
+	{
+	  int i = 1;
+	  while (i < x){
+		  i <<= 1;
+	  }
+	  return i;
+	}
+	
+	private static long nonLeadingZeroComplement(long i) {
+	    long ones = (Long.highestOneBit(i) << 1) - 1;
+	    return i ^ ones;
 	}
 
 }
