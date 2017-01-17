@@ -21,26 +21,36 @@ package hr.cracking.coding.interview;
  */
 public class IsThisBinarySearchTree {
 
-	public static boolean checkBST(Node root) {
+	public static boolean checkBST0(Node root) {
 		if (root != null) {
 			if (root.left != null && root.right != null) {
 				if (root.data <= root.left.data || root.data >= root.right.data) {
 					return false;
 				}
-				return checkBST(root.left) && checkBST(root.right);
+				return checkBST0(root.left) && checkBST0(root.right);
 			} else if (root.left != null) {
 				if (root.data <= root.left.data) {
 					return false;
 				}
-				return checkBST(root.left);
+				return checkBST0(root.left);
 			} else if (root.right != null) {
 				if (root.data >= root.right.data) {
 					return false;
 				}
-				return checkBST(root.right);
+				return checkBST0(root.right);
 			}
 		}
 		return true;
 	}
+	
+	public static boolean checkBST(Node root) {
+        return checkBST(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    }
+    public static boolean checkBST(Node node, int min, int max) {
+        if (node == null) return true;
+        return  min < node.data && node.data < max && 
+            checkBST(node.left, min, node.data) && 
+            checkBST(node.right, node.data, max);
+    }
 
 }
