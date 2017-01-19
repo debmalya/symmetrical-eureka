@@ -52,7 +52,7 @@ public class TwoStackQueue {
 					value = stackNewestOnTop.pop();
 					stackOldestOnTop.push(value);
 				}
-				newestPop = false;
+//				newestPop = false;
 				peekValue = value;
 
 				while (popCount > 0) {
@@ -66,7 +66,7 @@ public class TwoStackQueue {
 					value = stackOldestOnTop.pop();
 					stackNewestOnTop.push(value);
 				}
-				newestPop = true;
+//				newestPop = true;
 				peekValue = value;
 
 				while (popCount > 0) {

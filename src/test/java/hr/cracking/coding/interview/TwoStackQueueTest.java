@@ -39,5 +39,26 @@ public class TwoStackQueueTest {
 		newQueue.enqueue(78);
 		Assert.assertEquals(78,newQueue.stackNewestOnTop.peek().intValue());
 	}
+	
+	@Test
+	public final void testPeek() {
+		
+		TwoStackQueue.MyQueue<Integer> newQueue = new TwoStackQueue.MyQueue<>();
+		newQueue.enqueue(42);
+		Assert.assertEquals(42,newQueue.stackNewestOnTop.peek().intValue());
+		Assert.assertEquals(42,newQueue.peek().intValue());
+		newQueue.enqueue(14);
+		Assert.assertEquals(14,newQueue.stackOldestOnTop.peek().intValue());
+		Assert.assertEquals(42,newQueue.peek().intValue());
+		newQueue.enqueue(28);
+		Assert.assertEquals(28,newQueue.stackNewestOnTop.peek().intValue());
+		Assert.assertEquals(42,newQueue.peek().intValue());
+		newQueue.enqueue(60);
+		Assert.assertEquals(60,newQueue.stackOldestOnTop.peek().intValue());
+		Assert.assertEquals(42,newQueue.peek().intValue());
+		newQueue.enqueue(78);
+		Assert.assertEquals(78,newQueue.stackNewestOnTop.peek().intValue());
+		Assert.assertEquals(42,newQueue.peek().intValue());
+	}
 
 }
