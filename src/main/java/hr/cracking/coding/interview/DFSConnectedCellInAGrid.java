@@ -17,9 +17,12 @@ package hr.cracking.coding.interview;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 /**
  * @author debmalyajash
@@ -65,7 +68,7 @@ public class DFSConnectedCellInAGrid {
 	}
 
 	static class Region {
-		List<Integer> cellList = new ArrayList<>();
+		Set<Integer> cellList = new HashSet<>();
 
 		/*
 		 * (non-Javadoc)
@@ -92,6 +95,8 @@ public class DFSConnectedCellInAGrid {
 		// Key is the cell id and value is the region id.
 		Map<Integer, Integer> cellNRegionMap = new HashMap<>();
 
+		Set<Integer> overlappingRegion = new HashSet<>();
+
 		for (int i = 0; i < rowOfMatrix; i++) {
 			for (int j = 0; j < colOfMatrix; j++) {
 				if (cell[i][j] == 1) {
@@ -103,79 +108,99 @@ public class DFSConnectedCellInAGrid {
 					boolean regionFound = false;
 					Integer currentRegionID = cellNRegionMap.get(currentPosition);
 
-					if (currentRegionID == null) {
-						List<Integer> unalloctedList = new ArrayList<>();
-						for (int a = 0; a < dx.length; a++) {
+					// if (currentRegionID == null) {
+					List<Integer> unalloctedList = new ArrayList<>();
+					for (int a = 0; a < dx.length; a++) {
 
-							int new_i = i + dx[a];
-							int new_j = j + dy[a];
-							// System.out.println("Checking : (" + new_i + "," +
-							// new_j + ")");
-							
-							
-							if (new_i > -1 && new_i < rowOfMatrix && new_j > -1 && new_j < colOfMatrix
-									&& cell[i + dx[a]][j + dy[a]] == 1) {
-								int neighbourPosition = (i + dx[a]) * colOfMatrix + j + dy[a];
-								Integer regionID = cellNRegionMap.get(neighbourPosition);
-								if (regionID != null) {
-									Region matchedRegion = regionList.get(regionID);
-									if (!matchedRegion.cellList.contains(currentPosition)) {
-										matchedRegion.cellList.add(currentPosition);
-										if (matchedRegion.cellList.size() > maxSize) {
-											maxSize = matchedRegion.cellList.size();
-										}
-									}
+						int new_i = i + dx[a];
+						int new_j = j + dy[a];
+						// System.out.println("Checking : (" + new_i + "," +
+						// new_j + ")");
 
-									cellNRegionMap.put(currentPosition, regionID);
-									regionFound = true;
+						if (new_i > -1 && new_i < rowOfMatrix && new_j > -1 && new_j < colOfMatrix
+								&& cell[i + dx[a]][j + dy[a]] == 1) {
+							int neighbourPosition = (i + dx[a]) * colOfMatrix + j + dy[a];
+							Integer regionID = cellNRegionMap.get(neighbourPosition);
+							if (regionID != null) {
+								if (currentRegionID != null && currentRegionID != regionID) {
+									// System.err.println(currentPosition + "
+									// are in both region " + currentRegionID +
+									// " and in " + regionID);
+									overlappingRegion.add(currentRegionID);
+									overlappingRegion.add(regionID);
 
-								} else {
-//									System.out.println("currentPosition " + currentPosition + " current region :" + cellNRegionMap.get(neighbourPosition) + " neighbour " + neighbourPosition);
-									unalloctedList.add(neighbourPosition);
 								}
-							}
-						}
-
-						if (!regionFound) {
-							// Add new region
-							Region region = new Region();
-							region.cellList.add(currentPosition);
-							if (region.cellList.size() > maxSize) {
-								maxSize = region.cellList.size();
-							}
-							cellNRegionMap.put(currentPosition, regionList.size());
-							regionList.add(region);
-						}
-						
-						if (!unalloctedList.isEmpty()) {
-							Integer currentRegion = cellNRegionMap.get(currentPosition);
-							for (int ui = 0; ui < unalloctedList.size(); ui++){
-//								System.out.println(unalloctedList.get(ui)+ " will be allocated to region " + currentRegion + " currentPosition " + currentPosition);
-								
-								// Allocation to unallocated
-								Region matchedRegion = regionList.get(currentRegion);
-								int unallocated = unalloctedList.get(ui);
-								if (!matchedRegion.cellList.contains(unallocated)) {
-									matchedRegion.cellList.add(unallocated);
+								Region matchedRegion = regionList.get(regionID);
+								if (!matchedRegion.cellList.contains(currentPosition)) {
+									matchedRegion.cellList.add(currentPosition);
 									if (matchedRegion.cellList.size() > maxSize) {
 										maxSize = matchedRegion.cellList.size();
 									}
-									cellNRegionMap.put(unallocated, currentRegion);
-//									System.out.println(unallocated+ " allocated to region " + currentRegion + " .");
 								}
+
+								cellNRegionMap.put(currentPosition, regionID);
+								regionFound = true;
+
+							} else {
+								// System.out.println("currentPosition " +
+								// currentPosition + " current region :" +
+								// cellNRegionMap.get(neighbourPosition) + "
+								// neighbour " + neighbourPosition);
+								unalloctedList.add(neighbourPosition);
 							}
-							
 						}
-						
+					}
+
+					if (!regionFound) {
+						// Add new region
+						Region region = new Region();
+						region.cellList.add(currentPosition);
+						if (region.cellList.size() > maxSize) {
+							maxSize = region.cellList.size();
+						}
+						cellNRegionMap.put(currentPosition, regionList.size());
+						regionList.add(region);
+					}
+
+					if (!unalloctedList.isEmpty()) {
+						Integer currentRegion = cellNRegionMap.get(currentPosition);
+						for (int ui = 0; ui < unalloctedList.size(); ui++) {
+
+							// Allocation to unallocated
+							Region matchedRegion = regionList.get(currentRegion);
+							int unallocated = unalloctedList.get(ui);
+							if (!matchedRegion.cellList.contains(unallocated)) {
+								matchedRegion.cellList.add(unallocated);
+								if (matchedRegion.cellList.size() > maxSize) {
+									maxSize = matchedRegion.cellList.size();
+								}
+								cellNRegionMap.put(unallocated, currentRegion);
+							}
+						}
 
 					}
+
+					// }
 				}
 			}
 		}
 
-//		 System.out.println(regionList);
-//		 System.out.println(cellNRegionMap);
-		 System.out.println(maxSize);
+		// System.out.println(regionList);
+		// System.out.println(cellNRegionMap);
+		// System.out.println(maxSize);
+
+		if (!overlappingRegion.isEmpty()) {
+			Integer[] regions = overlappingRegion.toArray(new Integer[0]);
+			Region region1 = regionList.get(regions[0]);
+			Region region2 = regionList.get(regions[1]);
+
+			for (int i = 0; i < region2.cellList.size(); i++) {
+				region1.cellList.addAll(region2.cellList);
+			}
+			
+			maxSize = Math.max(maxSize, region1.cellList.size());
+
+		}
 
 		return maxSize;
 	}

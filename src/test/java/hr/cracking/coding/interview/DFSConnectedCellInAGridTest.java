@@ -53,6 +53,18 @@ public class DFSConnectedCellInAGridTest {
 
 		actual = DFSConnectedCellInAGrid.getMaxSize(matrix);
 		assertEquals(15, actual);
+
+		matrix = new int[][] { { 1, 1, 1, 1, 1 }, { 0, 0, 1, 0, 0 }, { 1, 1, 0, 1, 0 }, { 0, 1, 1, 0, 0 },
+				{ 0, 1, 0, 0, 0 }, { 0, 1, 0, 0, 0 }, { 0, 0, 0, 1, 0 } };
+
+		actual = DFSConnectedCellInAGrid.getMaxSize(matrix);
+		assertEquals(13, actual);
+
+		int[][] matrix1 = new int[][] { { 0, 1, 0, 0, 0, 0, 1, 1, 0 }, { 1, 1, 0, 0, 1, 0, 0, 0, 1 },
+				{ 0, 0, 0, 0, 1, 0, 1, 0, 0 }, { 0, 1, 1, 1, 0, 1, 0, 1, 1 }, { 0, 1, 1, 1, 0, 0, 1, 1, 0 },
+				{ 0, 1, 0, 1, 1, 0, 1, 1, 0 }, { 0, 1, 0, 0, 1, 1, 0, 1, 1 }, { 1, 0, 1, 1, 1, 1, 0, 0, 0 } };
+		int actual1 = DFSConnectedCellInAGrid.getMaxSize(matrix1);
+		assertEquals(29, actual1);
 	}
 
 }
