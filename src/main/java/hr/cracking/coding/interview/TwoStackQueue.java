@@ -23,77 +23,102 @@ import java.util.Stack;
  *
  */
 public class TwoStackQueue {
-	
-	 public static class MyQueue<T> {
-	        Stack<T> stackNewestOnTop = new Stack<T>();
-	        Stack<T> stackOldestOnTop = new Stack<T>();
 
-	        public void enqueue(T value) { // Push onto newest stack
-	        	stackNewestOnTop.push(value);
-	            T top = value;
-	            stackOldestOnTop.clear();
-	            Stack<T> temp = new Stack<T>();
-	            while (!stackNewestOnTop.isEmpty()){
-	            	top = stackNewestOnTop.pop();
-	                temp.push(top);
-	                stackOldestOnTop.push(top);
-	            }
-	            
-	            while (!temp.isEmpty()){
-	            	stackNewestOnTop.push(temp.pop());
-	            }
-	        }
+	public static class MyQueue<T> {
+		Stack<T> stackNewestOnTop = new Stack<T>();
+		Stack<T> stackOldestOnTop = new Stack<T>();
 
-	        public T peek() {
-	        	if (!stackOldestOnTop.isEmpty()) {
-	             return stackOldestOnTop.peek();
-	        	} else {
-	        		return null;
-	        	}
-	        }
+		private boolean newestPop = true;
+		private boolean newestPush = true;
 
-	        public T dequeue() {
-	        	T value = null;
-	        	Stack<T> temp = new Stack<T>();
-	            if (stackOldestOnTop != null && !stackOldestOnTop.isEmpty()){
-	                value = stackOldestOnTop.pop();
-	            }
-	            stackNewestOnTop.clear();
-	            
-	            while (!stackOldestOnTop.isEmpty()){
-	            	T top = stackOldestOnTop.pop();
-	                stackNewestOnTop.push(top);
-	                temp.push(top);
-	            }
-	            
-	            while (!temp.isEmpty()){
-	            	T top = temp.pop();
-	            	stackOldestOnTop.push(top);
-	            }
-	            return value;
-	        }
-	    }
+		public void enqueue(T value) { // Push onto newest stack
+			if (newestPush) {
+				stackNewestOnTop.push(value);
+				newestPush = false;
+			} else {
+				stackOldestOnTop.push(value);
+				newestPush = true;
+			}
+		}
+
+		public T peek() {
+			T value = null;
+			T peekValue = null;
+
+			int popCount = 0;
+			if (newestPop) {
+				while (!stackNewestOnTop.isEmpty()) {
+					popCount++;
+					value = stackNewestOnTop.pop();
+					stackOldestOnTop.push(value);
+				}
+				newestPop = false;
+				peekValue = value;
+
+				while (popCount > 0) {
+					stackNewestOnTop.push(stackOldestOnTop.pop());
+					popCount--;
+				}
+
+			} else {
+				while (!stackOldestOnTop.isEmpty()) {
+					popCount++;
+					value = stackOldestOnTop.pop();
+					stackNewestOnTop.push(value);
+				}
+				newestPop = true;
+				peekValue = value;
+
+				while (popCount > 0) {
+					stackOldestOnTop.push(stackNewestOnTop.pop());
+					popCount--;
+				}
+			}
+			return peekValue;
+		}
+
+		public T dequeue() {
+			T value = null;
+			Stack<T> temp = new Stack<T>();
+			if (stackOldestOnTop != null && !stackOldestOnTop.isEmpty()) {
+				value = stackOldestOnTop.pop();
+			}
+			stackNewestOnTop.clear();
+
+			while (!stackOldestOnTop.isEmpty()) {
+				T top = stackOldestOnTop.pop();
+				stackNewestOnTop.push(top);
+				temp.push(top);
+			}
+
+			while (!temp.isEmpty()) {
+				T top = temp.pop();
+				stackOldestOnTop.push(top);
+			}
+			return value;
+		}
+	}
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-MyQueue<Integer> queue = new MyQueue<Integer>();
-        
-        Scanner scan = new Scanner(System.in);
-        int n = scan.nextInt();
-        
-        for (int i = 0; i < n; i++) {
-            int operation = scan.nextInt();
-            if (operation == 1) { // enqueue
-                queue.enqueue(scan.nextInt());
-            } else if (operation == 2) { // dequeue
-                queue.dequeue();
-            } else if (operation == 3) { // print/peek
-                System.out.println(queue.peek());
-            }
-        }
-        scan.close();
+		MyQueue<Integer> queue = new MyQueue<Integer>();
+
+		Scanner scan = new Scanner(System.in);
+		int n = scan.nextInt();
+
+		for (int i = 0; i < n; i++) {
+			int operation = scan.nextInt();
+			if (operation == 1) { // enqueue
+				queue.enqueue(scan.nextInt());
+			} else if (operation == 2) { // dequeue
+				queue.dequeue();
+			} else if (operation == 3) { // print/peek
+				System.out.println(queue.peek());
+			}
+		}
+		scan.close();
 
 	}
 
