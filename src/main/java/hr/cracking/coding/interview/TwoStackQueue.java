@@ -79,23 +79,40 @@ public class TwoStackQueue {
 
 		public T dequeue() {
 			T value = null;
-			Stack<T> temp = new Stack<T>();
-			if (stackOldestOnTop != null && !stackOldestOnTop.isEmpty()) {
-				value = stackOldestOnTop.pop();
-			}
-			stackNewestOnTop.clear();
+			T peekValue = null;
 
-			while (!stackOldestOnTop.isEmpty()) {
-				T top = stackOldestOnTop.pop();
-				stackNewestOnTop.push(top);
-				temp.push(top);
-			}
+			int popCount = 0;
+			if (newestPop) {
+				while (!stackNewestOnTop.isEmpty()) {
+					popCount++;
+					value = stackNewestOnTop.pop();
+					stackOldestOnTop.push(value);
+				}
+				newestPop = false;
+				peekValue = value;
 
-			while (!temp.isEmpty()) {
-				T top = temp.pop();
-				stackOldestOnTop.push(top);
+				stackOldestOnTop.pop();
+				while (popCount > 1) {
+					stackNewestOnTop.push(stackOldestOnTop.pop());
+					popCount--;
+				}
+
+			} else {
+				while (!stackOldestOnTop.isEmpty()) {
+					popCount++;
+					value = stackOldestOnTop.pop();
+					stackNewestOnTop.push(value);
+				}
+				newestPop = true;
+				peekValue = value;
+
+				stackNewestOnTop.pop();
+				while (popCount > 1) {
+					stackOldestOnTop.push(stackNewestOnTop.pop());
+					popCount--;
+				}
 			}
-			return value;
+			return peekValue;
 		}
 	}
 

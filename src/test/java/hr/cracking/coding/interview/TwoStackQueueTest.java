@@ -60,5 +60,30 @@ public class TwoStackQueueTest {
 		Assert.assertEquals(78,newQueue.stackNewestOnTop.peek().intValue());
 		Assert.assertEquals(42,newQueue.peek().intValue());
 	}
+	
+	@Test
+	public final void testPop() {
+		TwoStackQueue.MyQueue<Integer> newQueue = new TwoStackQueue.MyQueue<>();
+		newQueue.enqueue(42);
+		Assert.assertEquals(42,newQueue.stackNewestOnTop.peek().intValue());
+		Assert.assertEquals(42,newQueue.peek().intValue());
+		Assert.assertEquals(42,newQueue.dequeue().intValue());
+		
+		newQueue.enqueue(14);
+		Assert.assertEquals(14,newQueue.stackOldestOnTop.peek().intValue());
+		Assert.assertEquals(14,newQueue.peek().intValue());
+		
+		newQueue.enqueue(28);
+		Assert.assertEquals(14,newQueue.peek().intValue());
+		
+		newQueue.enqueue(60);
+		Assert.assertEquals(14,newQueue.peek().intValue());
+		
+		newQueue.enqueue(78);
+		Assert.assertEquals(14,newQueue.peek().intValue());
+		Assert.assertEquals(14,newQueue.dequeue().intValue());
+		Assert.assertEquals(28,newQueue.peek().intValue());
+		Assert.assertEquals(28,newQueue.dequeue().intValue());
+	}
 
 }
