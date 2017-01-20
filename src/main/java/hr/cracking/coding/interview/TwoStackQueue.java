@@ -24,95 +24,39 @@ import java.util.Stack;
  */
 public class TwoStackQueue {
 
+	/**
+	 * once you have populated your dequeue stack for performing either a pop or
+	 * front operation, your dequeue stack is still in the right state for
+	 * subsequent pop or top operations, until it's empty.
+	 * 
+	 * @author debmalyajash
+	 *
+	 * @param <T>
+	 */
 	public static class MyQueue<T> {
 		Stack<T> stackNewestOnTop = new Stack<T>();
 		Stack<T> stackOldestOnTop = new Stack<T>();
 
-		private boolean newestPop = true;
-		private boolean newestPush = true;
-
 		public void enqueue(T value) { // Push onto newest stack
-			if (newestPush) {
-				stackNewestOnTop.push(value);
-				newestPush = false;
-			} else {
-				stackOldestOnTop.push(value);
-				newestPush = true;
-			}
+			stackNewestOnTop.push(value);
 		}
 
 		public T peek() {
-			T value = null;
-			T peekValue = null;
-
-			int popCount = 0;
-			if (newestPop) {
+			if (stackOldestOnTop.isEmpty() && !stackNewestOnTop.isEmpty()) {
 				while (!stackNewestOnTop.isEmpty()) {
-					popCount++;
-					value = stackNewestOnTop.pop();
-					stackOldestOnTop.push(value);
-				}
-//				newestPop = false;
-				peekValue = value;
-
-				while (popCount > 0) {
-					stackNewestOnTop.push(stackOldestOnTop.pop());
-					popCount--;
-				}
-
-			} else {
-				while (!stackOldestOnTop.isEmpty()) {
-					popCount++;
-					value = stackOldestOnTop.pop();
-					stackNewestOnTop.push(value);
-				}
-//				newestPop = true;
-				peekValue = value;
-
-				while (popCount > 0) {
 					stackOldestOnTop.push(stackNewestOnTop.pop());
-					popCount--;
 				}
 			}
-			return peekValue;
+			return stackOldestOnTop.peek();
 		}
 
 		public T dequeue() {
-			T value = null;
-			T peekValue = null;
-
-			int popCount = 0;
-			if (newestPop) {
+			if (stackOldestOnTop.isEmpty() && !stackNewestOnTop.isEmpty()) {
 				while (!stackNewestOnTop.isEmpty()) {
-					popCount++;
-					value = stackNewestOnTop.pop();
-					stackOldestOnTop.push(value);
-				}
-				newestPop = false;
-				peekValue = value;
-
-				stackOldestOnTop.pop();
-				while (popCount > 1) {
-					stackNewestOnTop.push(stackOldestOnTop.pop());
-					popCount--;
-				}
-
-			} else {
-				while (!stackOldestOnTop.isEmpty()) {
-					popCount++;
-					value = stackOldestOnTop.pop();
-					stackNewestOnTop.push(value);
-				}
-				newestPop = true;
-				peekValue = value;
-
-				stackNewestOnTop.pop();
-				while (popCount > 1) {
 					stackOldestOnTop.push(stackNewestOnTop.pop());
-					popCount--;
 				}
 			}
-			return peekValue;
+			return stackOldestOnTop.pop();
 		}
 	}
 
