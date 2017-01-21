@@ -16,8 +16,10 @@
 package hr.cracking.coding.interview;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Scanner;
 
 /**
@@ -73,66 +75,67 @@ public class BFSShortestInGraph {
 		}
 
 		/**
+		 * 
 		 * @param startingNode
+		 *            distances to other nodes from the starting node.
+		 * @return distance array.
 		 */
-		public String getDistanceFromNode(int startingNode) {
-			StringBuilder sb = new StringBuilder();
-			List<Integer> nodeList = adjacencyList.get(startingNode);
-			int[] distanceFromNode = new int[numberOfNodes];
+		public int[] shortestReach(int startingNode) {
+			int[] distances = new int[numberOfNodes];
 
-			for (int i = 0; i < numberOfNodes; i++) {
-				if (i != startingNode) {
-					if (nodeList.contains(i)) {
-						// Every edge has distance 6.
-						distanceFromNode[i] = 6;
-						sb.append("6");
-					} else {
-						// no direct connection.
-						// does it have any indirect link?
-						// Even if there is no indirect connection, then add -1
-						if (adjacencyList.get(i).isEmpty()) {
-							// i is not connected to any one, no need of checking.
-							sb.append("-1");
-						} else {
-							int indirectDistance = getIndirectConnection(
-									startingNode, i);
+			// by default all distances are -1 means not connected.
+			Arrays.fill(distances, -1);
 
-							if (indirectDistance == 0) {
-								distanceFromNode[i] = -1;
-								sb.append("-1");
-							} else {
-								distanceFromNode[i] = indirectDistance;
-								sb.append(indirectDistance);
-							}
-						}
+			// Initialize queue.
+			Queue<Integer> que = new LinkedList<>();
+			que.add(startingNode);
+
+			// distance to the same node is always 0.
+			distances[startingNode] = 0;
+
+			// keeping track of the nodes we have already visited.
+			boolean[] seen = new boolean[numberOfNodes];
+			seen[startingNode] = true;
+
+			while (!que.isEmpty()) {
+				int curr = que.poll();
+				// Get the connected nodes from the adjacency list.
+				for (int node : adjacencyList.get(curr)) {
+					if (!seen[node]) {
+						// if the node not visited
+						seen[node] = true;
+						que.offer(node);
+						// for each level distance will be increased by 6.
+						distances[node] = distances[curr] + 6; 
 					}
-					sb.append(" ");
 				}
-			}
-			return sb.toString().trim();
 
+			}
+
+			return distances;
 		}
 
 		/**
 		 * @param startingNode
-		 * @param i
-		 * @return
 		 */
-		private int getIndirectConnection(int startingNode, int secondNode) {
-			List l1 = adjacencyList.get(startingNode);
-			List l2 = adjacencyList.get(secondNode);
+		public String getDistanceFromNode(int startingNode) {
+			StringBuilder sb = new StringBuilder();
 			
-			for (int i = 0; i < l1.size(); i++) {
-				if (l2.contains(l1.get(i))) {
-					return 12;
+			int[] distanceFromNode = shortestReach(startingNode);
+			
+			for (int i = 0; i < distanceFromNode.length; i++) {
+				if (distanceFromNode[i] != 0) {
+					sb.append(distanceFromNode[i]);
+					sb.append(" ");
 				}
+				
 			}
 			
-			
-			
-			return 0;
+			return sb.toString().trim();
+
 		}
 
+		
 		/**
 		 * @param firstNode
 		 * @param secondNode
