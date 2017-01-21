@@ -36,6 +36,9 @@ public class MergeSortCountIntversionsTest {
 		
 		actual = MergeSortCountIntversions.getSwapCount(new int[]{1, 1, 2,  2});
 		Assert.assertEquals(0, actual);
+		
+		actual = MergeSortCountIntversions.getSwapCount(new int[]{4, 2, 3,  5});
+		Assert.assertEquals(2, actual);
 	}
 
 }

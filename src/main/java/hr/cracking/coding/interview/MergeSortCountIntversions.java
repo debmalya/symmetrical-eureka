@@ -30,17 +30,17 @@ public class MergeSortCountIntversions {
 		try (Scanner in = new Scanner(System.in)) {
 			int d = in.nextInt();
 			int[] result = new int[d];
-			
-			for (int i = 0; i < d; i++){
+
+			for (int i = 0; i < d; i++) {
 				int n = in.nextInt();
 				int[] arr = new int[n];
-				
-				for (int j = 0; j < n; j++){
+
+				for (int j = 0; j < n; j++) {
 					arr[j] = in.nextInt();
 				}
-				
+
 				result[i] = getSwapCount(arr);
-				
+
 			}
 		}
 
@@ -52,10 +52,10 @@ public class MergeSortCountIntversions {
 	 */
 	public static int getSwapCount(int[] arr) {
 		int result = 0;
-		
+
 		for (int i = 0; i < arr.length - 1; i++) {
-			for (int j = 1; j < arr.length; j++) {
-				if (arr[i] > arr[j] ) {
+			for (int j = i + 1; j < arr.length; j++) {
+				if (arr[i] > arr[j]) {
 					result++;
 					int temp = arr[i];
 					arr[i] = arr[j];
@@ -63,7 +63,7 @@ public class MergeSortCountIntversions {
 				}
 			}
 		}
-		
+
 		return result;
 	}
 
