@@ -34,7 +34,7 @@ public class VasyaNMathematicalAnalysisTest {
 	public void tearDown() throws Exception {
 	}
 
-	/**
+	/**	
 	 * Test method for {@link he.VasyaNMathematicalAnalysis#f(long)}.
 	 */
 	@Test
@@ -48,12 +48,12 @@ public class VasyaNMathematicalAnalysisTest {
 	
 	@Test
 	public void testQ() {
-		long[] arr = new long[]{4,9,9,2};
-		Assert.assertEquals(18, VasyaNMathematicalAnalysis.q(arr, 0, 2));
-		int start = 2 >> 1;
-		System.out.println( start);
-		System.out.println( 5 >> 1);
-		
+//		long[] arr = new long[]{4,9,9,2};
+//		Assert.assertEquals(18, VasyaNMathematicalAnalysis.q(arr, 0, 2));
+//		int start = 2 >> 1;
+//		System.out.println( start);
+//		System.out.println( 5 >> 1);
+//		
 	}
 
 }
