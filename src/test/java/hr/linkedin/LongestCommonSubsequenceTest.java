@@ -31,14 +31,14 @@ public class LongestCommonSubsequenceTest {
 	 */
 	@Test
 	public void testGetLongestCommonSubsequence() {
-		Assert.assertEquals("23",
-				LongestCommonSubsequence.getLongestCommonSubsequence(new int[] { 1, 2, 3 }, new int[] { 4, 2, 3 }));
+		Assert.assertEquals("2 3",
+				LongestCommonSubsequence.getLongestCommonSubsequence(new int[] { 1, 2, 3 }, new int[] { 4, 2, 3 }).trim());
 		
-		Assert.assertEquals("123", LongestCommonSubsequence.getLongestCommonSubsequence(new int[] { 1, 2, 3, 4, 1 },
-				new int[] { 3, 4, 1, 2, 1, 3 }));
+		Assert.assertEquals("1 2 3", LongestCommonSubsequence.getLongestCommonSubsequence(new int[] { 1, 2, 3, 4, 1 },
+				new int[] { 3, 4, 1, 2, 1, 3 }).trim());
 
-		Assert.assertEquals("12",
-				LongestCommonSubsequence.getLongestCommonSubsequence(new int[] { 1, 2, 3 }, new int[] { 1, 3, 2 }));
+		Assert.assertEquals("1 2",
+				LongestCommonSubsequence.getLongestCommonSubsequence(new int[] { 1, 2, 3 }, new int[] { 1, 3, 2 }).trim());
 	}
 
 	@Test
