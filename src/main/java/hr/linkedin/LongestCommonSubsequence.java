@@ -23,6 +23,8 @@ import java.util.Scanner;
  */
 public class LongestCommonSubsequence {
 
+	StringBuilder result = new StringBuilder();
+
 	/**
 	 * @param args
 	 */
@@ -42,7 +44,7 @@ public class LongestCommonSubsequence {
 				b[i] = in.nextInt();
 			}
 
-			System.out.println(getLongestCommonSubsequence(a, b));
+			System.out.println(getLongestCommonSubsequence(a, b).trim());
 		}
 
 	}
@@ -55,8 +57,76 @@ public class LongestCommonSubsequence {
 	 * @return string containing longest common subsequence.
 	 */
 	public static String getLongestCommonSubsequence(int[] a, int[] b) {
+
+		int ae = a.length - 1;
+		int be = b.length - 1;
+
+		if (ae == -1 || be == -1) {
+			return "";
+		}
+
+		int[] ac = new int[ae];
+		int[] bc = new int[be];
+
+		System.arraycopy(a, 0, ac, 0, ae);
+		System.arraycopy(b, 0, bc, 0, be);
+
+		if (a[ae] == b[be]) {
+			return getLongestCommonSubsequence(ac, bc) + " " + a[ae];
+		} else {
+
+			String first = getLongestCommonSubsequence(a, bc);
+			String second = getLongestCommonSubsequence(ac, b);
+			if (first.length() > second.length()) {
+				return first;
+			}
+			return second;
+		}
+
+	}
+
+	/**
+	 * @param a
+	 *            first integer array.
+	 * @param b
+	 *            second integer array.
+	 * @return string containing longest common subsequence.
+	 */
+	public static String getLongestCommonSubsequence0(int[] a, int[] b) {
 		StringBuilder answer = new StringBuilder();
 
+		answer = handleFirstProperty(a, b, answer);
+		if (answer == null) {
+			answer = handleSecondProperty(a, b, answer);
+		}
+
+		return answer.toString();
+	}
+
+	/**
+	 * @param a
+	 * @param b
+	 * @param answer
+	 * @return
+	 */
+	private static StringBuilder handleSecondProperty(int[] a, int[] b, StringBuilder answer) {
+		// Second property : Suppose that the two sequences X and Y do not end
+		// in the same symbol. Then the LCS of X and Y is the longer of the two
+		// sequences LCS(X ,Y -1) and LCS(X -1,Y ).
+		int[] longer = a;
+		if (a.length < b.length) {
+			longer = b;
+		}
+		return null;
+	}
+
+	/**
+	 * @param a
+	 * @param b
+	 * @param answer
+	 * @return
+	 */
+	private static StringBuilder handleFirstProperty(int[] a, int[] b, StringBuilder answer) {
 		// First Property
 		// Suppose that two sequences both end in the same element. To find
 		// their LCS, shorten each sequence by removing the last element, find
@@ -64,29 +134,36 @@ public class LongestCommonSubsequence {
 		// removed element.
 		int ae = a.length - 1;
 		int be = b.length - 1;
-		while (a[ae--] == b[be--]) {
+		if (a[ae] != b[be]) {
+			return null;
+		}
+		while (a[ae] == b[be]) {
 			// both end with the same element.
-			answer.append(a[ae + 1]);
-		}
-		if (answer.length() > 0) {
-			answer = answer.reverse();
-		}
-		
-		StringBuilder prefix = new StringBuilder();
-		for (int i=ae; i >-1; i--){
-			for (int j =be; j> -1;j--){
-				if (a[i] == b[j]) {
-					prefix.append(a[i]);
-				}
-			}
-		}
-		if (prefix.length() > 0) {
-			prefix = prefix.reverse();
-			prefix.append(answer);
-			answer = prefix;
+			answer.append(a[ae]);
+			ae--;
+			be--;
 		}
 
-		return answer.toString();
+		if (ae != a.length - 1) {
+			if (answer.length() > 0) {
+				answer = answer.reverse();
+			}
+
+			StringBuilder prefix = new StringBuilder();
+			for (int i = ae; i > -1; i--) {
+				for (int j = be; j > -1; j--) {
+					if (a[i] == b[j]) {
+						prefix.append(a[i]);
+					}
+				}
+			}
+			if (prefix.length() > 0) {
+				prefix = prefix.reverse();
+				prefix.append(answer);
+				answer = prefix;
+			}
+		}
+		return answer;
 	}
 
 	/**
@@ -113,10 +190,10 @@ public class LongestCommonSubsequence {
 		if (answer.length() > 0) {
 			answer = answer.reverse();
 		}
-		
+
 		StringBuilder prefix = new StringBuilder();
-		for (int i=ae; i >-1; i--){
-			for (int j =be; j> -1;j--){
+		for (int i = ae; i > -1; i--) {
+			for (int j = be; j > -1; j--) {
 				if (a[i] == b[j]) {
 					prefix.append(a[i]);
 				}
@@ -128,6 +205,27 @@ public class LongestCommonSubsequence {
 			answer = prefix;
 		}
 		return answer.toString();
+	}
+
+	public static int LCS(String A, String B) {
+		if (A.length() == 0 || B.length() == 0) {
+			return 0;
+		}
+		int lenA = A.length();
+		int lenB = B.length();
+		// check if last characters are same
+		if (A.charAt(lenA - 1) == B.charAt(lenB - 1)) {
+			// Add 1 to the result and remove the last character from both
+			// the strings and make recursive call to the modified strings.
+			return 1 + LCS(A.substring(0, lenA - 1), B.substring(0, lenB - 1));
+		} else {
+			// Remove the last character of String 1 and make a recursive
+			// call and remove the last character from String 2 and make a
+			// recursive and then return the max from returns of both recursive
+			// calls
+			return Math.max(LCS(A.substring(0, lenA - 1), B.substring(0, lenB)),
+					LCS(A.substring(0, lenA), B.substring(0, lenB - 1)));
+		}
 	}
 
 }

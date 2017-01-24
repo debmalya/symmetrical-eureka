@@ -33,13 +33,18 @@ public class LongestCommonSubsequenceTest {
 	public void testGetLongestCommonSubsequence() {
 		Assert.assertEquals("23",
 				LongestCommonSubsequence.getLongestCommonSubsequence(new int[] { 1, 2, 3 }, new int[] { 4, 2, 3 }));
+		
+		Assert.assertEquals("123", LongestCommonSubsequence.getLongestCommonSubsequence(new int[] { 1, 2, 3, 4, 1 },
+				new int[] { 3, 4, 1, 2, 1, 3 }));
+
 		Assert.assertEquals("12",
 				LongestCommonSubsequence.getLongestCommonSubsequence(new int[] { 1, 2, 3 }, new int[] { 1, 3, 2 }));
 	}
-	
+
 	@Test
-	public void testGetLongestCommonSubsequenceString(){
-		Assert.assertEquals("AANA",LongestCommonSubsequence.getLongestCommonSubsequence("BANANA".toCharArray(), "ATANA".toCharArray()));
+	public void testGetLongestCommonSubsequenceString() {
+		Assert.assertEquals("AANA",
+				LongestCommonSubsequence.getLongestCommonSubsequence("BANANA".toCharArray(), "ATANA".toCharArray()));
 	}
 
 }
