@@ -35,6 +35,8 @@ public class LuckyNumbersTest {
 	public void testIsLucky() {
 		Assert.assertTrue(LuckyNumbers.isLucky(1102));
 		Assert.assertFalse(LuckyNumbers.isLucky(1103));
+		Assert.assertFalse(LuckyNumbers.isLucky(11031));
+		Assert.assertTrue(LuckyNumbers.isLucky(11011));
 	}
 
 	/**

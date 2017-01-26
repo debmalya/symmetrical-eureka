@@ -22,14 +22,6 @@ package amazed;
 public class LuckyNumbers {
 
 	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
-	/**
 	 * A lucky number has the same sum of digits for the upper and lower part of
 	 * the number. (e.g. 1102 - Sum of upper part (1+1) = Sum of the lower part
 	 * (0+2).
@@ -41,26 +33,25 @@ public class LuckyNumbers {
 	public static boolean isLucky(int number) {
 		String str = String.valueOf(number);
 		int len = str.length();
-		if (len % 2 == 1) {
-			return false;
-		} else {
-			int firstPart = Integer.parseInt(str.substring(0, len /2));
-			int secondPart = Integer.parseInt(str.substring(len/2));
-			
-			return getSumOfDigits(firstPart) == getSumOfDigits(secondPart);
 
-		}
-}
+		int firstPart = Integer.parseInt(str.substring(0, len / 2));
+		int secondPart = Integer.parseInt(str.substring(len / 2));
+
+		return getSumOfDigits(firstPart) == getSumOfDigits(secondPart);
+
+	}
 
 	/**
 	 * Sum of digits of the number.
-	 * @param number whose sum of digits will be checked.
+	 * 
+	 * @param number
+	 *            whose sum of digits will be checked.
 	 * @return sum of the digits.
 	 */
 	public static int getSumOfDigits(int number) {
 		int result = 0;
 		while (number > 0) {
-			result += number%10;
+			result += number % 10;
 			number /= 10;
 		}
 		return result;
