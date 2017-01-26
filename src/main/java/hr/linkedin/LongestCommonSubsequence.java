@@ -15,6 +15,7 @@
  */
 package hr.linkedin;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -44,8 +45,99 @@ public class LongestCommonSubsequence {
 				b[i] = in.nextInt();
 			}
 
-			System.out.println(getLongestCommonSubsequence(a, b).trim());
+			System.out.println(find(a, b).trim());
 		}
+
+	}
+	
+	public static String find(int[] A, int[] B) {
+		int[][] LCS = new int[A.length + 1][B.length + 1];
+		String[][] solution = new String[A.length + 1][B.length + 1];
+		// if A is null then LCS of A, B =0
+		for (int i = 0; i <= B.length; i++) {
+			LCS[0][i] = 0;
+			solution[0][i] = "0";
+		}
+
+		// if B is null then LCS of A, B =0
+		for (int i = 0; i <= A.length; i++) {
+			LCS[i][0] = 0;
+			solution[i][0] = "0";
+		}
+
+		for (int i = 1; i <= A.length; i++) {
+			for (int j = 1; j <= B.length; j++) {
+				if (A[i - 1] == B[j - 1]) {
+					LCS[i][j] = LCS[i - 1][j - 1] + 1;
+					solution[i][j] = "d";
+				} else {
+					LCS[i][j] = Math.max(LCS[i - 1][j], LCS[i][j - 1]);
+					if (LCS[i][j] == LCS[i - 1][j]) {
+						solution[i][j] = "t";
+					} else {
+						solution[i][j] = "l";
+					}
+				}
+			}
+		}
+		// below code is to just print the result
+		String x = solution[A.length][B.length];
+		String answer = "";
+		int a = A.length;
+		int b = B.length;
+		while (x != "0") {
+			if (solution[a][b] == "d") {
+				answer = A[a - 1] + " " + answer;
+				a--;
+				b--;
+			} else if (solution[a][b] == "l") {
+				b--;
+			} else if (solution[a][b] == "t") {
+				a--;
+			}
+			x = solution[a][b];
+		}
+		
+		return answer;
+	}
+
+
+	/**
+	 * @param a
+	 *            first integer array.
+	 * @param b
+	 *            second integer array.
+	 * @return string containing longest common subsequence.
+	 */
+	public static String getLongestCommonSubsequence(int[] a, int[] b) {
+		String result = "";
+		int[][] LCS = new int[a.length + 1][b.length + 1];
+		String[][] solution = new String[a.length + 1][b.length + 1];
+
+		// if A is null then LCS of A, B =0
+		for (int i = 0; i <= b.length; i++) {
+			LCS[0][i] = 0;
+			solution[0][i] = "0";
+		}
+
+		// if B is null then LCS of A, B =0
+		for (int i = 0; i <= a.length; i++) {
+			LCS[i][0] = 0;
+			solution[i][0] = "0";
+		}
+
+		for (int i = 1; i <= a.length; i++) {
+			for (int j = 1; j <= b.length; j++) {
+				if (a[i - 1] == b[i - 1] && a[i - 1] != 0) {
+					solution[i][j] = "" + a[i - 1];
+				}
+			}
+		}
+
+		for (int i = 0; i < solution.length; i++) {
+			System.out.println(Arrays.toString(solution[i]));
+		}
+		return result.trim();
 
 	}
 
@@ -56,7 +148,10 @@ public class LongestCommonSubsequence {
 	 *            second integer array.
 	 * @return string containing longest common subsequence.
 	 */
-	public static String getLongestCommonSubsequence(int[] a, int[] b) {
+	public static String getLongestCommonSubsequence0(int[] a, int[] b) {
+
+		// System.out.println("A :" + Arrays.toString(a) + " B:" +
+		// Arrays.toString(b));
 
 		int ae = a.length - 1;
 		int be = b.length - 1;
@@ -72,11 +167,11 @@ public class LongestCommonSubsequence {
 		System.arraycopy(b, 0, bc, 0, be);
 
 		if (a[ae] == b[be]) {
-			return getLongestCommonSubsequence(ac, bc) + " " + a[ae];
+			return getLongestCommonSubsequence0(ac, bc) + " " + a[ae];
 		} else {
 
-			String first = getLongestCommonSubsequence(a, bc);
-			String second = getLongestCommonSubsequence(ac, b);
+			String first = getLongestCommonSubsequence0(a, bc);
+			String second = getLongestCommonSubsequence0(ac, b);
 			if (first.length() > second.length()) {
 				return first;
 			}
@@ -84,7 +179,6 @@ public class LongestCommonSubsequence {
 		}
 
 	}
-
 
 	/**
 	 * @param a

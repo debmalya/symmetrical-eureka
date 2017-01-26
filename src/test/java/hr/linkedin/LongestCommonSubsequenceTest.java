@@ -23,25 +23,42 @@ import org.junit.Test;
  *
  */
 public class LongestCommonSubsequenceTest {
+	
+	@Test
+	public void testGetLongestCommonSubsequence() {
+		Assert.assertEquals("2 3",
+				LongestCommonSubsequence.find(new int[] { 1, 2, 3 }, new int[] { 4, 2, 3 }).trim());
+		
+		System.out.println("----------------------------------");
+		Assert.assertEquals("1 2 3", LongestCommonSubsequence.find(new int[] { 1, 2, 3, 4, 1 },
+				new int[] { 3, 4, 1, 2, 1, 3 }).trim());
+		System.out.println("----------------------------------");
+		Assert.assertEquals("1 2",
+				LongestCommonSubsequence.find(new int[] { 1, 2, 3 }, new int[] { 1, 3, 2 }).trim());
+	}
 
 	/**
 	 * Test method for
 	 * {@link hr.linkedin.LongestCommonSubsequence#getLongestCommonSubsequence(int[], int[])}
 	 * .
 	 */
-	@Test
-	public void testGetLongestCommonSubsequence() {
+//	@Test
+	public void testGetLongestCommonSubsequence0() {
 		Assert.assertEquals("2 3",
-				LongestCommonSubsequence.getLongestCommonSubsequence(new int[] { 1, 2, 3 }, new int[] { 4, 2, 3 }).trim());
+				LongestCommonSubsequence.getLongestCommonSubsequence0(new int[] { 1, 2, 3 }, new int[] { 4, 2, 3 }).trim());
 		
-		Assert.assertEquals("1 2 3", LongestCommonSubsequence.getLongestCommonSubsequence(new int[] { 1, 2, 3, 4, 1 },
+//		System.out.println("----------------------------------");
+		
+		Assert.assertEquals("1 2 3", LongestCommonSubsequence.getLongestCommonSubsequence0(new int[] { 1, 2, 3, 4, 1 },
 				new int[] { 3, 4, 1, 2, 1, 3 }).trim());
+		
+//		System.out.println("----------------------------------");
 
 		Assert.assertEquals("1 2",
-				LongestCommonSubsequence.getLongestCommonSubsequence(new int[] { 1, 2, 3 }, new int[] { 1, 3, 2 }).trim());
+				LongestCommonSubsequence.getLongestCommonSubsequence0(new int[] { 1, 2, 3 }, new int[] { 1, 3, 2 }).trim());
 	}
 
-	@Test
+//	@Test
 	public void testGetLongestCommonSubsequenceString() {
 		Assert.assertEquals("AANA",
 				LongestCommonSubsequence.getLongestCommonSubsequence("BANANA".toCharArray(), "ATANA".toCharArray()));
