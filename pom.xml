@@ -84,12 +84,19 @@
 			<artifactId>stdlib</artifactId>
 			<version>1.0.1</version>
 		</dependency>
-			
+
 		<!-- https://mvnrepository.com/artifact/fm.void.jetm/jetm -->
 		<dependency>
 			<groupId>fm.void.jetm</groupId>
 			<artifactId>jetm</artifactId>
 			<version>1.2.3</version>
+		</dependency>
+
+		<!--  Keyword Density API for Java -->
+		<dependency>
+			<groupId>org.brunocvcunha.dense4j</groupId>
+			<artifactId>dense4j</artifactId>
+			<version>0.2</version>
 		</dependency>
 
 	</dependencies>
