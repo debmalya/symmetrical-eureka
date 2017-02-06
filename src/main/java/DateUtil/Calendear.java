@@ -1,4 +1,5 @@
 package DateUtil;
+
 import java.util.Calendar;
 import java.util.TimeZone;
 
@@ -23,19 +24,18 @@ import java.util.TimeZone;
  *
  */
 public class Calendear {
-	
+
 	/**
 	 * 
 	 * @param timeStamp
-	 * @return 201701 for January 2017
-	 * 201702 for February 2017
+	 * @return 201701 for January 2017 201702 for February 2017
 	 */
 	public static long convertTimeStampToYearMonth(long timeStamp) {
 		Calendar cal = Calendar.getInstance();
 		cal.setTimeInMillis(timeStamp);
-		return cal.get(Calendar.YEAR)*100+cal.get(Calendar.MONTH)+1;
+		return cal.get(Calendar.YEAR) * 100 + cal.get(Calendar.MONTH) + 1;
 	}
-	
+
 	/**
 	 * 
 	 * @param timeStamp
@@ -51,6 +51,33 @@ public class Calendear {
 		cal.set(Calendar.SECOND, 0);
 		cal.set(Calendar.MILLISECOND, 0);
 		return cal.getTimeInMillis();
+	}
+
+	/**
+	 * Return specific field value from calendar instance.
+	 * 
+	 * @param typeOfField
+	 *            - type of calendar field.
+	 * @return value of the field
+	 */
+	public static int getCalendarFactor(int typeOfField) {
+		switch (typeOfField) {
+		case Calendar.DAY_OF_WEEK:
+			return Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+		case Calendar.DAY_OF_MONTH:
+			return Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+		case Calendar.HOUR_OF_DAY:
+			return Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+		case Calendar.MONTH:
+			return Calendar.getInstance().get(Calendar.MONTH);
+		case Calendar.DAY_OF_YEAR:
+			return Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
+		case Calendar.YEAR:
+			return Calendar.getInstance().get(Calendar.YEAR);
+		default:
+			return -99;
+		}
+
 	}
 
 }

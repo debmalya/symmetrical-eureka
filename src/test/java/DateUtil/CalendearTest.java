@@ -15,6 +15,10 @@
  */
 package DateUtil;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -36,7 +40,34 @@ public class CalendearTest {
 	@Test
 	public void testGetFirstDayOfMonthEpochTime() {
 		long actual = Calendear.getFirstDayOfMonthEpochTime(System.currentTimeMillis());
-		System.out.println(actual);
+		
+	}
+	
+	@Test
+	public void testGetCalendarFactor() {
+		StringBuilder today = new StringBuilder();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		int dayOfMonth = Calendear.getCalendarFactor(Calendar.DAY_OF_MONTH);
+		if (dayOfMonth < 10) {
+			today.append("0");
+		}
+		today.append(dayOfMonth);
+		today.append("/");
+		
+		int monthNumber = Calendear.getCalendarFactor(Calendar.MONTH) + 1;
+		if (monthNumber < 10) {
+			today.append("0");
+		}
+		today.append(monthNumber);
+		today.append("/");
+		
+		int yearNumber = Calendear.getCalendarFactor(Calendar.YEAR);
+		today.append(yearNumber);
+		
+		Assert.assertEquals(today.toString(), sdf.format(new Date()));
+		
+		
+		
 	}
 
 }
