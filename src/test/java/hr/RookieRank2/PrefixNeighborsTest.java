@@ -47,6 +47,7 @@ public class PrefixNeighborsTest {
 	public void testGetBenefitValues() {
 		Assert.assertEquals(221, PrefixNeighbors.getBenefitValues(new String[] {"ABC","ABD","ABZ"}));
 		Assert.assertEquals(200, PrefixNeighbors.getBenefitValues(new String[] {"A", "B", "AE"}));
+		Assert.assertEquals(399, PrefixNeighbors.getBenefitValues(new String[] {"AA", "AB", "ABD", "ABDE"}));
 		
 	}
 }
