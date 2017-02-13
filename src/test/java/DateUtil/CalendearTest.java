@@ -64,10 +64,17 @@ public class CalendearTest {
 		int yearNumber = Calendear.getCalendarFactor(Calendar.YEAR);
 		today.append(yearNumber);
 		
-		Assert.assertEquals(today.toString(), sdf.format(new Date()));
-		
-		
-		
+		Assert.assertEquals(today.toString(), sdf.format(new Date()));	
+	}
+	
+	@Test
+	public void test24HourFormat() {
+		Assert.assertEquals("12:00:00",Calendear.convertTo24HourFormat("00:00:00PM"));
+		Assert.assertEquals("00:00:00",Calendear.convertTo24HourFormat("00:00:00AM"));
+		Assert.assertEquals("19:05:45",Calendear.convertTo24HourFormat("07:05:45PM"));
+		Assert.assertEquals("00:00:00",Calendear.convertTo24HourFormat("12:00:00AM"));
+		Assert.assertEquals("00:59:59",Calendear.convertTo24HourFormat("12:59:59AM"));
+		Assert.assertEquals("12:45:54",Calendear.convertTo24HourFormat("12:45:54PM"));
 	}
 
 }

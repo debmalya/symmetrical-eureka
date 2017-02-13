@@ -80,4 +80,47 @@ public class Calendear {
 
 	}
 
+	/**
+	 * 
+	 * @param timeIn12HourFormat
+	 *            time in 12 hour format.
+	 * @return time in 24 hour format.
+	 */
+	public static String convertTo24HourFormat(String timeIn12HourFormat) {
+		if (timeIn12HourFormat != null) {
+			int hour = 0;
+			boolean isAM = false;
+			timeIn12HourFormat = timeIn12HourFormat.toUpperCase();
+			if (timeIn12HourFormat.endsWith("PM")) {
+				hour += 12;
+
+			} else {
+				isAM = true;
+			}
+
+			timeIn12HourFormat = timeIn12HourFormat.replace("PM", "");
+			timeIn12HourFormat = timeIn12HourFormat.replace("AM", "");
+
+			String[] timeComponents = timeIn12HourFormat.split(":");
+			hour += Integer.parseInt(timeComponents[0]);
+			StringBuilder timeIn24HourFormat = new StringBuilder("");
+			if (isAM && hour > 11) {
+				hour -= 12;
+			} else if (hour == 24) {
+				hour = 0;
+			}
+			if (hour < 10) {
+				timeIn24HourFormat.append("0");
+			}
+			timeIn24HourFormat.append(hour);
+			timeIn24HourFormat.append(":");
+			timeIn24HourFormat.append(timeComponents[1]);
+			timeIn24HourFormat.append(":");
+			timeIn24HourFormat.append(timeComponents[2]);
+
+			return timeIn24HourFormat.toString();
+		}
+		return null;
+	}
+
 }
