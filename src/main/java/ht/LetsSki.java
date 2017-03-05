@@ -15,6 +15,10 @@
  */
 package ht;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -55,14 +59,86 @@ public class LetsSki {
 	 */
 	public static int[] bestSkiWay(int[][] skiCourt) {
 		int[] result = new int[2];
-		int[] dx = new int[] { -1, 0, 1, 0 };
-		int[] dy = new int[] { 0, 1, 0, -1 };
+		int[] dx = new int[] { 0, -1, 0, 1 };
+		int[] dy = new int[] { -1, 0, 1, 0 };
+
+		String[][] occupy = new String[skiCourt.length][skiCourt.length];
 		
+		Map<Position,List<Position>> positionalMap = new HashMap<>();
+
+		for (int i = 0; i < skiCourt.length; i++) {
+			for (int j = 0; j < skiCourt[i].length; j++) {
+				Position position = new Position();
+				position.x = i;
+				position.y = j;
+				for (int a = 0; a < 4; a++) {
+					if (i + dx[a] > -1 && i + dx[a] < skiCourt.length
+							&& j + dy[a] > -1 && j + dy[a] < skiCourt[i].length
+							&& skiCourt[i][j] > skiCourt[i + dx[a]][j + dy[a]]) {
+						
+						List<Position> positionalList = positionalMap.get(position);
+						if (positionalList == null) {
+							positionalList = new ArrayList<>();
+						}
+						Position connectedPosition = new Position();
+						connectedPosition.x = i + dx[a];
+						connectedPosition.y = j + dy[a];
+						positionalList.add(connectedPosition);
+						
+						if (occupy[i][j] == null) {
+							occupy[i][j] = "";
+						}
+						occupy[i][j] += String.valueOf(a);
+						
+						positionalMap.put(position,positionalList);
+
+					}
+
+				}
+			}
+		}
+
+//		for (int i = 0; i < occupy.length; i++) {
+//			System.out.println(Arrays.toString(occupy[i]));
+//		}
+		
+		System.out.println(positionalMap);
 		return result;
 	}
 
 	static class Position {
 		int x;
 		int y;
+		/* (non-Javadoc)
+		 * @see java.lang.Object#toString()
+		 */
+		@Override
+		public String toString() {
+			return "{"+ x + "," + y + "}";
+		}
+		
+	}
+	
+	static class Solution  implements Comparable<Solution>{
+		int length;
+		int depth;
+		/* (non-Javadoc)
+		 * @see java.lang.Comparable#compareTo(java.lang.Object)
+		 */
+		@Override
+		public int compareTo(Solution o) {
+			if (o.length > length) {
+				return -1;
+			} else if (o.length < length) {
+				return 1;
+			} else {
+				if (o.depth > depth) {
+					return -1;
+				}if (o.depth < depth) {
+					return 1;
+				}
+			}
+			return 0;
+		}
 	}
 }
