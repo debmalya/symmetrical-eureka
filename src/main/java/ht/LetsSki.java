@@ -16,10 +16,15 @@
 package ht;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Scanner;
+import java.util.Set;
 
 /**
  * @author debmalyajash
@@ -52,6 +57,17 @@ public class LetsSki {
 	}
 
 	/**
+	 * 
+	 * @param skiCourt
+	 * @param i
+	 * @param j
+	 * @return
+	 */
+	public static Solution getSolutionFrom(int[][] skiCourt,int i, int j) {
+		Solution finalSolution = new Solution();
+		return finalSolution;
+	}
+	/**
 	 * Get the best sky path.
 	 * 
 	 * @param skiCourt
@@ -63,8 +79,8 @@ public class LetsSki {
 		int[] dy = new int[] { -1, 0, 1, 0 };
 
 		String[][] occupy = new String[skiCourt.length][skiCourt.length];
-		
-		Map<Position,List<Position>> positionalMap = new HashMap<>();
+
+		Map<Position, List<Position>> positionalMap = new HashMap<>();
 
 		for (int i = 0; i < skiCourt.length; i++) {
 			for (int j = 0; j < skiCourt[i].length; j++) {
@@ -72,10 +88,9 @@ public class LetsSki {
 				position.x = i;
 				position.y = j;
 				for (int a = 0; a < 4; a++) {
-					if (i + dx[a] > -1 && i + dx[a] < skiCourt.length
-							&& j + dy[a] > -1 && j + dy[a] < skiCourt[i].length
-							&& skiCourt[i][j] > skiCourt[i + dx[a]][j + dy[a]]) {
-						
+					if (i + dx[a] > -1 && i + dx[a] < skiCourt.length && j + dy[a] > -1
+							&& j + dy[a] < skiCourt[i].length && skiCourt[i][j] > skiCourt[i + dx[a]][j + dy[a]]) {
+
 						List<Position> positionalList = positionalMap.get(position);
 						if (positionalList == null) {
 							positionalList = new ArrayList<>();
@@ -83,14 +98,17 @@ public class LetsSki {
 						Position connectedPosition = new Position();
 						connectedPosition.x = i + dx[a];
 						connectedPosition.y = j + dy[a];
+						
+						
+						
 						positionalList.add(connectedPosition);
-						
+
 						if (occupy[i][j] == null) {
-							occupy[i][j] = "";
+							occupy[i][j] = "" +skiCourt[i][j];
 						}
-						occupy[i][j] += String.valueOf(a);
-						
-						positionalMap.put(position,positionalList);
+						occupy[i][j] +=  " " + skiCourt[i + dx[a]][j + dy[a]];
+
+						positionalMap.put(position, positionalList);
 
 					}
 
@@ -98,31 +116,38 @@ public class LetsSki {
 			}
 		}
 
-//		for (int i = 0; i < occupy.length; i++) {
-//			System.out.println(Arrays.toString(occupy[i]));
-//		}
-		
-		System.out.println(positionalMap);
+		for (int i = 0; i < occupy.length; i++) {
+			System.out.println(Arrays.toString(occupy[i]));
+		}
+//		System.out.println(positionalMap);
 		return result;
 	}
 
 	static class Position {
 		int x;
 		int y;
-		/* (non-Javadoc)
+
+		/*
+		 * (non-Javadoc)
+		 * 
 		 * @see java.lang.Object#toString()
 		 */
 		@Override
 		public String toString() {
-			return "{"+ x + "," + y + "}";
+			return "{" + x + "," + y + "}";
 		}
-		
+
 	}
-	
-	static class Solution  implements Comparable<Solution>{
+
+	static class Solution implements Comparable<Solution> {
+		Position startPosition;
+		Position endPosition;
 		int length;
 		int depth;
-		/* (non-Javadoc)
+
+		/*
+		 * (non-Javadoc)
+		 * 
 		 * @see java.lang.Comparable#compareTo(java.lang.Object)
 		 */
 		@Override
@@ -134,11 +159,22 @@ public class LetsSki {
 			} else {
 				if (o.depth > depth) {
 					return -1;
-				}if (o.depth < depth) {
+				}
+				if (o.depth < depth) {
 					return 1;
 				}
 			}
 			return 0;
 		}
+
+		/* (non-Javadoc)
+		 * @see java.lang.Object#toString()
+		 */
+		@Override
+		public String toString() {
+			return "Solution [length=" + length + ", depth=" + depth + "]";
+		}
+		
+		
 	}
 }
