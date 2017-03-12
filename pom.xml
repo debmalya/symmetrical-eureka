@@ -92,11 +92,17 @@
 			<version>1.2.3</version>
 		</dependency>
 
-		<!--  Keyword Density API for Java -->
+		<!-- Keyword Density API for Java -->
 		<dependency>
 			<groupId>org.brunocvcunha.dense4j</groupId>
 			<artifactId>dense4j</artifactId>
 			<version>0.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.web3j</groupId>
+			<artifactId>core</artifactId>
+			<version>1.0.9</version>
 		</dependency>
 
 	</dependencies>
