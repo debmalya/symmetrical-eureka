@@ -15,6 +15,8 @@
  */
 package hr.weekOfCode30;
 
+import java.util.Scanner;
+
 /**
  * @author debmalyajash
  *
@@ -34,14 +36,49 @@ public class Poles {
 	 * 3. A stack can consist of at least one pole.
 	 * 
 	 * Moving the poles down the mountain also costs money. Moving a pole with
-	 * weight w and altitude x1 to an altitude x2 of where (x1 > x2)  costs w * (x1 - x2)  .
+	 * weight w and altitude x1 to an altitude x2 of where (x1 > x2) costs w *
+	 * (x1 - x2) .
 	 * 
-	 * Determine the least amount of money needed to rearrange the poles into stacks.
+	 * Determine the least amount of money needed to rearrange the poles into
+	 * stacks.
+	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		try (Scanner in = new Scanner(System.in)) {
+			// The first line of input contains two integers n (the number of
+			// poles) and k (the number of stacks needed).
+			int n = in.nextInt();
+			int k = in.nextInt();
+			
+			int[] x = new int[n];
+			int[] w = new int[n];
 
+			// Each of the next n lines include two integers x(i) indicating the
+			// i th pole's altitude and w(i)
+			// indicating the ith pole's weight. The poles will always be listed
+			// from lowest to highest altitude.
+			for (int i = 0; i < n; i++) {
+				x[i] = in.nextInt();
+				w[i] = in.nextInt();
+			}
+
+			System.out.println(getMinimumCost(n,k,x,w));
+		}
+
+	}
+
+	/**
+	 * minimum cost of rearranging the poles into k stacks.
+	 * @param n - number of poles.
+	 * @param k - number of stacks.
+	 * @param x - poles altitude.
+	 * @param w - weight of pole.
+	 * @return minimum cost.
+	 */
+	private static int getMinimumCost(int n, int k, int[] x, int[] w) {
+		
+		return 0;
 	}
 
 }
