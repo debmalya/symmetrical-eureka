@@ -15,9 +15,13 @@
  */
 package hr.weekOfCode30;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -36,6 +40,7 @@ public class AGraphProblem {
 			// vertices in G).
 			int n = in.nextInt();
 			int[][] g = new int[n][n];
+
 			for (int g_i = 0; g_i < n; g_i++) {
 				// Each line i of the n subsequent lines contains
 				// space-separated
@@ -45,58 +50,108 @@ public class AGraphProblem {
 				for (int g_j = 0; g_j < n; g_j++) {
 					g[g_i][g_j] = in.nextInt();
 				}
+
 			}
-			
+
 			Integer[] result = getTraingle(g);
 			System.out.println(result.length);
 			for (int i = 0; i < result.length; i++) {
-				System.out.print(result[i]+" ");
+				System.out.print(result[i] + " ");
 			}
 		}
 	}
 
+	/**
+	 * @param graph
+	 * @return
+	 */
 	public static Integer[] getTraingle(int[][] graph) {
-		Set<Integer[]> traingles = new HashSet<>();
+		GraphSolution[] solutions = new GraphSolution[graph.length];
+		LinkedHashMap<Integer, Integer> pointMap = new LinkedHashMap<>();
+		for (int i = 0; i < graph.length; i++) {
+			solutions[i] = new GraphSolution();
+			solutions[i].points.add(i + 1);
 
-		// to form a triangle one point must be connected to two other points.
-		for (int row = 0; row < graph.length; row++) {
-			
-			Set<Integer> connectedPoint = new HashSet<>();
-			
+			Integer count = pointMap.get(i + 1);
+			if (count == null) {
+				count = 0;
+			}
+			count++;
+			pointMap.put(i + 1, count);
 
-			for (int col = 0; col < graph.length; col++) {
-				if (row != col && graph[row][col] == 1) {
-					connectedPoint.add(col + 1);
-					connectedPoint.add(row + 1);
+			for (int j = 0; j < graph.length; j++) {
+				if (i != j && graph[i][j] == 1) {
+					solutions[i].points.add(j + 1);
+					count = pointMap.get(j + 1);
+					if (count == null) {
+						count = 0;
+					}
+					count++;
+					pointMap.put(j + 1, count);
 				}
 			}
-
-			System.out.println(connectedPoint);
-			traingles.add(connectedPoint.toArray(new Integer[0]));
-
 		}
 
-		int max = Integer.MIN_VALUE;
-		int maxIndex = -1;
-		Integer[][] allTraingles = new Integer[graph.length][];
-		Iterator<Integer[]> trainglesIterator = traingles.iterator();
-		int i = 0;
-		while (trainglesIterator.hasNext()) {
-			allTraingles[i] = trainglesIterator.next();
-			if (allTraingles[i].length > max && allTraingles[i].length > 2) {
-				max = allTraingles[i].length;
-				maxIndex = i;
+		Set<Integer> finalSolution = new HashSet<>();
+		Set<Entry<Integer, Integer>> pointSet = pointMap.entrySet();
+		Iterator<Entry<Integer, Integer>> pointIterator = pointSet.iterator();
+		List<GraphSolution> proposedSolution = new ArrayList<>();
+		while (pointIterator.hasNext()) {
+			Entry<Integer, Integer> nextEntry = pointIterator.next();
+			if (nextEntry.getValue() > 2) {
+				finalSolution.add(nextEntry.getKey());
+				if (finalSolution.size() > 3) {
+					GraphSolution  solution = new GraphSolution();
+					solution.points.addAll(finalSolution);
+					solution.numberOfTraingles = finalSolution.size() - 3 + 1;
+					solution.ratio = solution.points.size() / solution.numberOfTraingles;
+					proposedSolution.add(solution);
+				}
 			}
 		}
 		
-
-		int actualLength = max - (max % 3);
-		Integer[] result = new Integer[actualLength];
-//		System.arraycopy(allTraingles[maxIndex], 0, result, actualLength -1, actualLength);
-		System.out.println("Final Array :" + Arrays.toString(allTraingles[maxIndex]));
-		for (i = 0; i < actualLength; i++) {
-			result[i] = allTraingles[maxIndex][i];
+		if (proposedSolution.size() > 0) {
+			Collections.sort(proposedSolution);
+			finalSolution = new HashSet<>();
+			finalSolution.addAll(proposedSolution.get(0).points);
 		}
-		return result;
+		return finalSolution.toArray(new Integer[0]);
+	}
+
+	static class GraphSolution implements Comparable<GraphSolution> {
+		int numberOfTraingles;
+
+		Set<Integer> points = new HashSet<Integer>();
+		double ratio;
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see java.lang.Comparable#compareTo(java.lang.Object)
+		 */
+		@Override
+		public int compareTo(GraphSolution o) {
+			if (o.ratio > ratio) {
+				return 1;
+			} else if (o.ratio < ratio) {
+				return -1;
+			}
+			return 0;
+		}
+
+		public int getNumberOfTraingles() {
+			return 0;
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see java.lang.Object#toString()
+		 */
+		@Override
+		public String toString() {
+			return "Solution [numberOfTraingles=" + numberOfTraingles + ", points=" + points + ", ratio=" + ratio + "]";
+		}
+
 	}
 }

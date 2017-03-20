@@ -34,6 +34,12 @@ public class AGraphProblemTest {
 				{ 1, 0, 0, 0, 0, 0 }, { 0, 1, 0, 0, 0, 0 }, { 0, 0, 1, 0, 0, 0 } };
 		Integer[] traingles = AGraphProblem.getTraingle(graph);
 		Assert.assertArrayEquals(new Integer[] { 1, 2, 3 }, traingles);
+		
+
+		graph = new int[][] { { 0, 1, 1, 0, 0, 0 }, { 1, 0, 1, 1, 0, 0 }, { 1, 1, 0, 1, 0, 0 }, { 0, 1, 1, 0, 1, 1 },
+				{ 0, 0, 0, 1, 0, 1 }, { 0, 0, 0, 1, 1, 0 } };
+		traingles = AGraphProblem.getTraingle(graph);
+		Assert.assertArrayEquals(new Integer[] { 1, 2, 3, 4 }, traingles);
 	}
 
 }
