@@ -32,13 +32,27 @@ public class DrawingBookTest {
 	@Test
 	public void testSolve() {
 		Assert.assertEquals(0, DrawingBook.solve(6, 1));
-		Assert.assertEquals(0, DrawingBook.solve(5, 4));
 		Assert.assertEquals(1, DrawingBook.solve(6, 4));
 		Assert.assertEquals(1, DrawingBook.solve(6, 3));
 		Assert.assertEquals(1, DrawingBook.solve(6, 2));
 		Assert.assertEquals(0, DrawingBook.solve(6, 1));
 		Assert.assertEquals(0, DrawingBook.solve(6, 6));
 		Assert.assertEquals(1, DrawingBook.solve(6, 5));
+		
+		Assert.assertEquals(0, DrawingBook.solve(5, 4));
+		Assert.assertEquals(0, DrawingBook.solve(5, 5));
+		Assert.assertEquals(1, DrawingBook.solve(5, 3));
+		Assert.assertEquals(1, DrawingBook.solve(5, 2));
+		Assert.assertEquals(0, DrawingBook.solve(5, 1));
+		
+		Assert.assertEquals(0, DrawingBook.solve(1, 1));
+		Assert.assertEquals(0, DrawingBook.solve(100000, 1));
+		Assert.assertEquals(0, DrawingBook.solve(100000, 100000));
+		Assert.assertEquals(1, DrawingBook.solve(100000, 2));
+		Assert.assertEquals(25000, DrawingBook.solve(100000, 100000/2));
+		
+		
+		
 	}
 
 }

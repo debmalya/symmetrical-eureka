@@ -22,19 +22,23 @@ import java.util.Scanner;
  *
  */
 public class DrawingBook {
-
+	
 	public static int solve(int n, int p) {
-		int fromBack = n - p;
-		int fromFront = p / 2;
+		
+		
+		if (p % 2 == 1) {
+			p--;
+		} 
+		int fromFront =  p/2;
 		if (n % 2 == 1) {
-			fromBack--;
+			n--;
 		}
-		if (fromBack > 1) {
-			fromBack /= 2;
-		}
+		int fromBack = (n - p)/2;
+		
 		int result = (fromBack < fromFront) ? fromBack : fromFront;
 		return result;
 	}
+
 
 	/**
 	 * @param args
