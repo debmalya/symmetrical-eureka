@@ -39,22 +39,24 @@ public class AppleNOrange {
 			
 			int[] appleFalls = new int[m];
 			int[] orangeFalls = new int[n];
-			int count = 0;
+			int appleCount = 0;
+			int orangeCount = 0;
 			for (int i = 0; i < m; i++){
 				appleFalls[i] = a + in.nextInt();
 				if (appleFalls[i] >= s && appleFalls[i] <= t){
-					count++;
+					appleCount++;
 				}
 			}
 			
 			for (int i = 0; i < n; i++){
 				orangeFalls[i] = b + in.nextInt();
 				if (orangeFalls[i] >= s && orangeFalls[i] <= t){
-					count++;
+					orangeCount++;
 				}
 			}
 			
-			System.out.println(count);
+			System.out.println(appleCount);
+			System.out.println(orangeCount);
 			
 		}
 
