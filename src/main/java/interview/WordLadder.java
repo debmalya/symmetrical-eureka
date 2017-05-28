@@ -16,8 +16,6 @@
 package interview;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -71,39 +69,65 @@ public class WordLadder {
 	 * sequence from beginWord to endWord using only words from wordList as
 	 * described above.
 	 * 
-	 * @param beginWord word to begin with.
-	 * @param endWord final changed word.
-	 * @param wordList list of words can be used for the conversion.
+	 * @param beginWord
+	 *            word to begin with.
+	 * @param endWord
+	 *            final changed word.
+	 * @param wordList
+	 *            list of words can be used for the conversion.
 	 * @return number of conversions required to reach from begin word to end
 	 *         word changing one letter at a time.
 	 */
-	int wordLadder(String beginWord, String endWord, String[] wordList) {
-		// List of all words including begin and end
-		List<String> allWords = new ArrayList<>();
+	public int wordLadder(String beginWord, String endWord, String[] wordList) {
+		// Initial difference between begin word and end word
+		int initialDiff = difference(beginWord, endWord);
 
-		allWords.add(beginWord);
-		allWords.add(endWord);
-		int diff = difference(beginWord,endWord);
-		for (String eachWord : wordList) {
-			
-			if (!allWords.contains(eachWord)) {
-				diff = difference(beginWord, eachWord);
-				allWords.add(eachWord);
+		String[] fromStart = new String[wordList.length];
+		fromStart[initialDiff] = endWord;
+
+		String[] fromEnd = new String[wordList.length];
+		fromEnd[initialDiff] = beginWord;
+
+		for (int i = 0; i < wordList.length; i++) {
+			int diffFromStart = difference(beginWord, wordList[i]);
+			int diffFromEnd = difference(endWord, wordList[i]);
+			boolean additionOK = true;
+
+			if (diffFromStart < fromStart.length) {
+				if (fromStart[diffFromStart] != null) {
+					
+					if (!fromStart[diffFromStart].contains(wordList[i])){
+					fromStart[diffFromStart] += "|";
+					} else {
+						additionOK = false;
+					}
+				} else {
+					fromStart[diffFromStart] = "";
+				}
+				if (additionOK) {
+					fromStart[diffFromStart] += wordList[i];
+				}
+			}
+
+			if (diffFromEnd < fromEnd.length) {
+				additionOK = true;
+				if (fromEnd[diffFromEnd] != null) {
+					if (!fromEnd[diffFromEnd].contains(wordList[i])) {
+						fromEnd[diffFromEnd] += "|";
+					} else {
+						additionOK = false;
+					}
+				} else {
+					fromEnd[diffFromEnd] = "";
+				}
+				if (additionOK) {
+					fromEnd[diffFromEnd] += wordList[i];
+				}
 			}
 		}
 
-		
-
-	
-		
-		int start = allWords.indexOf(beginWord);
-		int end = allWords.indexOf(endWord);
-		
-		return Math.abs(start -end + 1);
+		return 0;
 	}
-
-
-	
 
 	/**
 	 * How many characters are different in word1 and word2?
@@ -126,5 +150,27 @@ public class WordLadder {
 		return result;
 	}
 	
-	
+	/**
+	 * Give shortest possible conversion path. Different between two consecutive word in only one letter.
+	 * @param beginWord starting word.
+	 * @param endWord ending word.
+	 * @param wordList possible possible words at each conversion stage.
+	 * @return minimum number of word required for the conversion.
+	 * 
+	 * Example :
+	 * beginWord : hit
+	 * endWord: cog
+	 * wordList : [cog, dog|log, hot|dot|lot, hit, null, null]
+	 * Possible paths 
+	 * cog->dog->dot->hot->hit
+	 * cog->dog->dot->lot->hot->hit
+	 * cog->log->dog->dot->hot->hit
+	 * cog->log->lot->hot->hit
+	 * 
+	 * It will return the shortest one cog->dog->dot->hot->hit, answer is 5.
+	 */
+	public int getPossiblePath(String beginWord,String endWord,String[] wordList){
+		return 0;
+	}
+
 }
