@@ -52,5 +52,12 @@ public class StringUtilTest {
 		Assert.assertEquals("Welcome to the <a href=\"/hotels\">hotel</a>", actual);
 		
 	}
+	
+	@Test
+	public void testToggle() {
+		Assert.assertEquals("ABCDe", StringUtil.toggle("abcdE"));
+		Assert.assertEquals("abcdE", StringUtil.toggle("ABCDe"));
+		Assert.assertEquals("abcdE", StringUtil.toggle(StringUtil.toggle("abcdE")));
+	}
 
 }
