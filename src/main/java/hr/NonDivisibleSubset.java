@@ -28,21 +28,68 @@ public class NonDivisibleSubset {
 
 	/**
 	 * @param args
+	 * 
+	 *            5 5 2 7 12 17 22 - 5
+	 * 
+	 * 
+	 *            6 9 422346306 940894801 696810740 862741861 85835055 313720373
+	 *            - 5
 	 */
 	public static void main(String[] args) {
 
 		try (Scanner in = new Scanner(System.in)) {
-			// The first line contains space-separated integers, and ,
-			// respectively.
 			int n = in.nextInt();
 			int k = in.nextInt();
 
-			// The second line contains space-separated integers
+			int[] arr = new int[n];
+			int[] rem = new int[k];
 			for (int i = 0; i < n; i++) {
+				arr[i] = in.nextInt();
+				rem[arr[i] % k]++;
+			}
 
+			int count = 0;
+			if (rem[0] > 0) {
+				count++;
+			}
+			for (int i = 1, j = k - 1; i <= j; i++, j--) {
+				if (rem[i] > rem[j]) {
+					count += rem[i];
+				}else {
+					count += rem[j];
+				}
+			}
+
+			System.out.println(count);
+
+		}
+	}
+	
+	/**
+	 * 
+	 * @param n - number of distinct integers ( 1<= n <= 100000)
+	 * @param k - divisor (1<= k <= 100)
+	 * @param arr - array containing distinct integers
+	 * @return size of a maximal subset.
+	 */
+	public int getNumberOfNonDivisibleSet(int n,int k,int[] arr) {
+		
+		int[] rem = new int[k];
+		for (int i = 0; i < n; i++) {
+			rem[arr[i] % k]++;
+		}
+		int count = 0;
+		if (rem[0] > 0) {
+			count++;
+		}
+		for (int i = 1, j = k - 1; i <= j; i++, j--) {
+			if (rem[i] > rem[j]) {
+				count += rem[i];
+			}else {
+				count += rem[j];
 			}
 		}
-
+		return count;
 	}
 
 }
