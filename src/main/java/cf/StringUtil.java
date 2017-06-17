@@ -16,6 +16,7 @@
 package cf;
 
 import java.util.Arrays;
+import java.util.Scanner;
 import java.util.SortedMap;
 import java.util.SortedSet;
 import java.util.TreeMap;
@@ -164,4 +165,27 @@ public class StringUtil {
 			return text.substring(0, start) + text.substring(end + 1, i + 1) + a;
 		}
 	}
+	
+	/**
+	 * Convert upper case letter to lower and lower case letter to upper.
+	 * @param input string
+	 * @return toggled string
+	 */
+	public static String toggle(final String input) {
+		char[] inputArr = new char[input.length()];
+		for (int i = 0; i < input.length(); i++) {
+			char ch = input.charAt(i);
+			if (ch >= 'A' && ch <= 'Z') {
+				// convert to lower case
+				inputArr[i] = (char) (ch + 'a' - 'A');
+			} else if (ch >= 'a' && ch <= 'z') {
+				// convert to upper case 
+				inputArr[i] = (char) (ch + 'A' - 'a');;
+			}
+			
+		}
+		return String.valueOf(inputArr);
+	}
+	
+	
 }
