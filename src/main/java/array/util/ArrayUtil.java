@@ -24,7 +24,6 @@ import java.util.Set;
  */
 public class ArrayUtil {
 
-	
 	/**
 	 * Given an array a that contains only numbers in the range from 1 to
 	 * a.length, find the first duplicate number for which the second occurrence
@@ -54,7 +53,8 @@ public class ArrayUtil {
 	 * minimal index for its second occurrence. If there are no such elements,
 	 * return -1.
 	 * 
-	 * @param a - array of integer.
+	 * @param a
+	 *            - array of integer.
 	 * @return - minimal index of the duplicate element
 	 */
 	public int firstDuplicate(int[] a) {
@@ -69,4 +69,76 @@ public class ArrayUtil {
 		return index;
 	}
 
+	/**
+	 * Note: Write a solution that only iterates over the string once and uses
+	 * O(1) additional memory, since this is what you would be asked to do
+	 * during a real interview.
+	 * 
+	 * Given a string s, find and return the first instance of a non-repeating
+	 * character in it. If there is no such character, return '_'.
+	 * 
+	 * Example
+	 * 
+	 * For s = "abacabad", the output should be firstNotRepeatingCharacter(s) =
+	 * 'c'.
+	 * 
+	 * There are 2 non-repeating characters in the string: 'c' and 'd'. Return c
+	 * since it appears in the string first.
+	 * 
+	 * For s = "abacabaabacaba", the output should be
+	 * firstNotRepeatingCharacter(s) = '_'.
+	 * 
+	 * There are no characters in this string that do not repeat.
+	 * 
+	 * Input/Output
+	 * 
+	 * [time limit] 3000ms (java) [input] string s
+	 * 
+	 * A string that contains only lowercase English letters.
+	 * 
+	 * Guaranteed constraints: 1 ≤ s.length ≤ 105.
+	 * 
+	 * [output] char
+	 * 
+	 * The first non-repeating character in s, or '_' if there are no characters
+	 * that do not repeat.
+	 * 
+	 * 
+	 * @param s
+	 *            - String .
+	 * @return first non repeating character.
+	 */
+	public char firstNotRepeatingCharacter(String s) {
+		char r = '_';
+
+		for (int i = 0; i < s.length(); i++) {
+			char c = s.charAt(i);
+			String f = s.substring(0, i);
+			String l = "";
+
+			if (f.indexOf(c) == -1) {
+				if (i < s.length() - 1) {
+					l = s.substring(i + 1);
+				}
+				if (l.indexOf(c) == -1) {
+					r = c;
+					break;
+				}
+			}
+		}
+		return r;
+	}
+
+	public char firstNotRepeatingCharacter0(String s) {
+		char r = '_';
+		int l = s.length();
+		for (int i = 0; i < s.length(); i++) {
+			char c = s.charAt(i);
+			if (l - s.replace("" + c, "").length() == 1) {
+				r = c;
+				break;
+			}
+		}
+		return r;
+	}
 }

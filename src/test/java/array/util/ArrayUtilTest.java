@@ -27,17 +27,24 @@ import org.junit.Test;
  *
  */
 public class ArrayUtilTest {
+	
+	ArrayUtil arrayUtil = new ArrayUtil();
 
 	/**
 	 * Test method for {@link array.util.ArrayUtil#firstDuplicate(int[])}.
 	 */
 	@Test
 	public void testFirstDuplicate() {
-		ArrayUtil arrayUtil = new ArrayUtil();
+		
 		Assert.assertEquals(3, arrayUtil.firstDuplicate(new int[] {2, 3, 3, 1, 5, 2}));
 		Assert.assertEquals(-1, arrayUtil.firstDuplicate(new int[] {2, 4, 3, 5, 1}));
 		Assert.assertEquals(6, arrayUtil.firstDuplicate(new int[] {8, 4, 6, 2, 6, 4, 7, 9, 5, 8}));
 		Assert.assertEquals(3, arrayUtil.firstDuplicate(new int[] {3,3,3}));
 	}
 
+	@Test
+	public void testFirstNonRepeatingCharacter() {
+		Assert.assertEquals('c',arrayUtil.firstNotRepeatingCharacter("abacabad"));
+		Assert.assertEquals('_',arrayUtil.firstNotRepeatingCharacter("abacabaabacaba"));
+	}
 }
