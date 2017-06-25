@@ -59,5 +59,41 @@ public class StringUtilTest {
 		Assert.assertEquals("abcdE", StringUtil.toggle("ABCDe"));
 		Assert.assertEquals("abcdE", StringUtil.toggle(StringUtil.toggle("abcdE")));
 	}
+	
+	@Test
+	public void testFirstIndexOf() {
+		String first = "Debmalya Jash";
+		String last = "Jash";
+		String none = "Roy";
+		Assert.assertEquals(-1, StringUtil.findFirstSubstringOccurrence(first, none));
+		Assert.assertEquals(first.indexOf(last), StringUtil.findFirstSubstringOccurrence(first, last));
+		
+		String s = "CodefightsIsAwesome";
+		String x = "IA";
+		Assert.assertEquals(s.indexOf(x), StringUtil.findFirstSubstringOccurrence(s, x));
+		
+		x = "IsA";
+		Assert.assertEquals(s.indexOf(x), StringUtil.findFirstSubstringOccurrence(s, x));
+		
+		s = "a";
+		x = "a";
+		Assert.assertEquals(s.indexOf(x), StringUtil.findFirstSubstringOccurrence(s, x));
+		
+		s = "sst";
+		x = "st";
+		Assert.assertEquals(s.indexOf(x), StringUtil.findFirstSubstringOccurrence(s, x));
+		
+		s = "sssst";
+		x = "st";
+		Assert.assertEquals(s.indexOf(x), StringUtil.findFirstSubstringOccurrence(s, x));
+		
+		s = "aaabbabc";
+		x = "abc";
+		Assert.assertEquals(s.indexOf(x), StringUtil.findFirstSubstringOccurrence(s, x));
+		
+		s = "aaabbabc";
+		x = "ac";
+		Assert.assertEquals(s.indexOf(x), StringUtil.findFirstSubstringOccurrence(s, x));
+	}
 
 }

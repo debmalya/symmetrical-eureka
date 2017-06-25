@@ -165,10 +165,12 @@ public class StringUtil {
 			return text.substring(0, start) + text.substring(end + 1, i + 1) + a;
 		}
 	}
-	
+
 	/**
 	 * Convert upper case letter to lower and lower case letter to upper.
-	 * @param input string
+	 * 
+	 * @param input
+	 *            string
 	 * @return toggled string
 	 */
 	public static String toggle(final String input) {
@@ -179,13 +181,132 @@ public class StringUtil {
 				// convert to lower case
 				inputArr[i] = (char) (ch + 'a' - 'A');
 			} else if (ch >= 'a' && ch <= 'z') {
-				// convert to upper case 
-				inputArr[i] = (char) (ch + 'A' - 'a');;
+				// convert to upper case
+				inputArr[i] = (char) (ch + 'A' - 'a');
+				;
 			}
-			
+
 		}
 		return String.valueOf(inputArr);
 	}
-	
-	
+
+	/**
+	 * You have been given a string s, which is supposed to be a sentence.
+	 * However, someone forgot to put spaces between the different words, and
+	 * for some reason they capitalized the first letter of every word. Return
+	 * the sentence after making the following amendments:
+	 * 
+	 * Put a single space between the words. Convert the uppercase letters to
+	 * lowercase. Example
+	 * 
+	 * For s = "CodefightsIsAwesome", the output should be amendTheSentence(s) =
+	 * "codefights is awesome"; For s = "Hello", the output should be
+	 * amendTheSentence(s) = "hello". Input/Output
+	 * 
+	 * [time limit] 3000ms (java) [input] string s
+	 * 
+	 * A string containing uppercase and lowercase English letters.
+	 * 
+	 * Guaranteed constraints:
+	 * 
+	 * 3 ≤ s.length ≤ 100.
+	 * 
+	 * [output] string
+	 * 
+	 * The amended sentence.
+	 * 
+	 * 
+	 * @param s
+	 * @return
+	 */
+	public String amendTheSentence(String s) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < s.length(); i++) {
+			char ch = s.charAt(i);
+			if (ch >= 'A' && ch <= 'Z' && i > 0) {
+				sb.append(" ");
+			}
+			sb.append(ch);
+		}
+		return sb.toString().toLowerCase();
+	}
+
+	/**
+	 * Avoid using built-in functions to solve this challenge. Implement them
+	 * yourself, since this is what you would be asked to do during a real
+	 * interview.
+	 * 
+	 * Implement a function that takes two strings, s and x, as arguments and
+	 * finds the first occurrence of the string x in s. The function should
+	 * return an integer indicating the index in s of the first occurrence of x.
+	 * If there are no occurrences of x in s, return -1.
+	 * 
+	 * Example
+	 * 
+	 * For s = "CodefightsIsAwesome" and x = "IA", the output should be
+	 * strstr(s, x) = -1; For s = "CodefightsIsAwesome" and x = "IsA", the
+	 * output should be strstr(s, x) = 10. Input/Output
+	 * 
+	 * [time limit] 3000ms (java) [input] string s
+	 * 
+	 * A string containing only uppercase or lowercase English letters.
+	 * 
+	 * Guaranteed constraints: 1 ≤ s.length ≤ 106.
+	 * 
+	 * [input] string x
+	 * 
+	 * String, containing only uppercase or lowercase English letters.
+	 * 
+	 * Guaranteed constraints: 1 ≤ x.length ≤ 106.
+	 * 
+	 * [output] integer
+	 * 
+	 * An integer indicating the index of the first occurrence of the string x
+	 * in s, or -1 if s does not contain x.
+	 * 
+	 * 
+	 * @param s
+	 * @param x
+	 * @return
+	 */
+	public static int findFirstSubstringOccurrence(String s, String x) {
+		int firstIndex = -1;
+		char[] source = s.toCharArray();
+		char[] target = x.toCharArray();
+
+		int xl = x.length();
+		int sl = s.length();
+
+		int i = 0;
+		int j = 0;
+
+		while (true) {
+			while (source[j] != target[i]) {
+				j++;
+				if (j == sl) {
+					return -1;
+				}
+			}
+
+			// match found
+			firstIndex = j;
+			while (target[i] == source[j]) {
+				i++;
+				j++;
+				if (i == xl) {
+					return firstIndex;
+				}
+				if (j == sl) {
+					return -1;
+				}
+			}
+			firstIndex = -1;
+			i = 0;
+			
+		}
+
+		
+
+	}
+
 }
