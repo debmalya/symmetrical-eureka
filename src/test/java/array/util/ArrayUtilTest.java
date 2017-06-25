@@ -18,16 +18,12 @@ package array.util;
 import org.junit.Assert;
 import org.junit.Test;
 
-
-
-
-
 /**
  * @author debmalyajash
  *
  */
 public class ArrayUtilTest {
-	
+
 	ArrayUtil arrayUtil = new ArrayUtil();
 
 	/**
@@ -35,16 +31,38 @@ public class ArrayUtilTest {
 	 */
 	@Test
 	public void testFirstDuplicate() {
-		
-		Assert.assertEquals(3, arrayUtil.firstDuplicate(new int[] {2, 3, 3, 1, 5, 2}));
-		Assert.assertEquals(-1, arrayUtil.firstDuplicate(new int[] {2, 4, 3, 5, 1}));
-		Assert.assertEquals(6, arrayUtil.firstDuplicate(new int[] {8, 4, 6, 2, 6, 4, 7, 9, 5, 8}));
-		Assert.assertEquals(3, arrayUtil.firstDuplicate(new int[] {3,3,3}));
+
+		Assert.assertEquals(3, arrayUtil.firstDuplicate(new int[] { 2, 3, 3, 1, 5, 2 }));
+		Assert.assertEquals(-1, arrayUtil.firstDuplicate(new int[] { 2, 4, 3, 5, 1 }));
+		Assert.assertEquals(6, arrayUtil.firstDuplicate(new int[] { 8, 4, 6, 2, 6, 4, 7, 9, 5, 8 }));
+		Assert.assertEquals(3, arrayUtil.firstDuplicate(new int[] { 3, 3, 3 }));
 	}
 
 	@Test
 	public void testFirstNonRepeatingCharacter() {
-		Assert.assertEquals('c',arrayUtil.firstNotRepeatingCharacter("abacabad"));
-		Assert.assertEquals('_',arrayUtil.firstNotRepeatingCharacter("abacabaabacaba"));
+		Assert.assertEquals('c', arrayUtil.firstNotRepeatingCharacter("abacabad"));
+		Assert.assertEquals('_', arrayUtil.firstNotRepeatingCharacter("abacabaabacaba"));
+	}
+
+	@Test
+	public void testRotateImage() {
+		int[][] a = new int[][] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+		int[][] e = new int[][] { { 7, 4, 1 }, { 8, 5, 2 }, { 9, 6, 3 } };
+		Assert.assertArrayEquals(e, arrayUtil.rotateImage(a));
+		
+		a = new int[][] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+		e = new int[][] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+		for (int i = 0; i < 4; i++) {
+			arrayUtil.rotateImage(a);
+		}
+		Assert.assertArrayEquals(e,a);
+	}
+	
+	@Test
+	public void testRotateImage1() {
+		int[][] a = new int[][] {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16}};
+		int[][] e = new int[][] {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16}};
+	
+		arrayUtil.rotateImage(a);
 	}
 }
