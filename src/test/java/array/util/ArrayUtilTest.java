@@ -49,20 +49,34 @@ public class ArrayUtilTest {
 		int[][] a = new int[][] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
 		int[][] e = new int[][] { { 7, 4, 1 }, { 8, 5, 2 }, { 9, 6, 3 } };
 		Assert.assertArrayEquals(e, arrayUtil.rotateImage(a));
-		
+
 		a = new int[][] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
 		e = new int[][] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
 		for (int i = 0; i < 4; i++) {
 			arrayUtil.rotateImage(a);
 		}
-		Assert.assertArrayEquals(e,a);
+		Assert.assertArrayEquals(e, a);
 	}
-	
+
 	@Test
 	public void testRotateImage1() {
-		int[][] a = new int[][] {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16}};
-		int[][] e = new int[][] {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16}};
-	
+		int[][] a = new int[][] { { 1, 2, 3, 4 }, { 5, 6, 7, 8 }, { 9, 10, 11, 12 }, { 13, 14, 15, 16 } };
+		int[][] e = new int[][] { { 1, 2, 3, 4 }, { 5, 6, 7, 8 }, { 9, 10, 11, 12 }, { 13, 14, 15, 16 } };
+
 		arrayUtil.rotateImage(a);
+	}
+
+	@Test
+	public void testShapeArea() {
+		Assert.assertEquals(5, arrayUtil.shapeArea(2));
+	}
+
+	@Test
+	public void testAlmostIncreasingSequence() {
+		Assert.assertFalse(arrayUtil.almostIncreasingSequence(new int[] { 1, 2, 1, 2 }));
+		Assert.assertFalse(arrayUtil.almostIncreasingSequence(new int[] { 1, 3, 1, 3 }));
+		Assert.assertTrue(arrayUtil.almostIncreasingSequence(new int[] { 1, 2, 3, 4, 3, 6 }));
+		Assert.assertTrue(arrayUtil.almostIncreasingSequence(new int[] { 10, 1, 2, 3, 4, 5 }));
+		//Assert.assertTrue(arrayUtil.almostIncreasingSequence(new int[] {1, 2, 3, 4, 99, 5, 6}));
 	}
 }

@@ -15,7 +15,9 @@
  */
 package array.util;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -159,8 +161,8 @@ public class ArrayUtil {
 	public int[][] rotateImage(int[][] a) {
 
 		int[][] arr = new int[a.length][a.length];
-		for (int j = 0, row = 0; j < a.length; j++,row++) {
-			for (int i = a.length - 1, col = 0; i > -1; i--,col++) {
+		for (int j = 0, row = 0; j < a.length; j++, row++) {
+			for (int i = a.length - 1, col = 0; i > -1; i--, col++) {
 				System.out.print(a[i][j] + " ");
 				arr[row][col] = a[i][j];
 			}
@@ -170,12 +172,12 @@ public class ArrayUtil {
 		return arr;
 
 	}
-	
+
 	public int[][] rotateImage1(int[][] a) {
 
 		int[][] arr = new int[a.length][a.length];
-		for (int j = 0, row = 0; j < a.length; j++,row++) {
-			for (int i = a.length - 1, col = 0; i > -1; i--,col++) {
+		for (int j = 0, row = 0; j < a.length; j++, row++) {
+			for (int i = a.length - 1, col = 0; i > -1; i--, col++) {
 				System.out.print(a[i][j] + " ");
 				arr[row][col] = a[i][j];
 			}
@@ -200,6 +202,122 @@ public class ArrayUtil {
 		}
 
 		return a;
+
+	}
+
+	/**
+	 * Given an array of integers, find the pair of adjacent elements that has
+	 * the largest product and return that product.
+	 * 
+	 * Example
+	 * 
+	 * For inputArray = [3, 6, -2, -5, 7, 3], the output should be
+	 * adjacentElementsProduct(inputArray) = 21.
+	 * 
+	 * 7 and 3 produce the largest product.
+	 * 
+	 * Input/Output
+	 * 
+	 * [time limit] 3000ms (java) [input] array.integer inputArray
+	 * 
+	 * An array of integers containing at least two elements.
+	 * 
+	 * Guaranteed constraints: 2 ≤ inputArray.length ≤ 10, -1000 ≤ inputArray[i]
+	 * ≤ 1000.
+	 * 
+	 * [output] integer
+	 * 
+	 * The largest product of adjacent elements.
+	 * 
+	 * 
+	 * 
+	 */
+	int adjacentElementsProduct(int[] inputArray) {
+		int maxProduct = Integer.MIN_VALUE;
+		for (int i = 1; i < inputArray.length; i++) {
+			int eachProduct = inputArray[i] * inputArray[i - 1];
+			if (eachProduct > maxProduct) {
+				maxProduct = eachProduct;
+			}
+		}
+		return maxProduct;
+	}
+
+	/**
+	 * 
+	 * @param n
+	 * @return
+	 */
+	int shapeArea(int n) {
+		int n1 = n + (n - 1);
+		int r = n1;
+		while (n1 > 1) {
+			n1 -= 2;
+			r += n1;
+			r += n1;
+		}
+		return r;
+	}
+
+	/**
+	 * Given a sequence of integers as an array, determine whether it is
+	 * possible to obtain a strictly increasing sequence by removing no more
+	 * than one element from the array.
+	 * 
+	 * Example
+	 * 
+	 * For sequence = [1, 3, 2, 1], the output should be
+	 * almostIncreasingSequence(sequence) = false;
+	 * 
+	 * There is no one element in this array that can be removed in order to get
+	 * a strictly increasing sequence.
+	 * 
+	 * For sequence = [1, 3, 2], the output should be
+	 * almostIncreasingSequence(sequence) = true.
+	 * 
+	 * You can remove 3 from the array to get the strictly increasing sequence
+	 * [1, 2]. Alternately, you can remove 2 to get the strictly increasing
+	 * sequence [1, 3].
+	 * 
+	 * Input/Output
+	 * 
+	 * [time limit] 3000ms (java) [input] array.integer sequence
+	 * 
+	 * Guaranteed constraints: 2 ≤ sequence.length ≤ 105, -105 ≤ sequence[i] ≤
+	 * 105.
+	 * 
+	 * [output] boolean
+	 * 
+	 * Return true if it is possible to remove one element from the array in
+	 * order to get a strictly increasing sequence, otherwise return false.
+	 * 
+	 * 
+	 * @param sequence
+	 *            of integer.
+	 * @return true if removing one element can increase
+	 */
+	boolean almostIncreasingSequence(int[] sequence) {
+
+		short c = 0;
+		int last = 0;
+
+		for (int i = 0; i < sequence.length - 1; i++) {
+			if (sequence[i] < sequence[i + 1]) {
+				if (i > 0) {
+					if (sequence[i + 1] <= last) {
+						c++;
+					}
+				}
+				last = sequence[i + 1];
+			} else {
+				c++;
+			}
+			if (c > 1) {
+				return false;
+			}
+		}
+
+		return c < 2;
 
 	}
 
