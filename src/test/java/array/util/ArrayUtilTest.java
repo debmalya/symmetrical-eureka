@@ -56,6 +56,7 @@ public class ArrayUtilTest {
 			arrayUtil.rotateImage(a);
 		}
 		Assert.assertArrayEquals(e, a);
+		
 	}
 
 	@Test
@@ -75,8 +76,11 @@ public class ArrayUtilTest {
 	public void testAlmostIncreasingSequence() {
 		Assert.assertFalse(arrayUtil.almostIncreasingSequence(new int[] { 1, 2, 1, 2 }));
 		Assert.assertFalse(arrayUtil.almostIncreasingSequence(new int[] { 1, 3, 1, 3 }));
+		Assert.assertFalse(arrayUtil.almostIncreasingSequence(new int[] { 1, 2, 3, 3, 3, 6 }));
 		Assert.assertTrue(arrayUtil.almostIncreasingSequence(new int[] { 1, 2, 3, 4, 3, 6 }));
+		Assert.assertTrue(arrayUtil.almostIncreasingSequence(new int[] { 1, 2, 3, 4, 4, 6 }));
 		Assert.assertTrue(arrayUtil.almostIncreasingSequence(new int[] { 10, 1, 2, 3, 4, 5 }));
-		//Assert.assertTrue(arrayUtil.almostIncreasingSequence(new int[] {1, 2, 3, 4, 99, 5, 6}));
+		Assert.assertTrue(arrayUtil.almostIncreasingSequence(new int[] {1, 2, 3, 4, 99, 5, 6}));
+		Assert.assertFalse(arrayUtil.almostIncreasingSequence(new int[] { 1, 2, 3, 4, 3, 2 }));
 	}
 }

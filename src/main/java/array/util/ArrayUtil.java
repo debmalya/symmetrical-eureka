@@ -15,9 +15,8 @@
  */
 package array.util;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -299,17 +298,42 @@ public class ArrayUtil {
 	boolean almostIncreasingSequence(int[] sequence) {
 
 		short c = 0;
-		int last = 0;
+		boolean[] checked = new boolean[sequence.length];
+		int l = sequence.length;
 
-		for (int i = 0; i < sequence.length - 1; i++) {
-			if (sequence[i] < sequence[i + 1]) {
-				if (i > 0) {
-					if (sequence[i + 1] <= last) {
-						c++;
-					}
+
+		for (int i = 0; i < l; i++) {
+			if (i == 0 && i < l - 1) {
+				if (sequence[i] < sequence[i + 1]) {
+					checked[i] = true;
+					c++;
 				}
-				last = sequence[i + 1];
-			} else {
+			} else if (i < l - 1 && sequence[i - 1] < sequence[i] && sequence[i] < sequence[i + 1]) {
+				checked[i] = true;
+				c++;
+			} else if (i == l - 1 && sequence[i - 1] < sequence[i]) {
+				checked[i] = true;
+				c++;
+			}
+
+			
+		}
+
+		if (c == l) {
+			// perfect condition
+			return true;
+		}
+
+		if (l - c > 2) {
+			// perfect false
+			return false;
+		}
+
+		// dropping the proper one can make it increasing array.
+		c = 0;
+		Arrays.sort(sequence);
+		for (int i = 1; i < sequence.length; i++) {
+			if (sequence[i] <= sequence[i -1]) {
 				c++;
 			}
 			if (c > 1) {
@@ -317,7 +341,7 @@ public class ArrayUtil {
 			}
 		}
 
-		return c < 2;
+		return true;
 
 	}
 
