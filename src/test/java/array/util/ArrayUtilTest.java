@@ -82,5 +82,7 @@ public class ArrayUtilTest {
 		Assert.assertTrue(arrayUtil.almostIncreasingSequence(new int[] { 10, 1, 2, 3, 4, 5 }));
 		Assert.assertTrue(arrayUtil.almostIncreasingSequence(new int[] {1, 2, 3, 4, 99, 5, 6}));
 		Assert.assertFalse(arrayUtil.almostIncreasingSequence(new int[] { 1, 2, 3, 4, 3, 2 }));
+		Assert.assertTrue(arrayUtil.almostIncreasingSequence(new int[] { 123, -17, -5, 1, 2, 3, 12, 43, 45 }));
+		Assert.assertFalse(arrayUtil.almostIncreasingSequence(new int[] { 40, 50, 60, 10, 20, 30 }));
 	}
 }

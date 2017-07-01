@@ -298,28 +298,41 @@ public class ArrayUtil {
 	boolean almostIncreasingSequence(int[] sequence) {
 
 		short c = 0;
-		boolean[] checked = new boolean[sequence.length];
 		int l = sequence.length;
-
+		int last = 0;
+		boolean started = false;
 
 		for (int i = 0; i < l; i++) {
 			if (i == 0 && i < l - 1) {
-				if (sequence[i] < sequence[i + 1]) {
-					checked[i] = true;
-					c++;
-				}
-			} else if (i < l - 1 && sequence[i - 1] < sequence[i] && sequence[i] < sequence[i + 1]) {
-				checked[i] = true;
-				c++;
-			} else if (i == l - 1 && sequence[i - 1] < sequence[i]) {
-				checked[i] = true;
-				c++;
-			}
 
+				if (sequence[i] < sequence[i + 1]) {
+					c++;
+					last = sequence[i];
+				}
+
+			} else if (i < l - 1 && sequence[i - 1] < sequence[i] && sequence[i] < sequence[i + 1]) {
+				c++;
+				if (started && sequence[i] < last) {
+					return false;
+				}
+				last = sequence[i];
+
+			} else if (i == l - 1 && sequence[i - 1] < sequence[i]) {
+				if (started && sequence[i] < last) {
+					return false;
+				}
+				c++;
+				last = sequence[i];
+			}
 			
+			if (c > 0) {
+				started = true;
+			}
 		}
 
-		if (c == l) {
+		if (c == l)
+
+		{
 			// perfect condition
 			return true;
 		}
@@ -333,7 +346,7 @@ public class ArrayUtil {
 		c = 0;
 		Arrays.sort(sequence);
 		for (int i = 1; i < sequence.length; i++) {
-			if (sequence[i] <= sequence[i -1]) {
+			if (sequence[i] <= sequence[i - 1]) {
 				c++;
 			}
 			if (c > 1) {
