@@ -85,4 +85,10 @@ public class ArrayUtilTest {
 		Assert.assertTrue(arrayUtil.almostIncreasingSequence(new int[] { 123, -17, -5, 1, 2, 3, 12, 43, 45 }));
 		Assert.assertFalse(arrayUtil.almostIncreasingSequence(new int[] { 40, 50, 60, 10, 20, 30 }));
 	}
+	
+	@Test
+	public void testMatrixElementsSum() {
+		int[][] arr = new int[][] {{0,1,1,2},{0,5,0,0},{2,0,3,3}};
+		Assert.assertEquals(9, arrayUtil.matrixElementsSum(arr));
+	}
 }
