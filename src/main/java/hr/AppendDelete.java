@@ -24,6 +24,23 @@ import java.util.Scanner;
 public class AppendDelete {
 
 	/**
+	 * You have a string, s, of lower case English alphabetic letters. You can
+	 * perform two types of operations on s:
+	 * 
+	 * Append a lower case English alphabetic letter to the end of the string.
+	 * Delete the last character in the string. Performing this operation on an
+	 * empty string results in an empty string. Given an integer, k , and two
+	 * strings s, and t, determine whether or not you can convert to by
+	 * performing exactly k of the above operations on s. If it's possible,
+	 * print Yes; otherwise, print No.
+	 * 
+	 * Input Format
+	 * 
+	 * The first line contains a string, s, denoting the initial string. The
+	 * second line contains a string,t , denoting the desired final string. The
+	 * third line contains an integer,k , denoting the desired number of
+	 * operations.
+	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {
@@ -31,7 +48,7 @@ public class AppendDelete {
 			String s = in.next();
 			String t = in.next();
 			int k = in.nextInt();
-			System.out.println(isPossible(s,t,k));
+			System.out.println(isPossible(s, t, k));
 		}
 
 	}
@@ -44,16 +61,30 @@ public class AppendDelete {
 	 */
 	public static String isPossible(String s, String t, int k) {
 		int len = s.length() > t.length() ? t.length() : s.length();
-		int diff  = 0;
+		int diff = 0;
 		for (int i = 0; i < len; i++) {
-			if (s.charAt(i) != t.charAt(i)){
+			if (s.charAt(i) != t.charAt(i)) {
 				diff += s.length() - i;
 				diff += t.length() - i;
 				break;
 			}
 		}
-		
-		if (diff > k) {
+
+		if (s.contains(t)) {
+			if (diff <= k) {
+				return "Yes";
+			}
+			return "No";
+		} else if (diff == 0) {
+			// s is substring of t
+			diff = t.length() - s.length();
+			if (diff == k) {
+				return "Yes";
+			} else if (diff > 1 && k % diff == 0) {
+				return "Yes";
+			}
+			return "No";
+		} else if (diff > k) {
 			return "No";
 		}
 		return "Yes";

@@ -25,12 +25,29 @@ import org.junit.Test;
 public class AppendDeleteTest {
 
 	/**
-	 * Test method for {@link hr.AppendDelete#isPossible(java.lang.String, java.lang.String, int)}.
+	 * Test method for
+	 * {@link hr.AppendDelete#isPossible(java.lang.String, java.lang.String, int)}.
 	 */
 	@Test
 	public final void testIsPossible() {
-		Assert.assertEquals("Yes", AppendDelete.isPossible("Hackerrank", "Hackerhappy", 9));
-		Assert.assertEquals("Yes", AppendDelete.isPossible("aba","aba",7));
+		Assert.assertEquals("No", AppendDelete.isPossible("abcd", "abcdert", 10));
+		Assert.assertEquals("No", AppendDelete.isPossible("y", "yu", 2));
+		Assert.assertEquals("No", AppendDelete.isPossible("hackerrank", "hackerrank", 1));
+		Assert.assertEquals("Yes", AppendDelete.isPossible("aba", "aba", 7));
+		Assert.assertEquals("Yes", AppendDelete.isPossible("hackerrank", "hackerhappy", 9));
+
+		
+		Assert.assertEquals("No", AppendDelete.isPossible("yu", "y", 2));
+		Assert.assertEquals("No", AppendDelete.isPossible("abcd", "abcdert", 10));
+		
+		
+		
+		Assert.assertEquals("Yes", AppendDelete.isPossible("aaaaaaaaaa", "aaaaa", 7));
+		Assert.assertEquals("Yes", AppendDelete.isPossible("zzzzz", "zzzzzzz", 4));
+		Assert.assertEquals("Yes", AppendDelete.isPossible("zzzzzzz", "zzzzz", 4));
+		
+
+		
 	}
 
 }
