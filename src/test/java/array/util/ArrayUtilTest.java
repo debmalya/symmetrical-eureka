@@ -91,4 +91,16 @@ public class ArrayUtilTest {
 		int[][] arr = new int[][] {{0,1,1,2},{0,5,0,0},{2,0,3,3}};
 		Assert.assertEquals(9, arrayUtil.matrixElementsSum(arr));
 	}
+	
+	@Test
+	public void testCommonCharacterCount() {
+		Assert.assertEquals(3, arrayUtil.commonCharacterCount("abca", "xyzbac"));
+		Assert.assertEquals(4, arrayUtil.commonCharacterCount("zzzz", "zzzzzzz"));
+	}
+	
+	@Test
+	public void testGoodSet() {
+		Assert.assertTrue(arrayUtil.goodSet(new int[] {1,2,4}));
+		Assert.assertTrue(arrayUtil.goodSet(new int[]{0, 3, 6}));
+	}
 }

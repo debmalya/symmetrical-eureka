@@ -404,7 +404,7 @@ public class ArrayUtil {
 
 		for (int i = 0; i < matrix.length; i++) {
 			for (int j = 0; j < matrix[i].length; j++) {
-				if (i == 0 || (i > 0  && !checked[j]) ){
+				if (i == 0 || (i > 0 && !checked[j])) {
 					total += matrix[i][j];
 				}
 				if (matrix[i][j] == 0) {
@@ -413,6 +413,77 @@ public class ArrayUtil {
 			}
 		}
 		return total;
+	}
+
+	/**
+	 * Given two strings, find the number of common characters between them.
+	 * 
+	 * Example
+	 * 
+	 * For s1 = "aabcc" and s2 = "adcaa", the output should be
+	 * commonCharacterCount(s1, s2) = 3.
+	 * 
+	 * Strings have 3 common characters - 2 "a"s and 1 "c".
+	 * 
+	 * Input/Output
+	 * 
+	 * [time limit] 3000ms (java) [input] string s1
+	 * 
+	 * A string consisting of lowercase latin letters a-z.
+	 * 
+	 * Guaranteed constraints: 1 ≤ s1.length ≤ 15.
+	 * 
+	 * [input] string s2
+	 * 
+	 * A string consisting of lowercase latin letters a-z.
+	 * 
+	 * Guaranteed constraints: 1 ≤ s2.length ≤ 15.
+	 * 
+	 * [output] integer
+	 * 
+	 * @param s1
+	 * @param s2
+	 * @return
+	 */
+	public int commonCharacterCount(String s1, String s2) {
+		int[] a1 = new int[26];
+		int[] a2 = new int[26];
+
+		for (int i = 0; i < s1.length(); i++) {
+			a1[s1.charAt(i) - 'a']++;
+		}
+
+		for (int i = 0; i < s2.length(); i++) {
+			a2[s2.charAt(i) - 'a']++;
+		}
+
+		int c = 0;
+		for (int i = 0; i < 26; i++) {
+			if (a1[i] > 0 && a2[i] > 0) {
+				c += Math.min(a1[i], a2[i]);
+			}
+		}
+
+		return c;
+	}
+
+	/**
+	 * 
+	 * @param someSet
+	 * @return
+	 */
+	public boolean goodSet(int[] someSet) {
+		Arrays.sort(someSet);
+		for (int i = 0; i < someSet.length; i++) {
+			for (int j = 0; j < someSet.length; j++) {
+
+				if (i != j && (someSet[i] != 0 && someSet[j] != 0)
+						&& Arrays.binarySearch(someSet, (someSet[i] + someSet[j])) > -1) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 
 }
