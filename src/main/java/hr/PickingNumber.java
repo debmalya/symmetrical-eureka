@@ -35,22 +35,69 @@ public class PickingNumber {
 				a[a_i] = in.nextInt();
 			}
 
-			Arrays.sort(a);
-
-			int m  = 0;
-			for (int i = 0, j = a.length -1; i < j; i++,j--) {
-				if (Math.abs(a[i] - a[j]) <= 1) {
-					
-					while (i > -1 && Math.abs(a[i] - a[j]) <=1) {
-						i--;
-					}
-					m = j - i;
-					break;
-				}
-			}
-			System.out.println(m);
+			pickedNumbers(a);
 		}
 
 	}
 
+	/**
+	 * @param a
+	 */
+	public static int pickedNumbers(int[] a) {
+		Arrays.sort(a);
+
+		int m = 0;
+		int max = 0;
+		for (int i = 0, j = i + 1; j < a.length; i++, j++) {
+			if (a[j] - a[i] <= 1) {
+
+				while (i > -1 && a[j] - a[i] <= 1) {
+					j++;
+					if (j == a.length) {
+						break;
+					}
+				}
+
+				m = j - i;
+				if (m > max) {
+					max = m;
+				}
+
+				j = i + 1;
+			}
+		}
+		System.out.println(max);
+		return max;
+	}
+
+	/**
+	 * @param a
+	 */
+	public static int pickedNumbers0(int[] a) {
+		Arrays.sort(a);
+
+		int m = 0;
+		int max = 0;
+		for (int i = 0, j = a.length - 1; i < j; i++, j--) {
+			if (a[j] - a[i] <= 1) {
+				int prev_i = i;
+				while (i > -1 && a[j] - a[i] <= 1) {
+					i--;
+				}
+
+				m = j - i;
+				if (m > max) {
+					max = m;
+				}
+				i = prev_i;
+				j = a.length - 1;
+			}
+		}
+		System.out.println(max);
+		return max;
+	}
+
+	public static long getFirstUsageOfDay(long firstUsage, long recordTimeStamp) {
+		return (recordTimeStamp / 86400000 - firstUsage / 86400000 > 0) ? recordTimeStamp : firstUsage;
+	}
 }
