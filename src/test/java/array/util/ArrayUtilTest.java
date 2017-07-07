@@ -26,6 +26,7 @@ public class ArrayUtilTest {
 
 	ArrayUtil arrayUtil = new ArrayUtil();
 
+
 	/**
 	 * Test method for {@link array.util.ArrayUtil#firstDuplicate(int[])}.
 	 */
@@ -56,7 +57,7 @@ public class ArrayUtilTest {
 			arrayUtil.rotateImage(a);
 		}
 		Assert.assertArrayEquals(e, a);
-		
+
 	}
 
 	@Test
@@ -80,27 +81,37 @@ public class ArrayUtilTest {
 		Assert.assertTrue(arrayUtil.almostIncreasingSequence(new int[] { 1, 2, 3, 4, 3, 6 }));
 		Assert.assertTrue(arrayUtil.almostIncreasingSequence(new int[] { 1, 2, 3, 4, 4, 6 }));
 		Assert.assertTrue(arrayUtil.almostIncreasingSequence(new int[] { 10, 1, 2, 3, 4, 5 }));
-		Assert.assertTrue(arrayUtil.almostIncreasingSequence(new int[] {1, 2, 3, 4, 99, 5, 6}));
+		Assert.assertTrue(arrayUtil.almostIncreasingSequence(new int[] { 1, 2, 3, 4, 99, 5, 6 }));
 		Assert.assertFalse(arrayUtil.almostIncreasingSequence(new int[] { 1, 2, 3, 4, 3, 2 }));
 		Assert.assertTrue(arrayUtil.almostIncreasingSequence(new int[] { 123, -17, -5, 1, 2, 3, 12, 43, 45 }));
 		Assert.assertFalse(arrayUtil.almostIncreasingSequence(new int[] { 40, 50, 60, 10, 20, 30 }));
 	}
-	
+
 	@Test
 	public void testMatrixElementsSum() {
-		int[][] arr = new int[][] {{0,1,1,2},{0,5,0,0},{2,0,3,3}};
+		int[][] arr = new int[][] { { 0, 1, 1, 2 }, { 0, 5, 0, 0 }, { 2, 0, 3, 3 } };
 		Assert.assertEquals(9, arrayUtil.matrixElementsSum(arr));
 	}
-	
+
 	@Test
 	public void testCommonCharacterCount() {
 		Assert.assertEquals(3, arrayUtil.commonCharacterCount("abca", "xyzbac"));
 		Assert.assertEquals(4, arrayUtil.commonCharacterCount("zzzz", "zzzzzzz"));
 	}
-	
+
 	@Test
 	public void testGoodSet() {
-		Assert.assertTrue(arrayUtil.goodSet(new int[] {1,2,4}));
-		Assert.assertTrue(arrayUtil.goodSet(new int[]{0, 3, 6}));
+		Assert.assertTrue(arrayUtil.goodSet(new int[] { 1, 2, 4 }));
+		Assert.assertTrue(arrayUtil.goodSet(new int[] { 0, 3, 6 }));
+	}
+
+	@Test
+	public void testMostFrequent() {
+		Assert.assertEquals(4, ArrayUtil.mostFrequent(6, new int[] { 1, 4, 4, 4, 5, 3 }));
+		Assert.assertEquals(4, ArrayUtil.mostFrequent(8, new int[] { 1, 4, 4, 4, 5, 5, 5, 3 }));
+		Assert.assertEquals(4, ArrayUtil.mostFrequent(8, new int[] { 1, 4, 4, 4, 5, 5, 5, 3 }));
+		Assert.assertEquals(3, ArrayUtil.mostFrequent(10, new int[] { 1, 3,3,4, 4, 4, 5, 5, 5, 3 }));
+//		Assert.assertEquals(5, null);
+		
 	}
 }

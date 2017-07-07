@@ -485,5 +485,32 @@ public class ArrayUtil {
 		}
 		return true;
 	}
+	
+	/**
+	 * 
+	 * @param n
+	 * @param ar
+	 * @return
+	 */
+	public static int mostFrequent(int n, int[] ar) {
+        Arrays.sort(ar);
+        int max = 0;
+        int maxNumber =0;
+        int c = 0;
+        int prev = ar[0];
+        for (int i = 1; i < ar.length; i++){
+            if (prev == ar[i]){
+                c++;
+            } else {
+                if (c > max){
+                    max = c;
+                    maxNumber = prev;
+                }
+                c = 0;
+            }
+            prev = ar[i];
+        }
+        return maxNumber;
+    }
 
 }
