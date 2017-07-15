@@ -84,6 +84,20 @@ public class TreeCulture {
 	 * @return
 	 */
 	boolean hasPathWithGivenSum(Tree<Integer> t, int s) {
+		if (t == null) {
+			return s == 0;
+		}
+
+		s -= t.value;
+		if (t.left != null && t.right != null) {
+			return hasPathWithGivenSum(t.left, s) || hasPathWithGivenSum(t.right, s);
+		}else if (t.right == null) {
+			return hasPathWithGivenSum(t.left, s);
+		}
+		return hasPathWithGivenSum(t.right, s);
+	}
+
+	boolean hasPathWithGivenSum0(Tree<Integer> t, int s) {
 		if (t == null && s == 0) {
 			return true;
 		} else if (t == null && s != 0) {
