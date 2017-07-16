@@ -26,6 +26,8 @@ import org.junit.Test;
  *
  */
 public class TreeCultureTest {
+	
+	TreeCulture tc = new TreeCulture();
 	Tree<Integer> t = new Tree<>(4);
 	
 	@Before
@@ -47,7 +49,7 @@ public class TreeCultureTest {
 	 */
 	@Test
 	public void testHasPathWithGivenSum() {
-		TreeCulture tc = new TreeCulture();
+		
 		Assert.assertTrue(tc.hasPathWithGivenSum(t, 7));
 		
 		t = new Tree<>(8);
@@ -67,6 +69,19 @@ public class TreeCultureTest {
 		t.right = new Tree<>(3);
 		Assert.assertFalse(tc.hasPathWithGivenSum(t, 8));
 	
+	}
+	
+	@Test
+	public void testSumTree() {
+		t = new Tree<>(8);
+		t.right = new Tree<>(3);
+		Assert.assertEquals(11,tc.sumTree(t));
+		
+		t.left = new Tree<>(4);
+		Assert.assertEquals(15,tc.sumTree(t));
+		
+		t = t.left;
+		Assert.assertEquals(4,tc.sumTree(t));
 	}
 
 }

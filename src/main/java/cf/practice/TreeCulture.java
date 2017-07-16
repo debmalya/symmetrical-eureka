@@ -15,8 +15,6 @@
  */
 package cf.practice;
 
-import java.util.Stack;
-
 /**
  * @author debmalyajash
  *
@@ -91,41 +89,87 @@ public class TreeCulture {
 		s -= t.value;
 		if (t.left != null && t.right != null) {
 			return hasPathWithGivenSum(t.left, s) || hasPathWithGivenSum(t.right, s);
-		}else if (t.right == null) {
+		} else if (t.left != null) {
 			return hasPathWithGivenSum(t.left, s);
 		}
 		return hasPathWithGivenSum(t.right, s);
 	}
 
-	boolean hasPathWithGivenSum0(Tree<Integer> t, int s) {
-		if (t == null && s == 0) {
-			return true;
-		} else if (t == null && s != 0) {
-			return false;
-		} else if (t.value == s && t.left == null && t.right == null) {
-			return true;
-		}
-		return hasPathWithGivenSum(t, s, 0);
-
-	}
-
 	/**
+	 * Given a binary tree t, determine whether it is symmetric around its
+	 * center, i.e. each side mirrors the other.
+	 * 
+	 * Example
+	 * 
+	 * For
+	 * 
+	 * t = { "value": 1, "left": { "value": 2, "left": { "value": 3, "left":
+	 * null, "right": null }, "right": { "value": 4, "left": null, "right": null
+	 * } }, "right": { "value": 2, "left": { "value": 4, "left": null, "right":
+	 * null }, "right": { "value": 3, "left": null, "right": null } } } the
+	 * output should be isTreeSymmetric(t) = true.
+	 * 
+	 * Here's what the tree in this example looks like:
+	 * 
+	 * 1 / \ 2 2 / \ / \ 3 4 4 3 As you can see, it is symmetric.
+	 * 
+	 * For
+	 * 
+	 * t = { "value": 1, "left": { "value": 2, "left": null, "right": { "value":
+	 * 3, "left": null, "right": null } }, "right": { "value": 2, "left": null,
+	 * "right": { "value": 3, "left": null, "right": null } } } the output
+	 * should be isTreeSymmetric(t) = false.
+	 * 
+	 * Here's what the tree in this example looks like:
+	 * 
+	 * 1 / \ 2 2 \ \ 3 3 As you can see, it is not symmetric.
+	 * 
+	 * Input/Output
+	 * 
+	 * [time limit] 3000ms (java) [input] tree.integer t
+	 * 
+	 * A binary tree of integers.
+	 * 
+	 * Guaranteed constraints: 0 ≤ tree size < 5 · 104, -1000 ≤ node value ≤
+	 * 1000.
+	 * 
+	 * [output] boolean
+	 * 
+	 * Return true if t is symmetric and false otherwise.
+	 * 
 	 * 
 	 * @param t
-	 *            - tree root
-	 * @param s
-	 *            - sum to be checked
-	 * @param level
-	 *            - at which level. This level is added to check the sum is not
-	 *            obtained at root level.
 	 * @return
 	 */
-	boolean hasPathWithGivenSum(Tree<Integer> t, int s, int level) {
-		if (t != null) {
-			return hasPathWithGivenSum(t.left, s - t.value, level++)
-					|| hasPathWithGivenSum(t.right, s - t.value, level++);
-		} else {
-			return s == 0 && level > 1;
+	boolean isTreeSymmetric(Tree<Integer> t) {
+		if (t == null) {
+			return true;
 		}
+		if (t != null && ((t.left == null && t.right != null) || (t.left != null && t.right == null))) {
+			return false;
+		}
+		return sumTree(t.left) == sumTree(t.right);
 	}
+	boolean isTreeSymmetric0(Tree<Integer> t) {
+		if (t == null) {
+			return true;
+		}
+		if (t != null && ((t.left == null && t.right != null) || (t.left != null && t.right == null))) {
+			return false;
+		}
+		return isTreeSymmetric(t.left) && isTreeSymmetric(t.right);
+	}
+	
+	/**
+	 * 
+	 * @param t - Binary Tree whose sum will be calculated.
+	 * @return sum of binary tree.
+	 */
+	public int sumTree(Tree<Integer> t) {
+		if (t != null ) {
+			return t.value + (t.left != null  ? sumTree(t.left) : 0) + (t.right != null ? sumTree(t.right) : 0);
+		} 
+		return 0;
+	}
+
 }
