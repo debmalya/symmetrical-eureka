@@ -13,22 +13,53 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package hr.weekOfCode33;
+package hr.weekOfCode34;
 
 import java.util.Scanner;
 
-public class Solution {
+public class OnceInATram {
 
-    static String onceInATram(int x) {
+    public static String onceInATram(int x) {
         // Complete this function
+    	x++;
+    	while (!isMagic(x)) {
+    		x++;
+    	}
     	
-    	
-    	return "";
+    	return ""+x;
     }
     
     
 
-    public static void main(String[] args) {
+    /**
+	 * @param x
+	 * @return
+	 */
+	public static boolean isMagic(int x) {
+		int f = x / 1000;
+		int l = x % 1000;
+		
+		return sum(f) == sum(l);
+	}
+
+
+
+	/**
+	 * @param f
+	 * @return
+	 */
+	public static int sum(int f) {
+		int sum  = 0;
+		while (f > 0) {
+			sum += f %10;
+			f /= 10;
+		}
+		return sum;
+	}
+
+
+
+	public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int x = in.nextInt();
         String result = onceInATram(x);
