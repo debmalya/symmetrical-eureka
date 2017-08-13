@@ -22,7 +22,7 @@ import java.util.Scanner;
  * @author debmalyajash
  *
  */
-public class Solution {
+public class SameOccurrence {
 
 	/**
 	 * You are given an array of size n and you have to answer q queries. Each
