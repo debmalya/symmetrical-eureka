@@ -73,6 +73,8 @@ public class SameOccurrence {
 		int pos2 = -1;
 		int count2 = 0;
 		int result = 0;
+		int diff = 0;
+		int nonMatching = -1;
 
 		for (int i = 0; i < n; i++) {
 			boolean found = false;
@@ -80,16 +82,33 @@ public class SameOccurrence {
 				pos1 = i;
 				count1++;
 				found = true;
+				if (pos2 > -1 && pos1 - pos2 > 1 && pos2 > 0) {
+					result++;
+				}
 			} else if (arr_c[i] == y) {
 				pos2 = i;
 				count2++;
 				found = true;
+				if (pos1 > -1 && pos2 - pos1 > 1 && pos1 > 0) {
+					result++;
+				}
+			} else {
+				if (i - nonMatching  == 1) {
+					result++;
+				}
+				nonMatching = i;
+				result++;
+				if (count1 == count2) {
+					result++;
+				}
 			}
 
 			if (found && count1 == count2 && count1 > 0) {
 				result++;
+				diff = Math.abs(pos2 - pos1);
 			} else if (found && Math.abs(pos2 - pos1) == 1 && pos2 > -1 && pos1 > -1) {
 				result++;
+				result += (diff - 1);
 			}
 
 		}

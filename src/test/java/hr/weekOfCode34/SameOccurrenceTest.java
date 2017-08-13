@@ -18,22 +18,29 @@ package hr.weekOfCode34;
 import org.junit.Assert;
 import org.junit.Test;
 
-
-
 /**
  * @author debmalyajash
+ * 
  *
  */
 public class SameOccurrenceTest {
 
 	/**
-	 * Test method for {@link hr.weekOfCode34.Solution#getContiguousArray(int, int, int[])}.
+	 * Test method for
+	 * {@link hr.weekOfCode34.SameOccurrence#getContiguousArray(int, int, int[])}
+	 * .
 	 */
 	@Test
 	public void testGetContiguousArray() {
-		Assert.assertEquals(6, SameOccurrence.getContiguousArray(4, 5, new int[] {1,2,1}));
-		Assert.assertEquals(2, SameOccurrence.getContiguousArray(1, 2, new int[] {1,2,1}));
-//		Assert.assertEquals(2, Solution.getContiguousArray(1, 2, new int[] {1,3,2,1}));
+
+		Assert.assertEquals(6, SameOccurrence.getContiguousArray(4, 5, new int[] { 1, 2, 1 }));
+		Assert.assertEquals(2, SameOccurrence.getContiguousArray(1, 2, new int[] { 1, 2, 1 }));
+
+		Assert.assertEquals(6, SameOccurrence.getContiguousArray(4, 5, new int[] { 1, 2, 1 }));
+		Assert.assertEquals(2, SameOccurrence.getContiguousArray(1, 2, new int[] { 1, 2, 1 }));
+		Assert.assertEquals(4, SameOccurrence.getContiguousArray(1, 2, new int[] { 1, 3, 2, 1 }));
+		Assert.assertEquals(7, SameOccurrence.getContiguousArray(1, 2, new int[] { 1, 4, 5, 2, 1 }));
+
 	}
 
 }
