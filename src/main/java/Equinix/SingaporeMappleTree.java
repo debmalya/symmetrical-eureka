@@ -33,7 +33,7 @@ public class SingaporeMappleTree {
 		if (sentence == null) {
 			return "";
 		}
-		String[] words = sentence.split( " " );
+		String[] words = sentence.split( "\\s+" );
 		Set<String> unique = new HashSet<>();
 		for (String eachWord: words) {
 			String converted = eachWord.toLowerCase();

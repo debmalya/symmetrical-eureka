@@ -47,6 +47,10 @@ public class SingaporeMappleTreeTest {
 		sentence = "They asked me to test white box";
 		firstRepeatingWord = mappleTree.getFirstRepeatingWord( sentence );
 		Assert.assertEquals( "", firstRepeatingWord );
+		
+		sentence = "They talked about space and  more    space and          more space";
+		firstRepeatingWord = mappleTree.getFirstRepeatingWord( sentence );
+		Assert.assertEquals( "space", firstRepeatingWord );
 	}
 
 }
