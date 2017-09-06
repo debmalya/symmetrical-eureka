@@ -78,13 +78,14 @@ public class ParityGame {
 		if (total % 2 == 0) {
 			// If already even, no need to do anything.
 			return 0;
-		} else if (oddList.size() > 0) {
+		} else if (oddList.size() == 1 && evenList.size() == 0) {
 			// If there is at least one odd number, just removing that one will
 			// make sum even.
-			return 1;
-		} else {
 			return -1;
+		} else if (oddList.size() > 0) {
+			return 1;
 		}
+		return -1;
 	}
 
 }

@@ -43,6 +43,12 @@ public class ParityGameTest {
 		
 		arr = new int[] { 5, 6 };
 		Assert.assertEquals(1, ParityGame.smallestSizeSubsequence(arr.length, arr));
+		
+		arr = new int[] { 5, 6, 7 };
+		Assert.assertEquals(0, ParityGame.smallestSizeSubsequence(arr.length, arr));
+		
+		arr = new int[] { 5 };
+		Assert.assertEquals(-1, ParityGame.smallestSizeSubsequence(arr.length, arr));
 	}
 
 }
