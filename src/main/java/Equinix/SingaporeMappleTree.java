@@ -37,7 +37,6 @@ public class SingaporeMappleTree {
 		Set<String> unique = new HashSet<>();
 		for (String eachWord: words) {
 			String converted = eachWord.toLowerCase();
-			converted = converted.replace( "[^a-zA-Z]+", "" );
 			if (!unique.add( converted )) {
 				return eachWord;
 			}
