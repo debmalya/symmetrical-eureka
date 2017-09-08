@@ -33,10 +33,11 @@ public class SingaporeMappleTree {
 		if (sentence == null) {
 			return "";
 		}
-		String[] words = sentence.split( "\\s+" );
+		String[] words = sentence.replaceAll("[^\\dA-Za-z ]","").split( "\\s+" );
 		Set<String> unique = new HashSet<>();
 		for (String eachWord: words) {
 			String converted = eachWord.toLowerCase();
+			converted = converted.replace( "[^a-zA-Z]+", "" );
 			if (!unique.add( converted )) {
 				return eachWord;
 			}
