@@ -26,18 +26,23 @@ public class SingaporeMappleTree {
 
 	/**
 	 * They asked me to find the first repeating word from a sentence.
-	 * @param sentence to processed.
+	 * 
+	 * @param sentence
+	 *            to processed.
 	 * @return first repeating word.
 	 */
-	public String getFirstRepeatingWord(final String sentence) {
-		if (sentence == null) {
+	public String getFirstRepeatingWord( final String sentence ) {
+		if( sentence == null ) {
 			return "";
 		}
-		String[] words = sentence.split( "\\s+" );
-		Set<String> unique = new HashSet<>();
-		for (String eachWord: words) {
+		// s+ to handle multiple continuous spaces
+		// Replace any special characters (, . ; )
+		// If digits are acceptable then this regular expression will be [^\\dA-Za-z]
+		String[ ] words = sentence.replaceAll( "[^A-Za-z ]", "" ).split( "\\s+" );
+		Set< String > unique = new HashSet<>();
+		for( String eachWord : words ) {
 			String converted = eachWord.toLowerCase();
-			if (!unique.add( converted )) {
+			if( !unique.add( converted ) ) {
 				return eachWord;
 			}
 		}

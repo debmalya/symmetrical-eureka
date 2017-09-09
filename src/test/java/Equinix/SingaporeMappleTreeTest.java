@@ -51,6 +51,18 @@ public class SingaporeMappleTreeTest {
 		sentence = "They talked about space and  more    space and          more space";
 		firstRepeatingWord = mappleTree.getFirstRepeatingWord( sentence );
 		Assert.assertEquals( "space", firstRepeatingWord );
+		
+		sentence = "They hate human language, they love only programming language";
+		firstRepeatingWord = mappleTree.getFirstRepeatingWord( sentence );
+		Assert.assertEquals( "they", firstRepeatingWord );
+		
+		sentence = "They hate human language, and love only programming language.";
+		firstRepeatingWord = mappleTree.getFirstRepeatingWord( sentence );
+		Assert.assertEquals( "language", firstRepeatingWord );
+		
+		sentence = "They asked difference between Java8 and Java7.";
+		firstRepeatingWord = mappleTree.getFirstRepeatingWord( sentence );
+		Assert.assertEquals( "Java", firstRepeatingWord );
 	}
 
 }
