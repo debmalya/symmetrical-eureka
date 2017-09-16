@@ -18,8 +18,6 @@ package cf.practice;
 import org.junit.Assert;
 import org.junit.Test;
 
-
-
 /**
  * @author debmalyajash
  *
@@ -27,6 +25,7 @@ import org.junit.Test;
 public class CryptoMathicTest {
 
 	CryptoMathic cry = new CryptoMathic();
+
 	/**
 	 * Test method for
 	 * {@link cf.practice.CryptoMathic#isCryptSolution(java.lang.String[], char[][])}
@@ -35,12 +34,26 @@ public class CryptoMathicTest {
 	@Test
 	public void testIsCryptSolution() {
 		String[] crypt = new String[] { "SEND", "MORE", "MONEY" };
-		char[][] solution = new char[][] { { 'O', '0' }, { 'M', '1' }, { 'Y', '2' }, { 'E', '5' }, { 'N', '6' },{ 'D', '7' },{'R','8'},{'S','9'}  };
+		char[][] solution = new char[][] { { 'O', '0' }, { 'M', '1' }, { 'Y', '2' }, { 'E', '5' }, { 'N', '6' },
+				{ 'D', '7' }, { 'R', '8' }, { 'S', '9' } };
 		Assert.assertTrue(cry.isCryptSolution(crypt, solution));
-		
+
 		crypt = new String[] { "ONE", "ONE", "TWO" };
 		solution = new char[][] { { 'O', '2' }, { 'T', '4' }, { 'W', '6' }, { 'E', '1' }, { 'N', '3' } };
 		Assert.assertTrue(cry.isCryptSolution(crypt, solution));
+
+		crypt = new String[] { "TEN", "TWO", "ONE" };
+		solution = new char[][] { { 'O', '1' }, { 'T', '0' }, { 'W', '9' }, { 'E', '5' }, { 'N', '4' } };
+		Assert.assertFalse(cry.isCryptSolution(crypt, solution));
+
+		crypt = new String[] { "A", "A", "A" };
+		solution = new char[][] { { 'A', '0' } };
+		Assert.assertTrue(cry.isCryptSolution(crypt, solution));
+		
+		crypt = new String[] { "AA", "AA", "AA" };
+		solution = new char[][] { { 'A', '0' } };
+		Assert.assertFalse(cry.isCryptSolution(crypt, solution));
+
 	}
 
 }
