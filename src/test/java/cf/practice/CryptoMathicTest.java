@@ -33,6 +33,7 @@ public class CryptoMathicTest {
 	 */
 	@Test
 	public void testIsCryptSolution() {
+
 		String[] crypt = new String[] { "SEND", "MORE", "MONEY" };
 		char[][] solution = new char[][] { { 'O', '0' }, { 'M', '1' }, { 'Y', '2' }, { 'E', '5' }, { 'N', '6' },
 				{ 'D', '7' }, { 'R', '8' }, { 'S', '9' } };
@@ -49,7 +50,7 @@ public class CryptoMathicTest {
 		crypt = new String[] { "A", "A", "A" };
 		solution = new char[][] { { 'A', '0' } };
 		Assert.assertTrue(cry.isCryptSolution(crypt, solution));
-		
+
 		crypt = new String[] { "AA", "AA", "AA" };
 		solution = new char[][] { { 'A', '0' } };
 		Assert.assertFalse(cry.isCryptSolution(crypt, solution));
