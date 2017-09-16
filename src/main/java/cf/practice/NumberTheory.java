@@ -63,4 +63,43 @@ public class NumberTheory {
 		return prev + 1;
 	}
 
+	/**
+	 * 
+	 * @param numerator
+	 * @param denominator
+	 * @return
+	 */
+	int[ ] simplifyRational( int numerator, int denominator ) {
+		int[ ] s = new int[] { numerator, denominator };
+		int r = 0;
+		if( numerator != 0 ) {
+			r = denominator / numerator;
+			if( denominator % numerator == 0 ) {
+				s[ 0 ] = 1;
+				s[ 1 ] = r;
+			}else {
+				int gcd = GCD( numerator, denominator );
+				while( gcd != 1 ) {
+					numerator /= gcd;
+					denominator /= gcd;
+					gcd = GCD( numerator, denominator );
+				}
+				s[ 0 ] = numerator;
+				s[ 1 ] = denominator;
+			}
+		} 
+
+		if( denominator < 0 && ! ( numerator < 0 ) ) {
+			s[ 0 ] *= -1;
+			s[ 1 ] *= -1;
+		}
+		return s;
+	}
+
+	public int GCD( int a, int b ) {
+		if( b == 0 )
+			return a;
+		return GCD( b, a % b );
+	}
+
 }
