@@ -15,6 +15,9 @@
  */
 package cf.practice;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * A cryptarithm is a mathematical puzzle for which the goal is to find the
  * correspondence between letters and digits, such that the given arithmetic
@@ -43,7 +46,6 @@ package cf.practice;
  *
  */
 public class CryptoMathic {
-
 
 	/**
 	 * Source: https://codefights.com/interview-practice/task/yM4uWYeQTHzYewW9H
@@ -118,99 +120,147 @@ public class CryptoMathic {
 	 * @param solution
 	 * @return
 	 */
-	boolean isCryptSolution( String[ ] crypt, char[ ][ ] solution ) {
+	boolean isCryptSolution(String[] crypt, char[][] solution) {
+		long l = 0;
+		long l1 = 0;
+		long r = 0;
+
+		// array for first number
+		int[] fa = new int[crypt[0].length()];
+		// array for second number
+		int[] sa = new int[crypt[1].length()];
+		// array for third number
+		int[] ta = new int[crypt[2].length()];
+
+		// This stores character and corresponding integer value.
+		Map<Character,Integer> solutionMap = new HashMap<>();
+		for (int i = 0; i < solution.length; i++) {
+			// Check each character of solution whether they are present in any
+			// of the word or not. If same character repeated multiple times.
+			char c = solution[i][0];
+			int v = solution[i][1] - '0';
+			solutionMap.put(c, v);
+		}
+		
+		 
+		for (int i = 0; i < crypt[0].length(); i++){
+			char c = crypt[0].charAt(i);
+			int value = solutionMap.get(c);
+			l *= 10;
+			l += value;
+			fa[i] = value;
+		}
+		
+		for (int i = 0; i < crypt[1].length(); i++){
+			char c = crypt[1].charAt(i);
+			int value = solutionMap.get(c);
+			l1 *= 10;
+			l1 += value;
+			sa[i] = value;
+		}
+		
+		for (int i = 0; i < crypt[2].length(); i++){
+			char c = crypt[2].charAt(i);
+			int value = solutionMap.get(c);
+			r *= 10;
+			r += value;
+			ta[i] = value;
+		}
+		
+
+		if ((fa[0] == 0 && fa.length > 1) || (sa[0] == 0 && sa.length > 1) || (ta[0] == 0 && ta.length > 1)) {
+			// leading zeroes
+			return false;
+		}
+
+		return r == l + l1;
+	}
+
+	boolean isCryptSolution2(String[] crypt, char[][] solution) {
 		long l = 0;
 		long r = 0;
 
 		// array for first number
-		int[ ] fa = new int[ crypt[ 0 ].length() ];
+		int[] fa = new int[crypt[0].length()];
 		// array for second number
-		int[ ] sa = new int[ crypt[ 1 ].length() ];
+		int[] sa = new int[crypt[1].length()];
 		// array for third number
-		int[ ] ta = new int[ crypt[ 2 ].length() ];
+		int[] ta = new int[crypt[2].length()];
 
-		for( int i = 0; i < solution.length; i++ ) {
+		for (int i = 0; i < solution.length; i++) {
 			// Check each character of solution whether they are present in any
 			// of the word or not.
-			char c = solution[ i ][ 0 ];
-			int v = solution[ i ][ 1 ] - '0';
-			int f = crypt[ 0 ].indexOf( c );
-			int s = crypt[ 1 ].indexOf( c );
-			int t = crypt[ 2 ].indexOf( c );
+			char c = solution[i][0];
+			int v = solution[i][1] - '0';
+			int f = crypt[0].indexOf(c);
+			int s = crypt[1].indexOf(c);
+			int t = crypt[2].indexOf(c);
 
-			if( f > -1 ) {
-				// if present,
-				if( v > 0 ) {
-					l += v * ( int ) Math.pow( 10, crypt[ 0 ].length() - f );
-					fa[ f ] = v;
-				}
+			if (f > -1) {
+				// if present
+				l += v * (int) Math.pow(10, crypt[0].length() - f);
+				fa[f] = v;
 			}
-			if( s > -1 ) {
-				// if present,
-				if( v > 0 ) {
-					l += v * ( int ) Math.pow( 10, crypt[ 1 ].length() - s );
-					sa[ s ] = v;
-				}
+			if (s > -1) {
+				// if present
+				l += v * (int) Math.pow(10, crypt[1].length() - s);
+				sa[s] = v;
+
 			}
 
-			if( t > -1 ) {
-				// if present,
-				if( v > 0 ) {
-					r += v * ( int ) Math.pow( 10, crypt[ 2 ].length() - t );
-					ta[ t ] = v;
-				}
+			if (t > -1) {
+				// if present
+				r += v * (int) Math.pow(10, crypt[2].length() - t);
+				ta[t] = v;
 			}
 		}
 
-		if( ( fa[ 0 ] == 0 && fa.length > 1 ) || ( sa[ 0 ] == 0 && sa.length > 1 )
-				|| ( ta[ 0 ] == 0 && ta.length > 1 ) ) {
+		if ((fa[0] == 0 && fa.length > 1) || (sa[0] == 0 && sa.length > 1) || (ta[0] == 0 && ta.length > 1)) {
 			// leading zeroes
 			return false;
 		}
 
 		return r == l;
-
 	}
 
-	boolean isCryptSolution1( String[ ] crypt, char[ ][ ] solution ) {
+	boolean isCryptSolution1(String[] crypt, char[][] solution) {
 		long l = 0;
 		long r = 0;
 
 		// array for first number
-		int[ ] fa = new int[ crypt[ 0 ].length() ];
+		int[] fa = new int[crypt[0].length()];
 		// array for second number
-		int[ ] sa = new int[ crypt[ 1 ].length() ];
+		int[] sa = new int[crypt[1].length()];
 		// array for third number
-		int[ ] ta = new int[ crypt[ 2 ].length() ];
+		int[] ta = new int[crypt[2].length()];
 
-		for( int i = 0; i < solution.length; i++ ) {
+		for (int i = 0; i < solution.length; i++) {
 			// Check each character of solution whether they are present in any
 			// of the word or not.
-			char c = solution[ i ][ 0 ];
-			int v = solution[ i ][ 1 ] - '0';
-			int f = crypt[ 0 ].indexOf( c );
-			int s = crypt[ 1 ].indexOf( c );
-			int t = crypt[ 2 ].indexOf( c );
+			char c = solution[i][0];
+			int v = solution[i][1] - '0';
+			int f = crypt[0].indexOf(c);
+			int s = crypt[1].indexOf(c);
+			int t = crypt[2].indexOf(c);
 
-			if( f > -1 ) {
-				l += v * ( int ) Math.pow( 10, crypt[ 0 ].length() - f );
-				fa[ f ] = v;
+			if (f > -1) {
+				l += v * (int) Math.pow(10, crypt[0].length() - f);
+				fa[f] = v;
 			}
-			if( s > -1 ) {
-				l += v * ( int ) Math.pow( 10, crypt[ 1 ].length() - s );
-				sa[ s ] = v;
+			if (s > -1) {
+				l += v * (int) Math.pow(10, crypt[1].length() - s);
+				sa[s] = v;
 			}
 
-			if( t > -1 ) {
-				r += v * ( int ) Math.pow( 10, crypt[ 2 ].length() - t );
-				ta[ t ] = v;
+			if (t > -1) {
+				r += v * (int) Math.pow(10, crypt[2].length() - t);
+				ta[t] = v;
 			}
 		}
-		if( r != l ) {
+		if (r != l) {
 			return false;
-		}else {
-			if( ( fa[ 0 ] == 0 && fa.length > 1 ) || ( sa[ 0 ] == 0 && sa.length > 1 )
-					|| ( ta[ 0 ] == 0 && ta.length > 1 ) ) {
+		} else {
+			if ((fa[0] == 0 && fa.length > 1) || (sa[0] == 0 && sa.length > 1) || (ta[0] == 0 && ta.length > 1)) {
 				// leading zeroes
 				return false;
 			}
@@ -218,9 +268,5 @@ public class CryptoMathic {
 		}
 
 	}
-
-	
-
-
 
 }
